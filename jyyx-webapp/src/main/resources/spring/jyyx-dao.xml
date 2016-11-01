@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:util="http://www.springframework.org/schema/util" 
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.2.xsd
+	http://www.springframework.org/schema/util 
+    http://www.springframework.org/schema/util/spring-util.xsd
+	http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx-3.2.xsd"
+    default-autowire="byName">
+
+    <context:component-scan base-package="com.jyyx.dao" />
+
+    <bean id="jyyxSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="jyyxDataSource" />
+        <property name="mapperLocations"
+            value="classpath:/com/jyyx/dao/mysql/mapper/**/*.xml" />
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="jyyxSessionFactory" />
+        <property name="basePackage" value="com.jyyx.dao.mysql.dao" />
+    </bean>
+
+    <bean id="jyyxTransactionManager"
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="jyyxDataSource"></property>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="jyyxTransactionManager"
+        proxy-target-class="true" />
+
+</beans>

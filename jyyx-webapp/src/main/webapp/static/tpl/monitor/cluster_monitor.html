@@ -1,0 +1,119 @@
+<script src="static/js/lib/echarts-all.js"></script>
+<link rel="stylesheet" href="static/css/bootstrap-datetimepicker.min.css" type="text/css" />
+<script src="static/js/lib/bootstrap-datetimepicker.min.js"></script>
+<script src="static/js/lib/bootstrap-datetimepicker.zh-CN.js"></script>
+
+<div class="hbox hbox-auto-xs bg-light " ng-init="
+  app.settings.asideFixed = true;
+  app.settings.asideDock = false;
+  app.settings.container = false;
+  app.hideAside = false;
+  app.hideFooter = true;
+  " ng-controller="ClusterMonitorCtrl">
+
+<div class="col-lg-12 m-t-sm">
+	<div class="col-md-12">
+		<div class="panel b-a">
+			<div class="panel-body">
+				<form name="form" class="form-inline form-validation" ng-submit="getQPS()">
+				  <div class="form-group">
+				    <label for="exampleInputName2">集群选择</label>
+				    <select class="form-control" ng-model="selectServiceDef" ng-options="serviceDef.name for serviceDef in serviceDefs"required>
+							<option value="">请选择集群</option>  
+						</select>
+				  </div>
+			  	<div class="form-group m-l-md">
+				    <label for="exampleInputEmail2">开始时间</label>
+				    <div id="qpsStartTime" class="input-group date form_datetime" data-link-field="dtp_input1">
+		            <input class="form-control" ng-model="qpsStartTime" type="text" value="" readonly required="">
+								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+		        </div>
+			  	</div>
+			  	
+			  	<div class="form-group m-l-md">
+				    <label for="exampleInputEmail2">结束时间</label>
+				    <div id="qpsEndTime" class="input-group date form_datetime" data-link-field="dtp_input1">
+		            <input class="form-control" ng-model="qpsEndTime" type="text" value="" readonly required="">
+								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+		        </div>
+			  	</div>
+			  	<div class="form-group m-l-md">
+				    <label for="exampleInputEmail2">选择主备集群</label>
+				    <div  class="input-group">
+		            <select name="" class="form-control" ng-model="is_primary_cluster">
+		            	<option value="1">主集群</option>
+		            	<option value="0">备集群</option>
+		            	<option value="">两个集群</option>
+		            </select>
+		        </div>
+			  	</div>
+			  <button class="btn btn-success m-l-md">查询</button>
+			</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="col-lg-12 m-t-n-md">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading font-bold">QPS</div>
+				<div class="panel-body">
+					<div id="qps" style="height:400px"></div>
+				</div>
+			</div>
+		</div>
+</div>
+
+<div class="col-lg-12">
+	<div class="col-md-12">
+		<div class="panel b-a">
+			<div class="panel-body">
+				<form name="form" class="form-inline form-validation" ng-submit="getTp99QPS()">
+				  <div class="form-group">
+				    <label for="exampleInputName2">集群选择</label>
+				    <select class="form-control" ng-model="selectServiceDef" ng-options="serviceDef.name for serviceDef in serviceDefs"required>
+							<option value="">请选择集群</option>  
+						</select>
+				  </div>
+			  	<div class="form-group m-l-md">
+				    <label for="exampleInputEmail2">开始时间</label>
+				    <div id="tp99QpsStartTime" class="input-group date form_datetime" data-link-field="dtp_input1">
+		            <input class="form-control" ng-model="tp99QpsStartTime" type="text" value="" readonly required="">
+								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+		        </div>
+			  	</div>
+			  	
+			  	<div class="form-group m-l-md">
+				    <label for="exampleInputEmail2">结束时间</label>
+				    <div id="tp99QpsEndTime" class="input-group date form_datetime" data-link-field="dtp_input1">
+		            <input class="form-control" ng-model="tp99QpsEndTime" type="text" value="" readonly required="">
+								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+		        </div>
+			  	</div>
+			  	
+			  <button class="btn btn-success m-l-md">查询</button>
+			</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="col-lg-12 m-t-n-md">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading font-bold">TP99 QPS</div>
+				<div class="panel-body">
+					<div id="tp99qps" style="height:400px"></div>
+				</div>
+			</div>
+		</div>
+</div>
+
+	<!-- /column -->
+	<script type="text/ng-template" id="myModalContent.html">
+		<div ng-include="'static/tpl/blocks/modal_box.html'"></div>
+	</script>
+</div>
+<toaster-container toaster-options="{'position-class': 'toast-bottom-full-width', 'close-button':true}"></toaster-container>
+<!-- /hbox layout -->

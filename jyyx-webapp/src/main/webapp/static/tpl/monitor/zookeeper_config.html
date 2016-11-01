@@ -1,0 +1,123 @@
+<!-- hbox layout -->
+<div class="hbox hbox-auto-xs bg-light " ng-init="
+  app.settings.asideFixed = true;
+  app.settings.asideDock = false;
+  app.settings.container = false;
+  app.hideAside = false;
+  app.hideFooter = true;
+  " ng-controller="ZookeeperConfigCtrl">
+	<!-- column -->
+	<toaster-container toaster-options="{'position-class': 'toast-bottom-full-width', 'close-button':true}"></toaster-container>
+	<div class="col-lg-12">
+		<div class="col-md-12">
+			<div class="panel b-a">
+				<div class="panel-body">
+					<form name="form" class="form-inline form-validation"
+						ng-submit="getClusterNodes()">
+						<div class="form-group">
+							<label >集群选择</label> <select
+								class="form-control" ng-model="selectServiceDef"
+								ng-options="serviceDef.name for serviceDef in serviceDefs" 
+								required>
+								<option value="">请选择集群</option>
+							</select>
+						</div>
+						<button class="btn btn-success m-l-md">查询集群节点信息</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12">
+			<div class="panel panel-default b-a">
+				<div class="panel-heading">
+					<span class="text-u-c m-b-none font-bold">数据库节点展示</span>
+				</div>
+				<div class="panel-body">
+					<table class="table" style="width:48%;float:left">
+						<caption><span><B>主集群节点展示</B></span></caption>
+						<thead>
+							<tr>
+								<th style="width:80%">主机IP</th>
+								<th style="width:20%">端口号</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="mainNode in mainNodes">
+								<td>{{mainNode.host.name}}</td>
+								<td>{{mainNode.nodePort}}</td>
+							</tr>
+						</tbody>
+					</table>
+					<table class="table" style="width:48%;float:left">
+						<caption><span><B>备集群节点展示</B></span></caption>
+						<thead>
+							<tr>
+								<th style="width:80%">主机IP</th>
+								<th style="width:20%">端口号</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="backupNode in backupNodes">
+								<td>{{backupNode.host.name}}</td>
+								<td>{{backupNode.nodePort}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-md-12">
+			<div class="panel panel-default b-a">
+				<div class="panel-heading">
+					<span class="text-u-c m-b-none font-bold">zookeeper配置展示</span>
+				</div>
+				<div class="panel-body">
+					<div ng-if="hasAppKeyConfig">
+						<div>
+							<button type="button" class="btn btn-default btn-success" ng-click="switchCluster(true)">切到主集群</button>
+							<button type="button" class="btn btn-default btn-success" ng-click="switchCluster(false)">切到备集群</button>
+						</div>
+						<div style="margin-left:2px; margin-top:10px">
+							<B>根 路 径：{{zkConfigRoot}}</B>
+						</div>
+						<div style="margin-left:2px; margin-top:10px" class="form-inline">
+							<form name="form" class="form-validation" ng-submit="changeTimeWait()" >
+								<div class="form-group">
+									<label><B>当前集群主备自动切换等待时间为（单位分钟）：</B></label>
+									<input class="form-control ng-invalid ng-invalid-required ng-touched ng-valid-pattern"
+													ng-model="selectServiceDef.timeWaitMins" size="5" required type="text" ng-pattern="/^[0-9]+$/"/>
+													
+								</div>
+								<button type="submit" ng-disabled="form.$invalid" class="btn">更改</button>
+							</form>
+						</div>
+					</div>
+					<div ng-if="!hasAppKeyConfig">
+						当前集群没有appKey，zookeeper上没有其配置信息
+					</div>
+				</div>
+				<div ng-if="hasAppKeyConfig">
+					<table class="table">
+						<thead>
+							<tr>
+								<th style="width:20%">相对路径</th>
+								<th style="width:80%">值</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="pathMap in zkConfigs">
+								<td>{{pathMap.path}}</td>
+								<td><span style="{{pathMap.status}}">{{pathMap.configValue}}</span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /column -->
+<script type="text/ng-template" id="myModalContent.html">
+	<div ng-include="'static/tpl/blocks/modal_box.html'"></div>
+</script>
+</div>

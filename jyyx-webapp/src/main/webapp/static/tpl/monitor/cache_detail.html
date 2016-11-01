@@ -1,0 +1,206 @@
+<!-- hbox layout -->
+<div class="hbox hbox-auto-xs bg-light " ng-init="
+  app.settings.asideFixed = true;
+  app.settings.asideDock = false;
+  app.settings.container = false;
+  app.hideAside = false;
+  app.hideFooter = true;
+  " ng-controller="CacheDetailCtrl">
+
+	<!-- column -->
+
+	<div class="bg-light lter b-b wrapper-md ng-scope text-center">
+		<h1 class="m-n font-thin h3">{{serviceDef.define.name}}</h1>
+	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<span class="h4">集群信息</span>
+		</div>
+		<form name="form" class="form-validation" ng-submit="update()">
+		<div class="panel-body">
+			<div class="form-group pull-in clearfix">
+				<div class="col-sm-3">
+					<label>所属应用</label>
+					<select class="form-control m-b" ng-model="selectedAppId" ng-options="app.id as app.name for app in apps" 
+						ng-change="selectApp()" required>
+						<option value="">请选择应用</option>  
+					</select>
+				</div>
+				<div class="col-sm-3">
+					<label>所属模块</label>
+					<select name="account" class="form-control m-b" ng-model="selectedModule" 
+						ng-options="module.id as module.name for module in modules" required>
+						<option value="">请选择模块</option>  
+					</select>
+				</div>
+				<div class="col-sm-3">
+					<label>数据复制份数</label>
+					<input class="form-control ng-pristine ng-invalid ng-invalid-required ng-touched" 
+									ng-model="serviceDef.define.dataReplicate" required="" type="number">
+				</div>
+				<div class="col-sm-3">
+					<label>数据分片</label>
+					<input ui-jq="TouchSpin" type="text" ng-change="autoUpdateMemory()" ng-model="serviceDef.define.numberOfPartitions" class="form-control" data-min='3' 
+									data-max="10" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up" required
+									data-verticaldownclass="fa fa-caret-down">
+				</div>
+			</div>
+
+			<div class="form-group pull-in clearfix">
+				<div class="col-sm-3">
+					<label>最大容量</label>
+					<div class="input-group m-b">
+		          <input class="form-control" type="number" ng-model="serviceDef.define.dataCapacity" required>
+		          <span class="input-group-addon">G</span>
+          </div>
+				</div>
+				<div class="col-sm-3">
+					<label>最大QPS</label>
+					<input class="form-control ng-pristine ng-invalid ng-invalid-required ng-touched" ng-model="serviceDef.define.maxQps" required="" type="number">
+				</div>
+				<div class="col-sm-3">
+					<label>跨机房备份比例</label>
+					<div class="input-group m-b">
+		          <input class="form-control" ui-jq="TouchSpin" data-verticalupclass="" data-verticaldownclass="" data-verticalbuttons="true" type="text" placeholder="百分比" data-max="100" ng-model="serviceDef.define.backupRatio" required>
+		          <span class="input-group-addon">%</span>
+          </div>
+				</div>
+				<div class="col-sm-3">
+					<br />
+					<button type="submit" class="btn btn-success">调整</button>
+					<input type="button" class="btn btn-danger" ng-click="deleteCluster()" value="删除集群" />
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="row" ng-repeat="partitions in rowPartitions">
+		<div class="col-md-4" ng-repeat="partition in partitions">
+			<div class="panel b-a">
+				<div class="panel-heading no-border bg-primary">
+					<span class="text-lt">partition slots(
+						<span ng-repeat="ownedSlot in partition.ownedSlots">
+							{{ownedSlot.start}}~{{ownedSlot.end}}
+						</span>
+						)共{{getSumSlots(partition.ownedSlots)}}</span>
+				</div>
+				<div class="hbox text-center b-b b-light text-sm bg-success" ng-show="partition.masterNode.nodeState.ok">
+					<a href="" ui-sref="app.physicalDetail({hostId:'{{partition.masterNode.host.id}}',ip:'{{partition.masterNode.host.name}}'})" class="col padder-v text-muted b-r b-light">
+						<span>{{partition.masterNode.host.name}}:{{partition.masterNode.nodePort}}(主)</span>
+					</a>
+				</div>
+				<div class="hbox text-center b-b b-light text-sm bg-danger dk" ng-show="!partition.masterNode.nodeState.ok">
+					<a href="" ui-sref="app.physicalDetail({hostId:'{{partition.masterNode.host.id}}',ip:'{{partition.masterNode.host.name}}'})" class="col padder-v text-muted b-r b-light">
+						<span>{{partition.masterNode.host.name}}:{{partition.masterNode.nodePort}}(主)</span>
+					</a>
+				</div>
+				
+				<div class="hbox text-center b-b b-light text-sm bg-success">
+					<a href="" style="word-break: break-all;" ui-sref="app.physicalDetail({hostId:'{{slaveNode.host.id}}',ip:'{{slaveNode.host.name}}'})" 
+						class="col padder-v text-muted b-r b-light" ng-repeat="slaveNode in partition.slaveNodes">
+						<span ng-show="slaveNode.nodeState.ok">{{slaveNode.host.name}}:{{slaveNode.nodePort}}(备)</span>
+						<span ng-show="!slaveNode.nodeState.ok" class="bg-danger dk">{{slaveNode.host.name}}:{{slaveNode.nodePort}}(备)</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="" ng-if="slaveRowPartitions.length>0">
+		备集群节点 <a href="javascript:void(0);" ng-click="openSlave()" style="color:#d35400;">
+			{{slaveTip}}
+			<i class="fa fa-arrow-down" ng-if="!slaveOpen"></i>
+			<i class="fa fa-arrow-up" ng-if="slaveOpen"></i>
+		</a>
+	</div>
+	
+	<div class="row" ng-show="slaveOpen" ng-repeat="partitions in slaveRowPartitions">
+		<div class="col-md-4" ng-repeat="partition in partitions">
+			<div class="panel b-a">
+				<div class="panel-heading no-border bg-primary">
+					<span class="text-lt">partition slots(
+						<span ng-repeat="ownedSlot in partition.ownedSlots">
+							{{ownedSlot.start}}~{{ownedSlot.end}}
+						</span>
+						)共{{getSumSlots(partition.ownedSlots)}}</span>
+				</div>
+				<div class="hbox text-center b-b b-light text-sm bg-success" ng-show="partition.masterNode.nodeState.ok">
+					<a href="" ui-sref="app.physicalDetail({hostId:'{{partition.masterNode.host.id}}',ip:'{{partition.masterNode.host.name}}'})" class="col padder-v text-muted b-r b-light">
+						<span>{{partition.masterNode.host.name}}:{{partition.masterNode.nodePort}}(主)</span>
+					</a>
+				</div>
+				<div class="hbox text-center b-b b-light text-sm bg-danger dk" ng-show="!partition.masterNode.nodeState.ok">
+					<a href="" ui-sref="app.physicalDetail({hostId:'{{partition.masterNode.host.id}}',ip:'{{partition.masterNode.host.name}}'})" class="col padder-v text-muted b-r b-light">
+						<span>{{partition.masterNode.host.name}}:{{partition.masterNode.nodePort}}(主)</span>
+					</a>
+				</div>
+				
+				<div class="hbox text-center b-b b-light text-sm bg-success">
+					<a href="" style="word-break: break-all;" ui-sref="app.physicalDetail({hostId:'{{slaveNode.host.id}}',ip:'{{slaveNode.host.name}}'})" 
+						class="col padder-v text-muted b-r b-light" ng-repeat="slaveNode in partition.slaveNodes">
+						<span ng-show="slaveNode.nodeState.ok">{{slaveNode.host.name}}:{{slaveNode.nodePort}}(备)</span>
+						<span ng-show="!slaveNode.nodeState.ok" class="bg-danger dk">{{slaveNode.host.name}}:{{slaveNode.nodePort}}(备)</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+ 
+	<div class="row m-t-md">
+		<div class="col-lg-3">
+			<ul class="list-group no-radius">
+				<li class="list-group-item">
+					<span class="pull-right">{{serviceDef.define.dataCapacity*1024 / serviceDef.define.numberOfPartitions | number:2}}
+					<strong>M</strong>
+					</span>
+					<span class="label bg-primary">1</span> 每分片存储量
+				</li>
+				<li class="list-group-item">
+					<span class="pull-right">
+						<span class="pull-right">{{serviceDef.define.dataCapacity*1024 / serviceDef.define.numberOfPartitions*(1+serviceDef.define.dataReplicate)*(1+serviceDef.define.backupRatio/100) | number:2}}
+							<strong>M</strong>
+						</span>
+					</span>
+					<span class="label bg-info">2</span> 每分片实际消耗内存
+				</li>
+				<li class="list-group-item">
+					<span class="pull-right">
+						<span class="pull-right">{{serviceDef.define.dataCapacity*1024*(1+serviceDef.define.backupRatio/100) | number : 2}}
+							<strong>M</strong>
+						</span>
+					</span>
+					<span class="label bg-success">3</span> 总计实际消耗内存
+				</li>
+			</ul>
+		</div>
+		<div class="col-lg-3">
+			<ul class="list-group no-radius">
+				<li class="list-group-item">
+					<span class="pull-right">
+						<span class="pull-right">{{serviceDef.define.numberOfPartitions}}主/
+								{{serviceDef.define.dataReplicate == 0 || serviceDef.define.dataReplicate == NaN?0:serviceDef.define.numberOfPartitions}}
+								备</span>
+					</span>
+					<span class="label bg-primary">4</span> 需要物理机数
+				</li>
+				<li class="list-group-item" >
+					<span class="pull-right">
+						<span class="pull-right">{{serviceDef.define.numberOfPartitions}}主/
+								{{serviceDef.define.backupRatio>0?serviceDef.define.numberOfPartitions * serviceDef.define.dataReplicate:0 |number : 0}}备</span>
+						</span>
+					<span class="label bg-info">5</span> redis进程数
+				</li>
+			</ul>
+
+		</div>
+
+	</div>
+<toaster-container toaster-options="{'position-class': 'toast-bottom-full-width', 'close-button':true}"></toaster-container>
+	<!-- /column -->
+	<script type="text/ng-template" id="myModalContent.html">
+		<div ng-include="'static/tpl/blocks/modal_box.html'"></div>
+	</script>
+</div>
+<!-- /hbox layout -->

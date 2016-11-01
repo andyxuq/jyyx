@@ -1,0 +1,41 @@
+<div class="modal-body" ng-controller="addPhysicalCtrl">
+  <div class="row">
+    <div class="col-sm-12 b-r">
+      <h3 class="m-t-none m-b font-thin">增加物理机</h3>
+      <form name="form" class="form-validation" ng-submit="addPhysicalServer()">
+      	<p>增加物理机前请确保物理机已安装docker环境</p>
+      	<div class="form-group">
+         <label>物理机组</label>
+         <select ng-disabled="processShow" ng-model="hostInfo.hostGroupId" class="form-control m-b" 
+         		ng-change="selectCluster()" 
+         		ng-options="hostGroup.id as hostGroup.name for hostGroup in hostGroups" required>
+						<option value="">请选择一个组</option>
+				 </select>
+        </div>
+        
+        <div class="form-group">
+          <label>物理机IP</label>
+          <input type="text" class="form-control" ng-model="hostInfo.name" ng-pattern="/^((?:(?:25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d)))\.){3}(?:25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d))))$/" required placeholder="请填写ip" >
+        </div>
+        
+        <div class="form-group">
+          <label>agent信息</label>
+          <select class="form-control m-b" ng-model="hostInfo.agent" required>
+          	<option value="CGROUP">CGROUP</option>
+          	<option value="DOCKER">DOCKER</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label>描述信息</label>
+          <input type="text" class="form-control" ng-model="hostInfo.descInfo">
+        </div>
+        
+          <input type="button" class="btn btn-sm btn-success pull-right text-uc m-t-n-xs" value="取消" ng-click="cancel()">
+          <button type="submit"  ng-click="ok()" ng-disabled="form.$invalid" class="btn btn-sm btn-success pull-right text-uc m-t-n-xs">
+          <strong>添加</strong></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

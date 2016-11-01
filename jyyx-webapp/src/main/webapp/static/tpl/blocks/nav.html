@@ -1,0 +1,79 @@
+<!-- list -->
+<ul class="nav">
+  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+    <span translate="aside.nav.HEADER">资源管理</span>
+  </li>
+  <li>
+    <a href class="auto">      
+      <span class="pull-right text-muted">
+        <i class="fa fa-fw fa-angle-right text"></i>
+        <i class="fa fa-fw fa-angle-down text-active"></i>
+      </span>
+      <i class="glyphicon glyphicon-stats icon text-primary-dker"></i>
+      <span class="font-bold" translate="aside.nav.DASHBOARD">资源管理</span>
+    </a>
+    <ul class="nav nav-sub dk">
+      <li class="nav-sub-header">
+        <a href>
+          <span translate="aside.nav.DASHBOARD">资源管理</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.allocating">
+          <span>分配资源</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.updateMemory">
+          <span>扩容/缩减</span>
+        </a>
+      </li>
+      
+    </ul>
+  </li>
+
+  <li class="line dk"></li>
+
+  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+    <span translate="aside.nav.components.COMPONENTS">集群监控</span>
+  </li>
+  <li>
+    <a href class="auto">      
+      <span class="pull-right text-muted">
+        <i class="fa fa-fw fa-angle-right text"></i>
+        <i class="fa fa-fw fa-angle-down text-active"></i>
+      </span>
+      <b class="badge bg-info pull-right">4</b>
+      <i class="glyphicon glyphicon-th"></i>
+      <span>集群监控</span>
+    </a>
+    <ul class="nav nav-sub dk">
+      <li class="nav-sub-header">
+        <a href>
+          <span>集群监控</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.physicalMinitor">
+          <span>物理服务器监控</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.cacheMonitor">
+          <span>缓存服务监控页面</span>
+        </a>
+      </li> 
+      <li ui-sref-active="active">
+        <a ui-sref="app.zookeeperConfig">
+          <span>配置中心监控页面</span>
+        </a>
+      </li> 
+      <li ui-sref-active="active">
+        <a ui-sref="app.clusterMonitor">
+          <span>QPS查询</span>
+        </a>
+      </li> 
+    </ul>
+  </li>
+</ul>
+<!-- / list -->

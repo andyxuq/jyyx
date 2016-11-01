@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+	<context id="MysqlTables" targetRuntime="MyBatis3">
+		<commentGenerator>
+			<property name="suppressAllComments" value="false" />
+			<property name="suppressDate" value="true" />
+		</commentGenerator>
+
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://127.0.0.1:3306/jyyx" userId="root"
+			password="123456" />
+
+		<!-- 生成模型的包名和位置 -->
+		<javaModelGenerator targetPackage="com.jyyx.dao.mysql.entity"
+			targetProject="src/main/java" />
+
+		<!-- 生成映射文件的包名和位置 -->
+		<sqlMapGenerator targetPackage="com.jyyx.dao.mysql.mapper"
+			targetProject="src/main/java" />
+
+		<!-- 生成DAO的包名和位置 -->
+		<javaClientGenerator targetPackage="com.jyyx.dao.mysql.dao"
+			targetProject="src/main/java" type="XMLMAPPER" />
+
+		<table tableName="jy_case" domainObjectName="Case"
+			enableCountByExample="true" enableUpdateByExample="true"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			selectByExampleQueryId="true">
+		</table>
+
+		<table tableName="jy_case_category" domainObjectName="CaseCategory"
+			enableCountByExample="true" enableUpdateByExample="true"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			selectByExampleQueryId="true"></table>
+
+		<table tableName="jy_case_category_relation" domainObjectName="CaseCateRelation"
+			enableCountByExample="true" enableUpdateByExample="true"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			selectByExampleQueryId="true"></table>
+
+		<table tableName="jy_msg" domainObjectName="Msg"
+			enableCountByExample="true" enableUpdateByExample="true"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			selectByExampleQueryId="true"></table>
+
+        <table tableName="jy_msg_category" domainObjectName="MsgCategory"
+            enableCountByExample="true" enableUpdateByExample="true"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			selectByExampleQueryId="true"></table>
+            
+        <table tableName="jy_pic" domainObjectName="Pic"
+            enableCountByExample="true" enableUpdateByExample="true"
+            enableDeleteByExample="true" enableSelectByExample="true"
+            selectByExampleQueryId="true"></table>
+            
+        <table tableName="jy_product" domainObjectName="Product"
+            enableCountByExample="true" enableUpdateByExample="true"
+            enableDeleteByExample="true" enableSelectByExample="true"
+            selectByExampleQueryId="true"></table>
+            
+            <table tableName="jy_product_category" domainObjectName="ProductCategory"
+            enableCountByExample="true" enableUpdateByExample="true"
+            enableDeleteByExample="true" enableSelectByExample="true"
+            selectByExampleQueryId="true"></table>
+            
+            <table tableName="jy_product_category_relation" domainObjectName="ProductCateRelation"
+            enableCountByExample="true" enableUpdateByExample="true"
+            enableDeleteByExample="true" enableSelectByExample="true"
+            selectByExampleQueryId="true"></table>
+            
+            <table tableName="jy_user" domainObjectName="User"
+            enableCountByExample="true" enableUpdateByExample="true"
+            enableDeleteByExample="true" enableSelectByExample="true"
+            selectByExampleQueryId="true"></table>
+	</context>
+</generatorConfiguration>
