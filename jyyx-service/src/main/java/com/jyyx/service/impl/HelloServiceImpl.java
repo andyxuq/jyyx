@@ -31,6 +31,5 @@ public class HelloServiceImpl implements HelloService {
 		
 		picMapper.insert(pic);
 		System.out.println("hello");
-		int i = Integer.parseInt("aa");
 	}
 }

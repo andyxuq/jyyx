@@ -63,7 +63,7 @@
 <div class="wrap">
     <div class="logo">
         <h1>403</h1>
-        <p>你没有权限访问该系统功能</p>
+        <p>${errorTitle}</p>
         <div class="sub">
             <p><a href="/">返回Dashboard</a>&nbsp;&nbsp;<a href="/logout">退出用户：${USER_NAME}</a></p>
         </div>
