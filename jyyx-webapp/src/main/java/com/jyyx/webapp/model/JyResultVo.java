@@ -21,8 +21,16 @@ public class JyResultVo {
 		this(result.getCode(), result.getMsg());
 	}
 	
+	public JyResultVo(JyResultType result, Exception e) {
+		this(result.getCode(), result.getMsg() + ":" + e.getMessage());
+	}
+	
 	public JyResultVo(JyResultType result, Object data) {
 		this(result.getCode(), result.getMsg(), data);
+	}
+	
+	public JyResultVo(JyResultType result, Object data, Exception e) {
+		this(result, e);
 	}
 	
 	/**
