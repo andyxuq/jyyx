@@ -56,7 +56,15 @@
 			<artifactId>freemarker</artifactId>
 			<!-- Latest 2.3.x (not 2.4.x), at least 2.3.16 -->
 			<version>2.3.23</version>
-		</dependency>		
+		</dependency>	
+		
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+		    <version>3.1.0</version>
+			<scope>provided</scope>
+		</dependency>
+			
 	</dependencies>
 
   <build>

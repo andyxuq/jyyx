@@ -53,10 +53,7 @@ public class ConfigLoader implements ApplicationContextAware{
      * @param key
      * @return
      */
-    public static String getUploadPath(String key) {
-    	String rootPath = getConfig(Constants.FILE_UPLOAD_PATH);
-    	String uploadPath = getConfig(key);
-    	
-    	return rootPath + uploadPath;
+    public static String getFileUploadPath() {
+    	return getConfig(Constants.FILE_UPLOAD_PATH);
     }
 }

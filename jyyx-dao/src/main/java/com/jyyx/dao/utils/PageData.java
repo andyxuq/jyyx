@@ -1,4 +1,4 @@
-package com.jyyx.core.model;
+package com.jyyx.dao.utils;
 
 import java.util.List;
 
@@ -12,12 +12,21 @@ public class PageData<T> {
 	/** 总页数 */
 	private int total;
 	
+	/** 当前页数 */
+	private int page;
+	
 	/** 每页显示条数 */
 	private int pageRow;
 	
 	/** 被分页数据 */
 	private List<T> pageData;
 
+	public PageData(PageInfo pageInfo) {
+		this.total = pageInfo.getPages();
+		this.page = pageInfo.getPage();
+		this.pageRow = pageInfo.getPageRow();
+	}
+	
 	/**
 	 * @return the total
 	 */
@@ -58,5 +67,19 @@ public class PageData<T> {
 	 */
 	public void setPageData(List<T> pageData) {
 		this.pageData = pageData;
+	}
+
+	/**
+	 * @return the page
+	 */
+	public int getPage() {
+		return page;
+	}
+
+	/**
+	 * @param page the page to set
+	 */
+	public void setPage(int page) {
+		this.page = page;
 	}
 }
