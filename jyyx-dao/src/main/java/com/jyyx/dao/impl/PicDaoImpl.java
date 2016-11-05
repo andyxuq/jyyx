@@ -45,7 +45,8 @@ public class PicDaoImpl implements PicDao {
 	 * @see com.jyyx.dao.PicDao#getResources(com.jyyx.dao.mysql.entity.Pic)
 	 */
 	public List<Pic> getResources(Pic pic) {
-		PicExtendExample example = getSearchExample(pic);		
+		PicExtendExample example = getSearchExample(pic);	
+		example.setOrderByClause("order_code asc, create_time desc");
 		return picMapper.selectByExample(example);
 	}
 
@@ -56,6 +57,7 @@ public class PicDaoImpl implements PicDao {
 		PicExtendExample example = getSearchExample(pic);
 		example.setStartRow(pageInfo.getStartRow());
 		example.setPageRow(pageInfo.getPageRow());
+		example.setOrderByClause("order_code asc, create_time desc");
 		List<Pic> picList = picExtendMapper.selectByExample(example);
 		
 		PageData<Pic> pageData = new PageData<Pic>(pageInfo);

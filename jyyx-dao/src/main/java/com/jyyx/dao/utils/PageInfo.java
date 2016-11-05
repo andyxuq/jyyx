@@ -34,7 +34,7 @@ public class PageInfo {
 	}
 	
 	public int getStartRow() {
-		if (page > pages) {
+		if (page > pages && pages != 0) {
 			page = pages;
 		}
 		

@@ -5,28 +5,32 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.jyyx.core.constant.Constants;
-import com.jyyx.core.enums.PicCodeType;
 import com.jyyx.core.exception.JyException;
 import com.jyyx.dao.mysql.entity.Pic;
+import com.jyyx.dao.utils.PageData;
 import com.jyyx.service.PicService;
 import com.jyyx.service.utils.ConfigLoader;
 import com.jyyx.webapp.model.JyResultType;
@@ -51,13 +55,6 @@ public class PicController {
 	public JyResultVo addPicResources(Pic pic, HttpServletRequest request) {
 		JyResultVo result = new JyResultVo(JyResultType.SUCCESS);
 		try {
-//			String picCode = request.getParameter("picCode");
-//			String referId = request.getParameter("referId");
-//			PicCodeType picCodeType = PicCodeType.valueOf(picCode);
-			
-//			if (StringUtils.isBlank(referId)) {
-//				referId = "0";
-//			}
 			int referId = pic.getReferId() == null ? 0 : pic.getReferId();
 			List<UploadFileVo> fileList = getHttpRequestFiles(request, String.valueOf(referId));
 			if (fileList.size() == 0) {
@@ -77,15 +74,84 @@ public class PicController {
 			return result;
 		} catch (Exception e) {
 			logger.error("上传图片出错", e);
-			return new JyResultVo(JyResultType.ERROR_PARAMS, e);
+			return new JyResultVo(JyResultType.FAIL, e);
 		}
 	}
 	
 	@RequestMapping(value = "/modify/{picId}", method = RequestMethod.POST)
 	@ResponseBody
-	public JyResultVo addPicResources(@PathVariable int picId, HttpServletRequest request) {
-		return null;
+	public JyResultVo modifyPicResources(@PathVariable int picId, Pic pic, HttpServletRequest request) {
+		JyResultVo result = new JyResultVo(JyResultType.SUCCESS);
+		try {
+			String oldPicPath = pic.getPicPath();
+			List<UploadFileVo> files = getHttpRequestFiles(request, String.valueOf(pic.getReferId()));
+			boolean modifyFile = false;
+			if (files.size() > 0) {
+				pic.setPicPath(files.get(0).getFilePath());
+				pic.setPicLength(files.get(0).getFileLength());
+				modifyFile = true;
+			}
+			pic.setId(picId);
+			picService.modifyPicResources(pic);
+			
+			if (modifyFile) {
+				FileUtils.deleteQuietly(new File(ConfigLoader.getFileUploadPath() + oldPicPath));
+			}
+			return result;
+		} catch (Exception e) {
+			logger.error("修改图片{}出错", picId, e);
+			return new JyResultVo(JyResultType.FAIL, e);
+		}
 	}
+	
+	@RequestMapping(value = "/modifyOrder", method = RequestMethod.POST)
+	@ResponseBody
+	public JyResultVo modifyPicResourcesOrder(@RequestBody HashMap<Integer, Integer> picOrderMap) {
+		JyResultVo result = new JyResultVo(JyResultType.SUCCESS);
+		try {
+			picService.modifyPicOrders(picOrderMap);
+			return result;
+		} catch (Exception e) {
+			logger.error("批量修改图片排序号出错", e);
+			return new JyResultVo(JyResultType.FAIL, e);
+		}
+	}
+	
+	@RequestMapping(value = "/get")
+	@ResponseBody
+	public JyResultVo getPicResources(@RequestBody Pic pic, @RequestParam(required = false) Integer page
+			, @RequestParam(required = false) Integer pageRow) {
+		JyResultVo result = new JyResultVo(JyResultType.SUCCESS);
+		try {
+			if (null != page) {
+				PageData<Pic> picPageData = picService.getPicResourcesWithPage(pic, page, pageRow);
+				result.setData(picPageData);
+			} else {
+				List<Pic> picList = picService.getPicResources(pic);
+				result.setData(picList);
+			}
+			return result;
+		} catch (Exception e) {
+			logger.error("查询图片排序资源出错", e);
+			result = new JyResultVo(JyResultType.FAIL);
+			result.setMsg("查询出错");
+			return result;
+		}
+	}
+	
+	@RequestMapping(value = "/delete/{picId}", method = RequestMethod.POST)
+	@ResponseBody
+	public JyResultVo deletePicResources(@PathVariable int picId) {
+		JyResultVo result = new JyResultVo(JyResultType.SUCCESS);
+		try {
+			picService.deletePicResources(picId);
+			return result;
+		} catch (Exception e) {
+			logger.error("删除图片出错", e);
+			return new JyResultVo(JyResultType.FAIL, e);
+		}
+	}
+	
 	
 	public static List<UploadFileVo> getHttpRequestFiles(HttpServletRequest request, String resourceId) 
 			throws IllegalStateException, IOException, JyException {
