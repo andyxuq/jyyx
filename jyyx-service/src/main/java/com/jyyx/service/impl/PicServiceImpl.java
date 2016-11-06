@@ -83,4 +83,11 @@ public class PicServiceImpl implements PicService {
 		
 		picDao.deleteResources(picId);
 	}
+
+	/* (non-Javadoc)
+	 * @see com.jyyx.service.PicService#getResourceById(int)
+	 */
+	public Pic getResourceById(int picId) {
+		return picDao.getResourcesById(picId);
+	}
 }

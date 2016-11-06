@@ -29,4 +29,7 @@ public interface PicService {
 	
 	/** 删除图片资源 */
 	void deletePicResources(int picId);
+	
+	/** 根据ID查找资源 */
+	Pic getResourceById(int picId);
 }

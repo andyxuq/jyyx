@@ -29,6 +29,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.jyyx.core.constant.Constants;
 import com.jyyx.core.exception.JyException;
+import com.jyyx.dao.PicDao;
 import com.jyyx.dao.mysql.entity.Pic;
 import com.jyyx.dao.utils.PageData;
 import com.jyyx.service.PicService;
@@ -117,7 +118,7 @@ public class PicController {
 		}
 	}
 	
-	@RequestMapping(value = "/get")
+	@RequestMapping(value = "/get", method = RequestMethod.POST)
 	@ResponseBody
 	public JyResultVo getPicResources(@RequestBody Pic pic, @RequestParam(required = false) Integer page
 			, @RequestParam(required = false) Integer pageRow) {
@@ -132,7 +133,23 @@ public class PicController {
 			}
 			return result;
 		} catch (Exception e) {
-			logger.error("查询图片排序资源出错", e);
+			logger.error("查询图片资源出错", e);
+			result = new JyResultVo(JyResultType.FAIL);
+			result.setMsg("查询出错");
+			return result;
+		}
+	}
+	
+	@RequestMapping(value = "/get/{picId}")
+	@ResponseBody
+	public JyResultVo getPicResources(@PathVariable int picId) {
+		JyResultVo result = new JyResultVo(JyResultType.SUCCESS);
+		try {
+			Pic pic = picService.getResourceById(picId);
+			result.setData(pic);
+			return result;
+		} catch (Exception e) {
+			logger.error("查询图片资源详情出错", e);
 			result = new JyResultVo(JyResultType.FAIL);
 			result.setMsg("查询出错");
 			return result;

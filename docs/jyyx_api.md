@@ -146,19 +146,19 @@ api接口全部返回json格式数据，非分页数据结构如下：
 * 返回数据: `data`字段 无
 
 #### 2.2.3 查询用户
-* URL: `/api/user/get`
-* METHOD: `GET`
+* URL: `/api/user/get?page=1&pageRow=10`
+* METHOD: `POST`
 * 请求参数: 字段意思参照`1.8 用户信息(JyUser)`
 ```json
 {
   "id":3, //用户ID，根据ID精确匹配
   "userName":"aaa", //用户名，根据名字模糊匹配
-  "loginName":"", //登录名，根据登录名模糊匹配
-  "page":1, //获取第几页数据,从1开始，若传了这个参数，则后台会返回分页的结果
-  "pageRow": 50 //每页显示的记录行数，若传了这个参数，则后台会返回分页的结果  
+  "loginName":"" //登录名，根据登录名模糊匹配 
 }
 ```
 * 返回数据: `data`字段 当前查询到的`List<JyUser>`对象
+* PS: 查询的URL参数`page`和`pageRow`可选，不传则表示不查询分页数据
+
 
 #### 2.2.4 删除用户
 * URL: `/api/user/delete/{userId}`
@@ -198,22 +198,16 @@ api接口全部返回json格式数据，非分页数据结构如下：
 * METHOD: `POST`
 * 请求参数：
 ```json
-[
-  {
-    "id":22, //分类ID
-    "orderCode":3 //分类排序号
-  },
-  {
-    "id":23,
-    "orderCode":4
-  }
-]
+{
+  "1":33, //key为资源ID， value为新的排序号
+  "2":44
+}
 ```
 * 返回数据: `data`字段 无
 
 #### 2.3.4 查询产品分类
 * URL: `/api/product/category/get`
-* METHOD: `GET`
+* METHOD: `POST`
 * 请求参数:
 ```json
 {
@@ -276,19 +270,19 @@ api接口全部返回json格式数据，非分页数据结构如下：
 ```
 
 #### 2.3.8 查询产品
-* URL: `/api/product/get`
-* METHOD: `GET`
+* URL: `/api/product/get&page=1&pageRow=10`
+* METHOD: `POST`
 * 请求参数:
 ```json
 {
   "id":2, //产品分类，精确匹配
   "productName":"aa", //产品名，模糊匹配
-  "categoryId":3, //分类ID
-  "page":1, //获取第几页数据,从1开始，若传了这个参数，则后台会返回分页的结果
-  "pageRow": 50 //每页显示的记录行数，若传了这个参数，则后台会返回分页的结果  
+  "categoryId":3 //分类ID
 }
 ```
 * 返回结果: `data`字段 `List<Product>`对象
+* PS: 查询的URL参数`page`和`pageRow`可选，不传则表示不查询分页数据
+
 
 #### 2.3.9 删除产品
 * URL: `/api/product/delete/{productId}`
@@ -328,22 +322,16 @@ api接口全部返回json格式数据，非分页数据结构如下：
 * METHOD: `POST`
 * 请求参数：
 ```json
-[
-  {
-    "id":22, //分类ID
-    "orderCode":3 //分类排序号
-  },
-  {
-    "id":23,
-    "orderCode":4
-  }
-]
+{
+  "1":33, //key为资源ID， value为新的排序号
+  "2":44
+}
 ```
 * 返回数据: `data`字段 无
 
 #### 2.4.4 查询案例分类
 * URL: `/api/case/category/get`
-* METHOD: `GET`
+* METHOD: `POST`
 * 请求参数:
 ```json
 {
@@ -408,19 +396,18 @@ api接口全部返回json格式数据，非分页数据结构如下：
 ```
 
 #### 2.4.8 查询案例
-* URL: `/api/case/get`
-* METHOD: `GET`
+* URL: `/api/case/get?page=1&pageRow=10`
+* METHOD: `POST`
 * 请求参数:
 ```json
 {
   "id":2, //案例分类，精确匹配
   "caseName":"aa", //案例名，模糊匹配
-  "categoryId":3, //分类ID
-  "page":1, //获取第几页数据,从1开始，若传了这个参数，则后台会返回分页的结果
-  "pageRow": 50 //每页显示的记录行数，若传了这个参数，则后台会返回分页的结果  
+  "categoryId":3 //分类ID
 }
 ```
 * 返回结果: `data`字段 `List<JyCase>`对象
+* PS: 查询的URL参数`page`和`pageRow`可选，不传则表示不查询分页数据
 
 #### 2.4.9 删除案例
 * URL: `/api/case/delete/{caseId}`
@@ -458,22 +445,16 @@ api接口全部返回json格式数据，非分页数据结构如下：
 * METHOD: `POST`
 * 请求参数：
 ```json
-[
-  {
-    "id":22, //分类ID
-    "orderCode":3 //分类排序号
-  },
-  {
-    "id":23,
-    "orderCode":4
-  }
-]
+{
+  "1":33, //key为资源ID， value为新的排序号
+  "2":44
+}
 ```
 * 返回数据: `data`字段 无
 
 #### 2.5.4 查询资讯分类
 * URL: `/api/msg/category/get`
-* METHOD: `GET`
+* METHOD: `POST`
 * 请求参数:
 ```json
 {
@@ -482,6 +463,12 @@ api接口全部返回json格式数据，非分页数据结构如下：
 }
 ```
 * 返回数据: `data`字段 `List<JyMsgCategory>`
+
+#### 2.5.5 查询资讯分类详情
+* URL: `/api/msg/category/get/{categoryId}`
+* METHOD: `GET`
+* 请求参数: `url`中的`categoryId`
+* 返回数据: `data`字段 `JyMsgCategory`
 
 #### 2.5.5 删除分类
 * URL: `/api/msg/category/delete/{categoryId}`
@@ -522,33 +509,26 @@ api接口全部返回json格式数据，非分页数据结构如下：
 * METHOD: `POST`
 * 请求参数:
 ```json
-[
-  {
-    "id":3, //资讯ID
-    "orderCode":3 //排序号    
-  },
-  {
-    "id":4, //资讯ID
-    "orderCode":4 //排序号    
-  }
-]
+{
+  "1":33, //key为资源ID， value为新的排序号
+  "2":44
+}
 ```
 * 返回数据: `data`字段 无
 
 #### 2.5.9 查询资讯
-* URL: `/api/msg/get`
-* METHOD: `GET`
+* URL: `/api/msg/get?page=1&pageRow=10`
+* METHOD: `POST`
 * 请求参数:
 ```json
 {
   "id":3, //资讯ID,精确匹配
   "msgTitle":"xxx", //资讯标题，模糊匹配
-  "categoryId":3, //分类ID
-  "page":1, //获取第几页数据,从1开始，若传了这个参数，则后台会返回分页的结果
-  "pageRow": 50 //每页显示的记录行数，若传了这个参数，则后台会返回分页的结果
+  "categoryId":3 //分类ID
 }
 ```
 * 返回数据: `data`字段 `List<JyMsg>`对象
+* PS: 查询的URL参数`page`和`pageRow`可选，不传则表示不查询分页数据
 
 ### 2.6 图片相关接口
 
@@ -585,30 +565,33 @@ api接口全部返回json格式数据，非分页数据结构如下：
 * METHOD: `POST`
 * 请求参数：
 ```json
-[
-  {
-    "id":3, //图片ID
-    "orderCode": 5 //排序号
-  }
-]
+{
+  "1":33, //key为资源ID， value为新的排序号
+  "2":44
+}
 ```
 
 #### 2.6.4 查询图片
-* URL: `/api/pic/get`
-* METHOD: `GET`
+* URL: `/api/pic/get?page=1&pageRow=50`
+* METHOD: `POST`
 * 请求参数:
 ```json
 {
   "picCode":"xxx", //图片类型
-  "referId":3, //对应资源ID
-  "page":1, //获取第几页数据,从1开始，若传了这个参数，则后台会返回分页的结果
-  "pageRow": 50 //每页显示的记录行数，若传了这个参数，则后台会返回分页的结果
+  "referId":3 //对应资源ID  
 }
 ```
 * 返回数据: `data`字段 `List<JyPic>`对象
+* PS: 查询的URL参数`page`和`pageRow`可选，不传则表示不查询分页数据
 
 #### 2.6.5 删除图片
 * URL: `/api/pic/delete/{picId}`
 * METHOD: `POST`
 * 请求参数： `url`中的`picId`
 * 返回数据: `data`字段 无
+
+#### 2.6.6 查询图片详情
+* URL: `/api/pic/get/{picId}`
+* METHOD: `GET`
+* 请求参数： `url`中的`picId`
+* 返回数据: `data`字段 `JyPic`对象
