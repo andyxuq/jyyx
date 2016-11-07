@@ -29,6 +29,7 @@ public class PicServiceImpl implements PicService {
 	/* (non-Javadoc)
 	 * @see com.jyyx.service.PicService#addPicResources(java.util.List)
 	 */
+	@Transactional(rollbackFor = {Exception.class})
 	public void addPicResources(List<Pic> picList) {
 		for (Pic pic : picList) {
 			picDao.addResources(pic);
@@ -45,7 +46,7 @@ public class PicServiceImpl implements PicService {
 	/* (non-Javadoc)
 	 * @see com.jyyx.service.PicService#modifyPicOrders(java.util.Map)
 	 */
-	@Transactional
+	@Transactional(rollbackFor = {Exception.class})
 	public void modifyPicOrders(Map<Integer, Integer> picOrders) {
 		for (Map.Entry<Integer, Integer> entry : picOrders.entrySet()) {
 			Pic pic = picDao.getResourcesById(entry.getKey());

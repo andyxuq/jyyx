@@ -125,6 +125,9 @@ public class PicController {
 		JyResultVo result = new JyResultVo(JyResultType.SUCCESS);
 		try {
 			if (null != page) {
+				if (null == pageRow) {
+					pageRow = 0;
+				}
 				PageData<Pic> picPageData = picService.getPicResourcesWithPage(pic, page, pageRow);
 				result.setData(picPageData);
 			} else {

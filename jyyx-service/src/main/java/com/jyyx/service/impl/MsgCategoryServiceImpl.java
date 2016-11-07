@@ -42,7 +42,7 @@ public class MsgCategoryServiceImpl implements MsgCategoryService {
 	/* (non-Javadoc)
 	 * @see com.jyyx.service.MsgCategoryService#modifyResourcesOrders(java.util.Map)
 	 */
-	@Transactional
+	@Transactional(rollbackFor = {Exception.class})
 	public void modifyResourcesOrders(Map<Integer, Integer> msgCategoryOrders) throws JyException {
 		for (Map.Entry<Integer, Integer> entry : msgCategoryOrders.entrySet()) {
 			Integer resourceId = entry.getKey();

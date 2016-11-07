@@ -530,6 +530,18 @@ api接口全部返回json格式数据，非分页数据结构如下：
 * 返回数据: `data`字段 `List<JyMsg>`对象
 * PS: 查询的URL参数`page`和`pageRow`可选，不传则表示不查询分页数据
 
+#### 2.5.10 查询资讯详情
+* URL: `/api/msg/get/{msgId}`
+* METHOD: `GET`
+* 请求参数： `url`中的`msgId`
+* 返回数据: `data`字段 `JyMsg`对象
+
+#### 2.5.11 删除资讯
+* URL: `/api/msg/delete/{msgId}`
+* METHOD: `POST`
+* 请求参数： `url`中的`msgId`
+* 返回数据: `data`字段 无
+
 ### 2.6 图片相关接口
 
 #### 2.6.1 添加图片
