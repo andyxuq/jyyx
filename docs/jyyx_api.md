@@ -218,6 +218,12 @@ api接口全部返回json格式数据，非分页数据结构如下：
 ```
 * 返回数据: `data`字段 `List<JyProductCategory>`
 
+#### 2.3.5 查询产品分类详情
+* URL: `/api/product/category/get/{categoryId}`
+* METHOD: `GET`
+* 请求参数: `url`中的`categoryId`
+* 返回数据: `data`字段 `JyProductCategory`
+
 #### 2.3.5 删除分类
 * URL: `/api/product/category/delete/{categoryId}`
 * METHOD: `POST`
@@ -341,6 +347,13 @@ api接口全部返回json格式数据，非分页数据结构如下：
 }
 ```
 * 返回数据: `data`字段 `List<JyCaseCategory>`
+
+#### 2.4.5 查询案例分类详情
+* URL: `/api/case/category/get/{categoryId}`
+* METHOD: `GET`
+* 请求参数: `url`中的`categoryId`
+* 返回数据: `data`字段 `JyCaseCategory`
+
 
 #### 2.4.5 删除分类
 * URL: `/api/case/category/delete/{categoryId}`
