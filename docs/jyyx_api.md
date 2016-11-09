@@ -283,7 +283,14 @@ api接口全部返回json格式数据，非分页数据结构如下：
 {
   "id":2, //产品分类，精确匹配
   "productName":"aa", //产品名，模糊匹配
-  "categoryId":3 //分类ID
+  "productCategorys":[
+    {
+      "categoryId":2 //产品分类ID
+    },
+    {
+      "categoryId":3 //产品分类ID
+    }
+  ]
 }
 ```
 * 返回结果: `data`字段 `List<Product>`对象

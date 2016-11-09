@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jyyx.core.exception.JyException;
+import com.jyyx.dao.model.JyProductCategory;
 import com.jyyx.dao.mysql.entity.MsgCategory;
 import com.jyyx.dao.mysql.entity.ProductCategory;
 import com.jyyx.service.MsgCategoryService;
@@ -93,7 +94,7 @@ public class ProductCategoryController {
 	public JyResultVo getResources(@RequestBody ProductCategory productCategory) {
 		JyResultVo result = new JyResultVo(JyResultType.SUCCESS);
 		try {
-			List<ProductCategory> resList = productCategoryService.getResources(productCategory);
+			List<JyProductCategory> resList = productCategoryService.getResources(productCategory);
 			result.setData(resList);
 			return result;
 		} catch (Exception e) {

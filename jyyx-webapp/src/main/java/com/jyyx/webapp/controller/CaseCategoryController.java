@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jyyx.core.exception.JyException;
+import com.jyyx.dao.model.JyCaseCategory;
 import com.jyyx.dao.mysql.entity.CaseCategory;
 import com.jyyx.dao.mysql.entity.MsgCategory;
 import com.jyyx.service.CaseCategoryService;
@@ -93,7 +94,7 @@ public class CaseCategoryController {
 	public JyResultVo getResources(@RequestBody CaseCategory caseCategory) {
 		JyResultVo result = new JyResultVo(JyResultType.SUCCESS);
 		try {
-			List<CaseCategory> resList = caseCategoryService.getResources(caseCategory);
+			List<JyCaseCategory> resList = caseCategoryService.getResources(caseCategory);
 			result.setData(resList);
 			return result;
 		} catch (Exception e) {

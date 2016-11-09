@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.jyyx.core.exception.JyException;
+import com.jyyx.dao.model.JyProductCategory;
 import com.jyyx.dao.mysql.entity.ProductCategory;
 
 /**
@@ -23,12 +24,14 @@ public interface ProductCategoryService {
 	 * @throws JyException */
 	void modifyResourcesOrders(Map<Integer, Integer> ordersMap) throws JyException;
 	
-	/** 查询资源 */
-	List<ProductCategory> getResources(ProductCategory productCategory);
+	/** 查询资源 
+	 * @throws JyException */
+	List<JyProductCategory> getResources(ProductCategory productCategory) throws JyException;
 	
 	/** 删除资源 */
 	void deleteResources(int resourceId);
 	
-	/** 根据ID查询资源 */
-	ProductCategory getResourcesById(int resourceId);
+	/** 根据ID查询资源 
+	 * @throws JyException */
+	ProductCategory getResourcesById(int resourceId) throws JyException;
 }

@@ -2,6 +2,9 @@ package com.jyyx.dao;
 
 import java.util.List;
 
+import org.springframework.beans.BeansException;
+
+import com.jyyx.dao.model.JyCaseCategory;
 import com.jyyx.dao.mysql.entity.CaseCategory;
 
 /**
@@ -15,11 +18,17 @@ public interface CaseCategoryDao {
 	 * 根据ID查找资源
 	 * @param picId
 	 * @return
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws BeansException 
 	 */
-	CaseCategory getResourcesById(int resourceId);
+	JyCaseCategory getResourcesById(int resourceId) throws BeansException, InstantiationException, IllegalAccessException;
 	
-	/** 查询资源 */
-	List<CaseCategory> getResources(CaseCategory caseCategory);
+	/** 查询资源 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws BeansException */
+	List<JyCaseCategory> getResources(CaseCategory caseCategory) throws BeansException, InstantiationException, IllegalAccessException;
 	
 	/** 删除资源  */
 	void deleteResources(int resourceId);

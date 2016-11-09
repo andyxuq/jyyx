@@ -1,0 +1,41 @@
+package com.jyyx.dao;
+
+import java.util.List;
+
+import com.jyyx.dao.model.JyProduct;
+import com.jyyx.dao.model.ProductParam;
+import com.jyyx.dao.utils.PageData;
+import com.jyyx.dao.utils.PageInfo;
+
+/**
+ * 
+ * andy xu
+ * 2016年11月9日
+ */
+public interface ProductDao {
+
+	/** 查询资源总数 */
+	int getResourcesCount(ProductParam param);
+	
+	/**
+	 * 根据ID查找资源
+	 * @param resourceId
+	 * @return
+	 */
+	JyProduct getResourcesById(int resourceId);
+	
+	/** 查询资源 */
+	List<JyProduct> getResources(ProductParam param);
+	
+	/** 分页查询资源 */
+	PageData<JyProduct> getResourcesWithPage(ProductParam param, PageInfo pageInfo);
+	
+	/** 删除资源  */
+	void deleteResources(int resourceId);
+	
+	/** 添加资源 */
+	void addResources(ProductParam param);
+	
+	/** 修改资源 */
+	void modifyResources(ProductParam param);
+}

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.jyyx.core.exception.JyException;
+import com.jyyx.dao.model.JyCaseCategory;
 import com.jyyx.dao.mysql.entity.CaseCategory;
 
 /**
@@ -23,12 +24,14 @@ public interface CaseCategoryService {
 	 * @throws JyException */
 	void modifyResourcesOrders(Map<Integer, Integer> ordersMap) throws JyException;
 	
-	/** 查询资源 */
-	List<CaseCategory> getResources(CaseCategory caseCategory);
+	/** 查询资源 
+	 * @throws JyException */
+	List<JyCaseCategory> getResources(CaseCategory caseCategory) throws JyException;
 	
 	/** 删除资源 */
 	void deleteResources(int resourceId);
 	
-	/** 根据ID查询资源 */
-	CaseCategory getResourcesById(int resourceId);
+	/** 根据ID查询资源 
+	 * @throws JyException */
+	CaseCategory getResourcesById(int resourceId) throws JyException;
 }

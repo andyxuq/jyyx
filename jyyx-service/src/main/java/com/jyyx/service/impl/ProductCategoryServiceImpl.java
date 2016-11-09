@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.jyyx.core.exception.JyException;
 import com.jyyx.dao.ProductCategoryDao;
+import com.jyyx.dao.model.JyProductCategory;
 import com.jyyx.dao.mysql.entity.ProductCategory;
 import com.jyyx.service.ProductCategoryService;
 
@@ -41,22 +42,30 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	 */
 	@Transactional(rollbackFor = Exception.class)
 	public void modifyResourcesOrders(Map<Integer, Integer> ordersMap) throws JyException {
-		for (Map.Entry<Integer, Integer> entry : ordersMap.entrySet()) {
-			ProductCategory productCategory = productCategoryDao.getResourcesById(entry.getKey());
-			if (null == productCategory) {
-				throw new JyException("无法修改" + entry.getKey() + "的排序号，资源不存在");
+		try {
+			for (Map.Entry<Integer, Integer> entry : ordersMap.entrySet()) {
+				ProductCategory productCategory = productCategoryDao.getResourcesById(entry.getKey());
+				if (null == productCategory) {
+					throw new JyException("无法修改" + entry.getKey() + "的排序号，资源不存在");
+				}
+				
+				productCategory.setOrderCode(entry.getValue());
+				productCategoryDao.modifyResources(productCategory);
 			}
-			
-			productCategory.setOrderCode(entry.getValue());
-			productCategoryDao.modifyResources(productCategory);
+		} catch (Exception e) {
+			throw new JyException("批量修改排序号" + ordersMap + "出错", e);
 		}
 	}
 
 	/* (non-Javadoc)
 	 * @see com.jyyx.service.ProductCategoryService#getResources(com.jyyx.dao.mysql.entity.ProductCategory)
 	 */
-	public List<ProductCategory> getResources(ProductCategory productCategory) {
-		return productCategoryDao.getResources(productCategory);
+	public List<JyProductCategory> getResources(ProductCategory productCategory) throws JyException {
+		try {
+			return productCategoryDao.getResources(productCategory);
+		} catch (Exception e) {
+			throw new JyException("获取产品分类出错", e);
+		}
 	}
 
 	/* (non-Javadoc)
@@ -69,8 +78,12 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	/* (non-Javadoc)
 	 * @see com.jyyx.service.ProductCategoryService#getResourcesById(int)
 	 */
-	public ProductCategory getResourcesById(int resourceId) {
-		return productCategoryDao.getResourcesById(resourceId);
+	public ProductCategory getResourcesById(int resourceId) throws JyException {
+		try {
+			return productCategoryDao.getResourcesById(resourceId);
+		} catch (Exception e) {
+			throw new JyException("查询产品-分类详情出错", e);
+		}
 	}
 	
 }

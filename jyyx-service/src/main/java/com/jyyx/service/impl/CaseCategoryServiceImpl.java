@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.jyyx.core.exception.JyException;
 import com.jyyx.dao.CaseCategoryDao;
 import com.jyyx.dao.ProductCategoryDao;
+import com.jyyx.dao.model.JyCaseCategory;
 import com.jyyx.dao.mysql.entity.CaseCategory;
 import com.jyyx.service.CaseCategoryService;
 import com.jyyx.service.ProductCategoryService;
@@ -43,6 +44,7 @@ public class CaseCategoryServiceImpl implements CaseCategoryService {
 	 */
 	@Transactional(rollbackFor = Exception.class)
 	public void modifyResourcesOrders(Map<Integer, Integer> ordersMap) throws JyException {
+		try {
 		for (Map.Entry<Integer, Integer> entry : ordersMap.entrySet()) {
 			CaseCategory caseCategory = caseCategoryDao.getResourcesById(entry.getKey());
 			if (null == caseCategory) {
@@ -52,13 +54,20 @@ public class CaseCategoryServiceImpl implements CaseCategoryService {
 			caseCategory.setOrderCode(entry.getValue());
 			caseCategoryDao.modifyResources(caseCategory);
 		}
+		} catch (Exception e) {
+			throw new JyException("批量修改案例-分类排序号" + ordersMap + "出错", e);
+		}
 	}
 
 	/* (non-Javadoc)
 	 * @see com.jyyx.service.ProductCategoryService#getResources(com.jyyx.dao.mysql.entity.CaseCategory)
 	 */
-	public List<CaseCategory> getResources(CaseCategory caseCategory) {
-		return caseCategoryDao.getResources(caseCategory);
+	public List<JyCaseCategory> getResources(CaseCategory caseCategory) throws JyException {
+		try {
+			return caseCategoryDao.getResources(caseCategory);
+		} catch (Exception e) {
+			throw new JyException("查询案例-分类出错", e);
+		}
 	}
 
 	/* (non-Javadoc)
@@ -71,8 +80,12 @@ public class CaseCategoryServiceImpl implements CaseCategoryService {
 	/* (non-Javadoc)
 	 * @see com.jyyx.service.ProductCategoryService#getResourcesById(int)
 	 */
-	public CaseCategory getResourcesById(int resourceId) {
-		return caseCategoryDao.getResourcesById(resourceId);
+	public CaseCategory getResourcesById(int resourceId) throws JyException {
+		try {
+			return caseCategoryDao.getResourcesById(resourceId);
+		} catch (Exception e) {
+			throw new JyException("查询案例-分类详情出错", e);
+		}
 	}
 	
 }
