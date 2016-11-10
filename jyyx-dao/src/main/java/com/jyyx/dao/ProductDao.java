@@ -2,6 +2,8 @@ package com.jyyx.dao;
 
 import java.util.List;
 
+import org.springframework.beans.BeansException;
+
 import com.jyyx.dao.model.JyProduct;
 import com.jyyx.dao.model.ProductParam;
 import com.jyyx.dao.utils.PageData;
@@ -21,10 +23,16 @@ public interface ProductDao {
 	 * 根据ID查找资源
 	 * @param resourceId
 	 * @return
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws BeansException 
 	 */
-	JyProduct getResourcesById(int resourceId);
+	JyProduct getResourcesById(int resourceId) throws BeansException, InstantiationException, IllegalAccessException;
 	
-	/** 查询资源 */
+	/** 查询资源 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws BeansException */
 	List<JyProduct> getResources(ProductParam param);
 	
 	/** 分页查询资源 */

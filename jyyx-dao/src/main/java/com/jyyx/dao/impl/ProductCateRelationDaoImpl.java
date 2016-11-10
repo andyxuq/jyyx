@@ -1,5 +1,9 @@
 package com.jyyx.dao.impl;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -45,6 +49,7 @@ public class ProductCateRelationDaoImpl implements ProductCateRelationDao {
 	 * @see com.jyyx.dao.ProductCateRelationDao#addResources(com.jyyx.dao.mysql.entity.ProductCateRelation)
 	 */
 	public void addResources(ProductCateRelation productCate) {
+		productCate.setCreateTime(new Date());
 		pcrMapper.insertSelective(productCate);
 	}
 

@@ -2,6 +2,7 @@ package com.jyyx.dao.model;
 
 import java.util.List;
 
+import com.jyyx.dao.mysql.entity.ProductCateRelation;
 import com.jyyx.dao.mysql.entity.ProductCategory;
 
 /**
@@ -24,7 +25,41 @@ public class ProductParam {
     private String productDesc;
     
     /** 产品分类 */
-    private List<ProductCategory> productCategorys;
+    private List<ProductCateRelation> productCategorys;
+
+	/** 开始行数 */
+	private int startRow;
+	
+	/** 每页显示行数 */
+	private int pageRow;
+	
+	/**
+	 * @return the startRow
+	 */
+	public int getStartRow() {
+		return startRow;
+	}
+
+	/**
+	 * @param startRow the startRow to set
+	 */
+	public void setStartRow(int startRow) {
+		this.startRow = startRow;
+	}
+
+	/**
+	 * @return the pageRow
+	 */
+	public int getPageRow() {
+		return pageRow;
+	}
+
+	/**
+	 * @param pageRow the pageRow to set
+	 */
+	public void setPageRow(int pageRow) {
+		this.pageRow = pageRow;
+	}
 
 	/**
 	 * @return the productName
@@ -71,14 +106,28 @@ public class ProductParam {
 	/**
 	 * @return the productCategorys
 	 */
-	public List<ProductCategory> getProductCategorys() {
+	public List<ProductCateRelation> getProductCategorys() {
 		return productCategorys;
 	}
 
 	/**
 	 * @param productCategorys the productCategorys to set
 	 */
-	public void setProductCategorys(List<ProductCategory> productCategorys) {
+	public void setProductCategorys(List<ProductCateRelation> productCategorys) {
 		this.productCategorys = productCategorys;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
 	}
 }

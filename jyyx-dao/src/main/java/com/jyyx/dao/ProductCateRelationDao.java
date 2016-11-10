@@ -1,5 +1,7 @@
 package com.jyyx.dao;
 
+import java.util.List;
+
 import com.jyyx.dao.mysql.entity.ProductCateRelation;
 
 /**

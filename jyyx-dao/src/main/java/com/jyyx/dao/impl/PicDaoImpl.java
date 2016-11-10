@@ -1,11 +1,16 @@
 package com.jyyx.dao.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.jyyx.core.enums.PicCodeType;
 import com.jyyx.dao.PicDao;
 import com.jyyx.dao.mysql.dao.PicMapper;
 import com.jyyx.dao.mysql.dao.extend.PicExtendMapper;
@@ -85,6 +90,33 @@ public class PicDaoImpl implements PicDao {
 	 */
 	public void modifyResources(Pic pic) {
 		picMapper.updateByPrimaryKeySelective(pic);
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.jyyx.dao.PicDao#getResourceByCode(com.jyyx.core.enums.PicCodeType, java.util.List)
+	 */
+	public Map<Integer, List<Pic>> getResourceByCode(PicCodeType codeType, Set<Integer> referIdList) {
+		List<Integer> referIds = new ArrayList<Integer>();
+		referIds.addAll(referIdList);
+		
+		PicExtendExample example = new PicExtendExample();
+		example.createCriteria()
+			.andPicCodeEqualTo(codeType.toString())
+			.andReferIdIn(referIds);
+		
+		example.setOrderByClause("order_code asc, create_time desc");
+		List<Pic> allPicList = picMapper.selectByExample(example);
+		Map<Integer, List<Pic>> picMap = new HashMap<Integer, List<Pic>>();
+		
+		for (Pic pic : allPicList) {
+			List<Pic> picList = picMap.get(pic.getReferId());
+			if (null == picList) {
+				picList = new ArrayList<Pic>();
+				picMap.put(pic.getReferId(), picList);
+			}
+			picList.add(pic);
+		}
+		return picMap;
 	}
 
 	private PicExtendExample getSearchExample(Pic pic) {

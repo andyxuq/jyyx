@@ -1,7 +1,10 @@
 package com.jyyx.dao;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
+import com.jyyx.core.enums.PicCodeType;
 import com.jyyx.dao.mysql.entity.Pic;
 import com.jyyx.dao.utils.PageData;
 import com.jyyx.dao.utils.PageInfo;
@@ -36,4 +39,7 @@ public interface PicDao {
 	
 	/** 修改资源 */
 	void modifyResources(Pic pic);
+	
+	/** 根据ID，code查找图片资源 */
+	Map<Integer, List<Pic>> getResourceByCode(PicCodeType codeType, Set<Integer> referIdList);
 }

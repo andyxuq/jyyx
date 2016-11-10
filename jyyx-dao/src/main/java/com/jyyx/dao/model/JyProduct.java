@@ -1,5 +1,6 @@
 package com.jyyx.dao.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.jyyx.dao.mysql.entity.Pic;
@@ -14,10 +15,10 @@ import com.jyyx.dao.mysql.entity.ProductCategory;
 public class JyProduct extends Product {
 
 	/** 产品图片 */
-	private List<Pic> pics;
+	private List<Pic> pics = new ArrayList<Pic>();
 	
 	/** 产品分类 */
-	private List<ProductCategory> productCategorys;
+	private List<ProductCategory> productCategorys = new ArrayList<ProductCategory>();
 
 	/**
 	 * @return the pics
