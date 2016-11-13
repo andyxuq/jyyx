@@ -1,7 +1,9 @@
 package com.jyyx.dao.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeansException;
@@ -17,6 +19,7 @@ import com.jyyx.dao.mysql.entity.CaseCategoryExample;
 import com.jyyx.dao.mysql.entity.ProductCategory;
 import com.jyyx.dao.mysql.entity.ProductCategoryExample;
 import com.jyyx.dao.mysql.entity.CaseCategoryExample.Criteria;
+import com.jyyx.dao.mysql.entity.CaseExample;
 import com.jyyx.dao.utils.ModelUtils;
 
 /**
@@ -71,7 +74,7 @@ public class CaseCategoryDaoImpl implements CaseCategoryDao {
 		}
 		return jyList;
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see com.jyyx.dao.CaseCategoryDao#deleteResources(int)
 	 */
@@ -113,5 +116,18 @@ public class CaseCategoryDaoImpl implements CaseCategoryDao {
 		for (JyCaseCategory subCaseCategory : subJyList) {			
 			loopCategoryRelation(subCaseCategory);
 		}
+	}
+
+	/* (non-Javadoc)
+	 * @see com.jyyx.dao.CaseCategoryDao#getResouceByIds(java.util.Set)
+	 */
+	public List<JyCaseCategory> getResouceByIds(Set<Integer> ids) throws BeansException, InstantiationException, IllegalAccessException {
+		List<Integer> idList = new ArrayList<Integer>();
+		idList.addAll(ids);
+		CaseCategoryExample example = new CaseCategoryExample();
+		example.createCriteria().andIdIn(idList);
+		
+		List<CaseCategory> categoryList = caseCategoryMapper.selectByExample(example);
+		return ModelUtils.copyList(categoryList, JyCaseCategory.class);
 	}
 }

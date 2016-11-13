@@ -5,15 +5,13 @@ import java.util.List;
 
 import com.jyyx.dao.mysql.entity.Case;
 import com.jyyx.dao.mysql.entity.Pic;
-import com.jyyx.dao.mysql.entity.Product;
-import com.jyyx.dao.mysql.entity.ProductCategory;
 
 /**
- * 返回给前端的case对象
+ * 返回给前端的product对象
  * andy xu
  * 2016年11月9日
  */
-public class JyProduct extends Case {
+public class JyCase extends Case {
 
 	/** 产品图片 */
 	private List<Pic> pics = new ArrayList<Pic>();
@@ -48,4 +46,5 @@ public class JyProduct extends Case {
 	public void setCaseCategorys(List<JyCaseCategory> caseCategorys) {
 		this.caseCategorys = caseCategorys;
 	}
+
 }

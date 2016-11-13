@@ -146,9 +146,11 @@ public class ProductDaoImpl implements ProductDao {
 			productMap.put(product.getId(), product);
 		}
 		
-		Map<Integer, List<Pic>> picMap = picDao.getResourceByCode(PicCodeType.PRODUCT_HEADER, productMap.keySet());
-		for (int id : picMap.keySet()) {
-			productMap.get(id).setPics(picMap.get(id));
+		if (productMap.size() > 0) {
+			Map<Integer, List<Pic>> picMap = picDao.getResourceByCode(PicCodeType.PRODUCT_HEADER, productMap.keySet());
+			for (int id : picMap.keySet()) {
+				productMap.get(id).setPics(picMap.get(id));
+			}
 		}
 	}
 }

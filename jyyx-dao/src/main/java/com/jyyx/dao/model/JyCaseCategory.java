@@ -1,5 +1,6 @@
 package com.jyyx.dao.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.jyyx.dao.mysql.entity.CaseCategory;
@@ -11,7 +12,7 @@ import com.jyyx.dao.mysql.entity.CaseCategory;
  */
 public class JyCaseCategory extends CaseCategory {
 
-	private List<JyCaseCategory> childList;
+	private List<JyCaseCategory> childList = new ArrayList<JyCaseCategory>();
 
 	/**
 	 * @return the childList

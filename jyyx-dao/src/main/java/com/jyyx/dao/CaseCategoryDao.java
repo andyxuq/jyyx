@@ -1,6 +1,7 @@
 package com.jyyx.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.BeansException;
 
@@ -38,4 +39,14 @@ public interface CaseCategoryDao {
 	
 	/** 修改资源 */
 	void modifyResources(CaseCategory caseCategory);
+	
+	/**
+	 * 根据ID列表获取数据
+	 * @param ids
+	 * @return
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws BeansException 
+	 */
+	List<JyCaseCategory> getResouceByIds(Set<Integer> ids) throws BeansException, InstantiationException, IllegalAccessException;
 }

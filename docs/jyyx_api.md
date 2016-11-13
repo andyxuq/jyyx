@@ -428,11 +428,24 @@ api接口全部返回json格式数据，非分页数据结构如下：
 {
   "id":2, //案例分类，精确匹配
   "caseName":"aa", //案例名，模糊匹配
-  "categoryId":3 //分类ID
+  "caseCategorys":[
+    {
+      "categoryId":2 //案例分类ID
+    },
+    {
+      "categoryId":3 //案例分类ID
+    }
+  ]
 }
 ```
 * 返回结果: `data`字段 `List<JyCase>`对象
 * PS: 查询的URL参数`page`和`pageRow`可选，不传则表示不查询分页数据
+
+#### 2.4.9 查询案例详情
+* URL: `/api/case/get/{caseId}`
+* METHOD: `GET`
+* 请求参数:
+* 返回结果: `data`字段 `JyCase`对象
 
 #### 2.4.9 删除案例
 * URL: `/api/case/delete/{caseId}`
