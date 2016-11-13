@@ -48,7 +48,8 @@
   </sql>
  
   <select id="countByParam" parameterType="com.jyyx.dao.model.ProductParam" resultType="int">
-  	select count(0)
+  	select count(0) from (
+  	select distinct j.* 
 	from jy_product j, jy_product_category_relation r  
 	<where>
 		j.id = r.product_id
@@ -65,10 +66,11 @@
 			</foreach>
 		</if>
 	</where>   
+	)a
   </select>
   
   <select id="selectByParam" parameterType="com.jyyx.dao.model.ProductParam" resultMap="BaseResultMap">
-  	select
+  	select distinct
     <include refid="Base_Column_List" />
     
 	from jy_product j, jy_product_category_relation r  

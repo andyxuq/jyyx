@@ -8,6 +8,8 @@ import java.util.Map;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jyyx.core.enums.PicCodeType;
 import com.jyyx.dao.PicDao;
@@ -29,6 +31,7 @@ import com.jyyx.dao.utils.PageInfo;
  * andy xu
  * 2016年11月10日
  */
+@Repository
 public class ProductDaoImpl implements ProductDao {
 
 	@Autowired
@@ -58,8 +61,10 @@ public class ProductDaoImpl implements ProductDao {
 		JyProduct jyProduct = ModelUtils.copyProperty(product, JyProduct.class);
 		
 		List<JyProduct> productList = new ArrayList<JyProduct>();
-		productList.add(jyProduct);
-		fetchPicRes(productList);
+		if (null != jyProduct) {
+			productList.add(jyProduct);
+			fetchPicRes(productList);
+		}
 		return jyProduct;
 	}
 
@@ -98,6 +103,7 @@ public class ProductDaoImpl implements ProductDao {
 	/* (non-Javadoc)
 	 * @see com.jyyx.dao.ProductDao#addResources(com.jyyx.dao.model.ProductParam)
 	 */
+	@Transactional(rollbackFor = Exception.class)
 	public void addResources(ProductParam param) {
 		Product product = getProductFromParam(param);
 		productExtendMapper.insertSelective(product);
@@ -110,13 +116,14 @@ public class ProductDaoImpl implements ProductDao {
 	/* (non-Javadoc)
 	 * @see com.jyyx.dao.ProductDao#modifyResources(com.jyyx.dao.model.ProductParam)
 	 */
+	@Transactional(rollbackFor = Exception.class)
 	public void modifyResources(ProductParam param) {
 		pcrDao.deleteResourcesByResId(param.getId());
 		
 		Product product = getProductFromParam(param);
 		product.setId(param.getId());
 		
-		productMapper.updateByPrimaryKeyWithBLOBs(product);
+		productMapper.updateByPrimaryKeySelective(product);
 		for (ProductCateRelation pcr : param.getProductCategorys()) {
 			pcr.setProductId(product.getId());
 			pcrDao.addResources(pcr);

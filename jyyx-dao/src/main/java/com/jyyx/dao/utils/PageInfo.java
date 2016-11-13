@@ -23,9 +23,9 @@ public class PageInfo {
 		if (page < 1) {
 			page = 1;
 		}
-		if (pageRow < 10) { //每页最少10行
-			pageRow = 10;
-		}
+//		if (pageRow < 10) { //每页最少10行
+//			pageRow = 10;
+//		}
 		
 		this.page = page;
 		this.pageRow = pageRow;

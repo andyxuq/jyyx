@@ -296,6 +296,11 @@ api接口全部返回json格式数据，非分页数据结构如下：
 * 返回结果: `data`字段 `List<Product>`对象
 * PS: 查询的URL参数`page`和`pageRow`可选，不传则表示不查询分页数据
 
+#### 2.3.9 查询产品详情
+* URL: `/api/product/get/{productId}`
+* METHOD: `GET`
+* 请求参数: `url`中的`productId`
+* 返回结果: `data`字段 `Product`对象
 
 #### 2.3.9 删除产品
 * URL: `/api/product/delete/{productId}`

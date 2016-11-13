@@ -60,7 +60,7 @@ public class ProductParam {
 	public void setPageRow(int pageRow) {
 		this.pageRow = pageRow;
 	}
-
+    
 	/**
 	 * @return the productName
 	 */
