@@ -16,12 +16,12 @@
 "aside" : {
   "nav" : {
     "HEADER" : "资源",
-    "DASHBOARD" : "资源管理",
+    "DASHBOARD" : "基础资源管理",
     "CALENDAR" : "Calendar",
     "EMAIL" : "Email",
     "WIDGETS" : "Widgets",
     "components" : {
-      "COMPONENTS" : "监控",
+      "COMPONENTS" : "",
       "ui_kits" : {
         "UI_KITS" : "UI Kits",
         "BUTTONS" : "Buttons",

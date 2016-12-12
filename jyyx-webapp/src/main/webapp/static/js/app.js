@@ -19,5 +19,6 @@ angular.module('app', [
     'zwebsocket',
     'functionServiceModule',
     'httpServiceModule',
-    'radialIndicator'
+    'radialIndicator',
+    'pageServiceModule'
 ]);

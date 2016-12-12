@@ -2,7 +2,7 @@
 <html lang="en" data-ng-app="app">
 <head>
   <meta charset="utf-8" />
-  <title>Zedis</title>
+  <title>Jyyx</title>
   <meta name="description" content="app, web app, responsive, responsive layout, admin, admin panel, admin dashboard, flat, flat ui, ui kit, AngularJS, ui route, charts, widgets, components" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <link rel="stylesheet" href="static/css/bootstrap.css" type="text/css" />
@@ -54,6 +54,7 @@
   <script src="static/js/services/function-service.js"></script>
   <script src="static/js/lib/angular.radialIndicator.js"></script>
   <script src="static/js/services/http-function.js"></script>
+  <script src="static/js/services/page-function.js"></script>
   <script src="static/js/filters/fromNow.js"></script>
   <script src="static/js/directives/setnganimate.js"></script>
   <script src="static/js/directives/ui-butterbar.js"></script>

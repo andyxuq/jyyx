@@ -1,0 +1,30 @@
+<footer class="panel-footer">
+  <div class="row">
+    <div class="col-sm-4 hidden-xs">
+    </div>
+    <div class="col-sm-4 text-center">
+      <small class="text-muted inline m-t-sm m-b-sm">当前第{{pageData.page}}页，共{{pageData.total}}页</small>
+    </div>
+    <div class="col-sm-4 text-right text-center-xs">                
+      <ul class="pagination pagination-sm m-t-none m-b-none">
+				<li><a a href="javascript:void(0);" ng-click="setPage(1)"
+					title="首页"><i class="fa fa-chevron-left"></i><i
+						class="fa fa-chevron-left"></i></a></li>
+				<li><a a href="javascript:void(0);"
+					ng-click="setPage(pageData.page - 1)" title="上一页"><i
+						class="fa fa-chevron-left"></i></a></li>
+				<li ng-repeat="pageNum in pageNumArray"
+					class="{{pageActive(pageNum)}}"><a href="javascript:void(0);"
+					ng-click="setPage(pageNum)">{{pageNum}}</a></li>
+				<li ng-show="needNextEllipsis"><a href="javascript:void(0);"
+					ng-click="showNextPage()">...</a></li>
+				<li><a href="javascript:void(0);"
+					ng-click="setPage(pageData.page + 1)" title="下一页"><i
+						class="fa fa-chevron-right"></i></a></li>
+				<li><a href="javascript:void(0);"
+					ng-click="setPage(pageData.total)" title="尾页"><i
+						class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></a></li>
+			</ul>
+    </div>
+  </div>
+</footer>

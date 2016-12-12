@@ -17,20 +17,21 @@ angular.module('app')
 			function($stateProvider, $urlRouterProvider) {
 
 				$urlRouterProvider
-					.otherwise('/app/cacheMonitor');
+					.otherwise('/app/pic');
 				$stateProvider
 					.state('app', {
 						abstract: true,
 						url: '/app',
 						templateUrl: 'static/tpl/app.html'
 					})
-					.state('app.allocating', {
-						url: '/allocating',
-						templateUrl: 'static/tpl/allocating_resource.html',
+					.state('app.pic', {
+						url: '/pic',
+						templateUrl: 'static/tpl/jyyx/pic_resource.html',
 						resolve: {
 							deps: ['$ocLazyLoad',
 								function($ocLazyLoad) {
-									return $ocLazyLoad.load(['static/js/controllers/allocting-resource.js']);
+									return $ocLazyLoad.load(['static/js/jyyx/pic-resource.js'
+									                         , 'static/js/jyyx/modal/pic_resource_add.js']);
 								}
 							]
 						}

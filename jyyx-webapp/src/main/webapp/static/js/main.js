@@ -10,14 +10,15 @@ angular.module('app')
       isIE && angular.element($window.document.body).addClass('ie');
       isSmartDevice( $window ) && angular.element($window.document.body).addClass('smart');
 
-      $scope.userName = "Admin";
-      httpService.httpGet('/user/get',function(result){
-      	$scope.userName = result.data.cnName
-      });
+//      $scope.userName = "Admin";
+//      httpService.httpGet('/user/get',function(result){
+//      	$scope.userName = result.data.cnName
+//      });
+      $scope.userName = "Andyxu";
       
       // config
       $scope.app = {
-        name: 'Zedis',
+        name: '佳缘印象',
         version: '1.0.0',
         // for chart colors
         color: {
