@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -28,6 +29,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.jyyx.core.constant.Constants;
+import com.jyyx.core.enums.PicCodeType;
 import com.jyyx.core.exception.JyException;
 import com.jyyx.dao.PicDao;
 import com.jyyx.dao.mysql.entity.Pic;
@@ -155,6 +157,30 @@ public class PicController {
 			logger.error("查询图片资源详情出错", e);
 			result = new JyResultVo(JyResultType.FAIL);
 			result.setMsg("查询出错");
+			return result;
+		}
+	}
+	
+	@RequestMapping(value = "/get/picTypes")
+	@ResponseBody
+	public JyResultVo getPicTypes() {
+		JyResultVo result = new JyResultVo(JyResultType.SUCCESS);
+		try {
+			List<Map<String, String>> typeList = new ArrayList<Map<String, String>>();
+			PicCodeType[] values = PicCodeType.values();
+			for (PicCodeType codeType : values) {
+				Map<String, String> typeMap = new HashMap<String, String>();
+				typeMap.put("code", codeType.toString());
+				typeMap.put("name", codeType.getDesc());
+				
+				typeList.add(typeMap);
+			}
+			result.setData(typeList);
+			return result;
+		} catch (Exception e) {
+			logger.error("查询图片类型出错", e);
+			result = new JyResultVo(JyResultType.FAIL);
+			result.setMsg("查询图片类型出错");
 			return result;
 		}
 	}

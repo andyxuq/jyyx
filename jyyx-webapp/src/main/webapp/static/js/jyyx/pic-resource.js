@@ -2,11 +2,14 @@ app.controller('PicResourceCtrl', ['$scope', '$modal', '$log', '$http','toaster'
 function($scope, $modal, $log, $http, toaster, $state, functionService, httpService, pageService) {
 
 	$scope.search = {};
-	$scope.search.picCode = "AAA_IMAGE";
+	$scope.search.picCode = "PRODUCT_HEADER";
 	$scope.search.referId = '';
 	//应用
-	$scope.picCodeTypes = [{"code":"HEADER_IMAGE", "name":"首页大图"}
-	,{"code":"AAA_IMAGE","name":"产品大图"	}];
+	$scope.picCodeTypes = [];
+	httpService.httpGet('/api/pic/get/picTypes', function(result){
+		var typeData = result.data;
+		$scope.picCodeTypes = typeData;
+	});
 	
 	$scope.searchPic = function() {
 		console.log($scope.search);

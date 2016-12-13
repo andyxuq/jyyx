@@ -1,4 +1,5 @@
-  app.controller('picAddCtrlIns', ['$scope', '$modalInstance', 'items', function($scope, $modalInstance, items) {
+app.controller('picAddCtrlIns', ['$scope', '$modalInstance', 'items', 'toaster', 'httpService', 
+    function($scope, $modalInstance, items, toaster, httpService) {
     $scope.items = items;
     $scope.selected = {
       item: $scope.items[0]
@@ -8,30 +9,54 @@
 	
 	$scope.fileSize = 1;
 	$scope.picRes = {
-			'picCode':'bbb',
+			'picCode':'PRODUCT_HEADER',
 			'referId':0,
 			'picArray':[{
 				'codeName':'orderCode_' + $scope.fileSize,
-				'codeValue':0,
+				'codeValue':$scope.fileSize,
 				'pathName':'file_' + $scope.fileSize,
-				'pathValue':''
-			},{
-				'codeName':'orderCode_2',
-				'codeValue':0,
-				'pathName':'file_2',
-				'pathValue':''
+				'pathValue':'',
+				'nameOrder':$scope.fileSize
 			}]
 	};
 	
-	$scope.picCodeTypes = [{
-		'code':'aaaa',
-		'name':'高大上'
-	},{
-		'code':'bbb',
-		'name':'矮穷挫'
-	}];
+	$scope.picCodeTypes = [];
+	httpService.httpGet('/api/pic/get/picTypes', function(result){
+		var typeData = result.data;
+		$scope.picCodeTypes = typeData;
+	});
 	
+    $scope.addPicLine = function() {
+    	if ($scope.picRes.picArray.length === 8) {
+    		toaster.pop('warning','','最多添加8个输入框');
+    		return;
+    	}
+    	$scope.fileSize += 1;
+    	$scope.picRes.picArray.push({
+    		'codeName':'orderCode_' + $scope.fileSize,
+			'codeValue':$scope.fileSize,
+			'pathName':'file_' + $scope.fileSize,
+			'pathValue':'',
+			'nameOrder':$scope.fileSize
+    	});
+    }
     
+    $scope.removePicLine = function(nameOrder) {
+    	var index = -1;
+    	if ($scope.picRes.picArray.length == 1) {
+    		toaster.pop('warning', '', '请至少保留一个图片选择框')
+    		return;
+    	}
+    	for (var i = 0; i < $scope.picRes.picArray.length; i++) {
+    		if ($scope.picRes.picArray[i].nameOrder === nameOrder) {
+    			index = i;
+    		}
+    	}
+    	if (index != -1) {
+    		$scope.picRes.picArray.splice(index, 1);
+    	}
+    }
+	
     $scope.ok = function () {
       $modalInstance.close($scope.selected.item);
     };
