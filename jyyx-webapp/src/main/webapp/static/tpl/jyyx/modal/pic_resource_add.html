@@ -2,7 +2,7 @@
   <div class="panel panel-default">
     <div class="panel-heading font-bold">图片资源{{modifyType}}</div>
     <div class="panel-body">
-      <form name="forma" class="form-horizontal form-validation">
+      <form name="form" class="form-horizontal form-validation" ng-submit="ok()">
           <div class="panel panel-default">
             <div class="panel-body">                    
               <div class="form-group pull-in clearfix">
@@ -25,7 +25,7 @@
                   </div>
                   <div class="col-sm-6">
                     <label>图片文件:</label>
-                    <input ng-model="pic.pathValue" name="{{pic.pathName}}" type="file" class="form-control" placeholder="选择图片" />
+                    <input ng-model="pic.pathValue" name="{{pic.pathName}}" type="file" nv-file-select="" uploader="uploader" class="form-control" placeholder="选择图片" />
                   </div>
                   <div class="col-sm-2">
                   	<label></label>
@@ -35,7 +35,7 @@
               </div>  
               <div class="modal-footer" style="margin-top:40px">                  
 			    <button class="btn btn-default" ng-click="cancel()">取消</button>
-			    <button class="btn btn-primary" ng-click="ok()">保存</button>
+			    <button type="submit" class="btn btn-primary">保存</button>
 			  </div>
 	            <!-- <footer class="panel-footer text-right bg-light lter">
 	              <button type="button" class="btn btn-default">取消</button>

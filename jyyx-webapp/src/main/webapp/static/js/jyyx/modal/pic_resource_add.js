@@ -1,12 +1,15 @@
-app.controller('picAddCtrlIns', ['$scope', '$modalInstance', 'items', 'toaster', 'httpService', 
-    function($scope, $modalInstance, items, toaster, httpService) {
+app.controller('picAddCtrlIns', ['$scope', '$modalInstance', 'items', 'picResId', 'toaster', 'httpService', 'uploader',
+    function($scope, $modalInstance, items, picResId, toaster, httpService, uploader) {
     $scope.items = items;
+    $scope.uploader = uploader;
     $scope.selected = {
       item: $scope.items[0]
     };
 
 	$scope.modifyType = '新增';
-	
+
+	$scope.picResId = picResId;
+	console.log(picResId);
 	$scope.fileSize = 1;
 	$scope.picRes = {
 			'picCode':'PRODUCT_HEADER',
@@ -58,7 +61,9 @@ app.controller('picAddCtrlIns', ['$scope', '$modalInstance', 'items', 'toaster',
     }
 	
     $scope.ok = function () {
-      $modalInstance.close($scope.selected.item);
+    	$scope.uploader.formData = {
+    		
+    	};	
     };
 
     $scope.cancel = function () {
@@ -66,10 +71,13 @@ app.controller('picAddCtrlIns', ['$scope', '$modalInstance', 'items', 'toaster',
     };
   }])
   ; 
-  app.controller('picAddCtrl', ['$scope', '$modal', '$log', function($scope, $modal, $log) {
-	
+  app.controller('picAddCtrl', ['$scope', '$modal', '$log', 'FileUploader', function($scope, $modal, $log, $stateParams, FileUploader) {
     $scope.items = ['item1', 'item2', 'item3'];
-    $scope.open = function (size) {
+    
+    var uploader = $scope.uploader = new FileUploader({
+        url: '/api/pic/add'
+    });
+    $scope.open = function (size, picResId) {
       var modalInstance = $modal.open({
         templateUrl: 'myModalContent.html',
         controller: 'picAddCtrlIns',
@@ -77,6 +85,12 @@ app.controller('picAddCtrlIns', ['$scope', '$modalInstance', 'items', 'toaster',
         resolve: {
           items: function () {
             return $scope.items;
+          },
+          picResId : function() {
+        	  return picResId;
+          },
+          uploader: function () {
+        	  return uploader
           }
         }
       });

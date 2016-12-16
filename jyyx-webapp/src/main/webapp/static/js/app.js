@@ -20,5 +20,6 @@ angular.module('app', [
     'functionServiceModule',
     'httpServiceModule',
     'radialIndicator',
-    'pageServiceModule'
+    'pageServiceModule',
+    'angularFileUpload'
 ]);

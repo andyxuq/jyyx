@@ -38,12 +38,12 @@
       	<div class="input-group">
 	        <div class="btn-group">
 	            <button class="btn btn-sm btn-danger" type="button">批量删除</button>
-	            <span ng-controller="picAddCtrl">
+	            <span ng-controller="picAddCtrl" uploader="uploader">
 		          <script type="text/ng-template" id="myModalContent.html">
             			<div ng-include="'static/tpl/jyyx/modal/pic_resource_add.html'"></div>
           		  </script>
 		          <!-- <button class="btn btn-success" ng-click="open('lg')">Form in a modal</button> -->
-                  <button class="btn btn-sm btn-dark" type="button" ng-click="open('lg')">添加资源</button>
+                  <button class="btn btn-sm btn-dark" type="button" ng-click="open('lg', 0)">添加资源</button>
 		        </span>
 	        </div>
         </div>

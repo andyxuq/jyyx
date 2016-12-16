@@ -68,6 +68,7 @@
   <script src="static/js/directives/ui-toggleclass.js"></script>
   <script src="static/js/directives/ui-validate.js"></script>
   <script src="static/js/controllers/bootstrap.js"></script>
+  <script src="static/vendor/modules/angular-file-upload/angular-file-upload.min.js"></script>
   <!-- Lazy loading -->
 </body>
 </html>
