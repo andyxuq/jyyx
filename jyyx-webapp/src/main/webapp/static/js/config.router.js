@@ -17,7 +17,7 @@ angular.module('app')
 			function($stateProvider, $urlRouterProvider) {
 
 				$urlRouterProvider
-					.otherwise('/app/pic');
+					.otherwise('/app/productCategory');
 				$stateProvider
 					.state('app', {
 						abstract: true,
@@ -36,13 +36,13 @@ angular.module('app')
 							]
 						}
 					})
-					.state('app.updateMemory', {
-						url: '/updateMemory/{clusterId}',
-						templateUrl: 'static/tpl/update_memory.html',
+					.state('app.productCategory', {
+						url: '/productCategory',
+						templateUrl: 'static/tpl/jyyx/product_category.html',
 						resolve: {
 							deps: ['$ocLazyLoad',
 								function($ocLazyLoad) {
-									return $ocLazyLoad.load(['static/js/controllers/update-memory.js']);
+;									return $ocLazyLoad.load(['static/js/jyyx/product_category.js']);
 								}
 							]
 						}

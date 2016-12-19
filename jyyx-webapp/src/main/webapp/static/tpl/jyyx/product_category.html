@@ -1,0 +1,106 @@
+<!-- hbox layout -->
+<div class="hbox hbox-auto-xs bg-light " ng-init="
+  app.settings.asideFixed = true;
+  app.settings.asideDock = false;
+  app.settings.container = false;
+  app.hideAside = false;
+  app.hideFooter = true;
+  " ng-controller="ProductCategory">
+	<!-- column -->
+	<toaster-container toaster-options="{'position-class': 'toast-bottom-full-width', 'close-button':true}"></toaster-container>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">产品分类</h1>
+</div>
+<div class="wrapper-md">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="col-sm-9">
+	      <form class="form-inline form-validation" role="form" ng-submit="searchProductCategory()">
+	        <div class="form-group">
+	        	<label class="sr-only">分类名</label>
+	            <input class="input-sm form-control w-sm inline v-middle" 
+	            	id="categoryName_id" ng-model="search.categoryName" placeholder="分类名"></input>
+	        </div>
+	        <div class="form-group">
+	          <label class="sr-only" for="exampleInputPassword2">父分类ID</label>
+	          <input type="number" ui-validate=" '$value >= 0' " class="form-control input-sm" id="parentId_id" 
+	          	 ng-model="search.parentId" placeholder="父分类ID"/> 
+	        </div>
+	        <button type="submit" class="btn btn-default btn-sm">查询</button>
+	      </form>
+      </div>
+      
+      <div class="col-sm-3">
+      	<div class="input-group">
+	        <div class="btn-group">
+	            <button class="btn btn-sm btn-dark" type="button" ng-click="updateOrderBatch()">批量更改排序号</button>
+	            <button class="btn btn-sm btn-dark" type="button" ng-click="deleteCategory()">增加分类</button>
+	            <!-- <span ng-controller="picAddCtrl" uploader="uploader">
+		          <script type="text/ng-template" id="myModalContent.html">
+            			<div ng-include="'static/tpl/jyyx/modal/product_category_add.html'"></div>
+          		  </script>
+                  <button class="btn btn-sm btn-dark" type="button" ng-click="open('lg', 0)">添加产品分类</button>
+		        </span> -->	
+	        </div>
+        </div>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped b-t b-light">
+        <thead>
+          <tr>
+          	<th style="width:20px;">
+              <label class="i-checks m-b-none">
+                <input type="checkbox" ng-click="batchCheck($event)"><i></i>
+              </label>
+            </th>
+            <th>ID</th>
+            <th>创建时间</th>
+            <th>更新时间</th>
+            <th>分类名</th>
+            <th style="width:20px;">排序号</th>
+            <th>父分类ID</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="productCategory in productCategoryList">
+          	<td>
+          		<label class="i-checks m-b-none">
+          			<input type="checkbox" ng-checked="isChecked(productCategory.id)"  ng-click="updateSelection(productCategory.id)" value="{{productCategory.id}}" /><i></i>
+          		</label>
+          	</td>
+            <td>{{productCategory.id}}</td>
+            <td>{{productCategory.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td>{{productCategory.updatedTime  | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td>{{productCategory.categoryName}}</td>
+            <td><input type="text" style="text-align:center;width:50px" class="input w-sm v-middle middle" value="{{productCategory.orderCode}}" ng-model="productCategory.orderCode"/></td>
+            <td>{{productCategory.parentId}}</td>
+            <td>
+	            <div class="btn-group">
+		            <button class="btn btn-sm btn-danger" type="button" ng-click="deleteCategory()">删除</button>
+		            <button class="btn btn-sm btn-dark" type="button" ng-click="deleteCategory()">修改</button>	
+	            </div>	
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+	<!-- /column -->
+<script type="text/ng-template" id="messageModal.html">
+	<div ng-include="'static/tpl/blocks/modal_box.html'"></div>
+</script>
+<!-- <div ng-show="showProcess">
+	<div  class="modal-backdrop fade in" ng-class="{in: animate}" ng-style="{'z-index': 1040 + (index &amp;&amp; 1 || 0) + index*10}" modal-backdrop="" style="z-index: 1040;">
+	</div>
+	<div tabindex="-1" class="modal fade ng-isolate-scope in" ng-class="{in: animate}" ng-style="{'z-index': 1050 + index*10, display: 'block'}" index="0" animate="animate" style="z-index: 1050; display: block;">
+	   <div style="margin-left: 40%;margin-top: 20%;">
+			<img src="static/img/process.gif" width="160px" height="160px" alt="鍔犺浇涓�">
+		</div>
+	</div>
+</div> -->
+</div>
