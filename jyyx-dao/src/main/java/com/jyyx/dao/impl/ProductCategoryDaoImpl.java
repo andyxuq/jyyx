@@ -100,6 +100,9 @@ public class ProductCategoryDaoImpl implements ProductCategoryDao {
 	 * @throws IllegalAccessException
 	 */
 	private void loopCategoryRelation(JyProductCategory category) throws BeansException, InstantiationException, IllegalAccessException {
+		if (null == category) {
+			return;
+		}
 		ProductCategoryExample example = new ProductCategoryExample();
 		example.createCriteria().andParentIdEqualTo(category.getId());
 		example.setOrderByClause("order_code asc, create_time desc");

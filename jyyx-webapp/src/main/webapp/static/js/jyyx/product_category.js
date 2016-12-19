@@ -3,21 +3,21 @@ function($scope, $modal, $log, $http, toaster, $state, functionService, httpServ
 
 	$scope.search = {
 			'categoryName':'',
-			'parentId':'0'
+			'parentId':0
 	};
 	
 	//加载数据
-	var loadData = function () {
+	$scope.loadData = function () {
 		httpService.httpPost('/api/product/category/get', $scope.search, function(result){
 			var data = result.data;
 			$scope.productCategoryList = data;
 		});
 	}
-	loadData();
+	$scope.loadData();
 
 	//查询产品分类
 	$scope.searchProductCategory = function() {
-		loadData();
+		$scope.loadData();
 	}
 	
 	//删除产品分类
@@ -68,13 +68,16 @@ function($scope, $modal, $log, $http, toaster, $state, functionService, httpServ
     		console.log(postData);
     		httpService.httpPost('/api/product/category/modifyOrder', postData, function(result){
     			toaster.pop('info', '', '排序号修改成功');
-    			loadData();
+    			$scope.loadData();
     		});
     	}
     }
     
-	$scope.deleteCategory = function() {
-		console.log($scope.selectIds);
+	$scope.deleteCategory = function(resourceId) {
+		httpService.httpPost('/api/product/category/delete/' + resourceId, null, function(result){
+			toaster.pop('info', '', '删除分类' + resourceId + "成功");
+			$scope.loadData();
+		});
 	}
 	
 	

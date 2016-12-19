@@ -35,13 +35,12 @@
       	<div class="input-group">
 	        <div class="btn-group">
 	            <button class="btn btn-sm btn-dark" type="button" ng-click="updateOrderBatch()">批量更改排序号</button>
-	            <button class="btn btn-sm btn-dark" type="button" ng-click="deleteCategory()">增加分类</button>
-	            <!-- <span ng-controller="picAddCtrl" uploader="uploader">
+	            <span ng-controller="pcModalCtrl">
 		          <script type="text/ng-template" id="myModalContent.html">
             			<div ng-include="'static/tpl/jyyx/modal/product_category_add.html'"></div>
           		  </script>
                   <button class="btn btn-sm btn-dark" type="button" ng-click="open('lg', 0)">添加产品分类</button>
-		        </span> -->	
+		        </span>	
 	        </div>
         </div>
       </div>
@@ -79,8 +78,13 @@
             <td>{{productCategory.parentId}}</td>
             <td>
 	            <div class="btn-group">
-		            <button class="btn btn-sm btn-danger" type="button" ng-click="deleteCategory()">删除</button>
-		            <button class="btn btn-sm btn-dark" type="button" ng-click="deleteCategory()">修改</button>	
+		            <button class="btn btn-sm btn-danger" type="button" ng-click="deleteCategory(productCategory.id)">删除</button>		            
+		            <span ng-controller="pcModalCtrl">
+			          <script type="text/ng-template" id="myModalContent.html">
+            			<div ng-include="'static/tpl/jyyx/modal/product_category_add.html'"></div>
+          		  	  </script>
+	                  <button class="btn btn-sm btn-dark" type="button" ng-click="open('lg', productCategory.id)">修改</button>
+			        </span>		
 	            </div>	
             </td>
           </tr>

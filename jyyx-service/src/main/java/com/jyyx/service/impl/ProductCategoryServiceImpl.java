@@ -26,7 +26,8 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	/* (non-Javadoc)
 	 * @see com.jyyx.service.ProductCategoryService#addResources(com.jyyx.dao.mysql.entity.ProductCategory)
 	 */
-	public void addResources(ProductCategory productCategory) {
+	public void addResources(ProductCategory productCategory) throws JyException {
+		checkRes(productCategory);
 		productCategoryDao.addResources(productCategory);
 	}
 
@@ -34,6 +35,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	 * @see com.jyyx.service.ProductCategoryService#modifyResources(com.jyyx.dao.mysql.entity.ProductCategory)
 	 */
 	public void modifyResources(ProductCategory productCategory) throws JyException {
+		checkRes(productCategory);
 		productCategoryDao.modifyResources(productCategory);
 	}
 
@@ -86,4 +88,15 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 		}
 	}
 	
+	private void checkRes(ProductCategory productCategory) throws JyException {
+		if (0 != productCategory.getParentId()) {
+			ProductCategory parentRes = getResourcesById(productCategory.getParentId());
+			if (null == parentRes) {
+				throw new JyException("父分类资源" + productCategory.getParentId() + "不存在");
+			}
+			if (parentRes.getParentId() != 0) {
+				throw new JyException("资源级数添加过多，只能添加两级资源信息");
+			}
+		}
+	}
 }

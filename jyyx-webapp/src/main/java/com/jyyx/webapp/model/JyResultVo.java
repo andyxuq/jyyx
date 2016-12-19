@@ -22,7 +22,7 @@ public class JyResultVo {
 	}
 	
 	public JyResultVo(JyResultType result, Exception e) {
-		this(result.getCode(), result.getMsg() + ":" + e.getMessage());
+		this(result.getCode(), result.getMsg() + ":[" + e.getMessage() + "]");
 	}
 	
 	public JyResultVo(JyResultType result, Object data) {

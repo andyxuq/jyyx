@@ -9,11 +9,11 @@ httpServiceM.service('httpService', function($interval,$http, toaster) {
 				if (result.code == 0) {
 					callback(result);
 				} else {
-					toaster.pop("error", "",  result.message);
+					toaster.pop("error", "",  result.msg);
 				}
 			})
 			.error(function(result, status, headers, config) {
-				toaster.pop("error", "",   result.message!=undefined?result.message:"http请求错误");
+				toaster.pop("error", "",   result.msg!=undefined?result.message:"http请求错误");
 			});
 	}
 	
@@ -28,11 +28,11 @@ httpServiceM.service('httpService', function($interval,$http, toaster) {
 				if (result.code == 0) {
 					callback(result);
 				} else {
-					toaster.pop("error", "", result.message);
+					toaster.pop("error", "", result.msg);
 				}
 			})
 			.error(function(result, status, headers, config) {
-				toaster.pop("error", "", result.message!=undefined?result.message:"http请求错误");
+				toaster.pop("error", "", result.msg!=undefined?result.message:"http请求错误");
 			});
 	}
 	
@@ -50,11 +50,11 @@ httpServiceM.service('httpService', function($interval,$http, toaster) {
 			if (result.code == 0) {
 				callback(result);
 			} else {
-				toaster.pop("error", "", result.message);
+				toaster.pop("error", "", result.msg);
 			}
         }).
         error(function(result, status, headers, config) {
-        	toaster.pop("error", "", result.message!=undefined?result.message:"http请求错误");
+        	toaster.pop("error", "", result.msg!=undefined?result.message:"http请求错误");
         });
 	}
 	

@@ -42,7 +42,8 @@ angular.module('app')
 						resolve: {
 							deps: ['$ocLazyLoad',
 								function($ocLazyLoad) {
-;									return $ocLazyLoad.load(['static/js/jyyx/product_category.js']);
+;									return $ocLazyLoad.load(['static/js/jyyx/product_category.js'
+ 									                         , 'static/js/jyyx/modal/product_category_add.js']);
 								}
 							]
 						}

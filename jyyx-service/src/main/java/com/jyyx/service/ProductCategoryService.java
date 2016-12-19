@@ -13,8 +13,9 @@ import com.jyyx.dao.mysql.entity.ProductCategory;
  */
 public interface ProductCategoryService {
 	
-	/** 添加资源 */
-	void addResources(ProductCategory productCategory);
+	/** 添加资源 
+	 * @throws JyException */
+	void addResources(ProductCategory productCategory) throws JyException;
 	
 	/** 修改资源 
 	 * @throws JyException */
