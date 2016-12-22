@@ -1,25 +1,25 @@
 <div class="modal-body wrapper-lg">
   <div class="panel panel-default">
-    <div class="panel-heading font-bold">产品分类资源{{modifyType}}</div>
+    <div class="panel-heading font-bold">案例分类资源{{modifyType}}</div>
     <div class="panel-body">
       <form name="form" class="form-horizontal form-validation" ng-submit="ok()">
      	  <div class="form-group">
             <label class="col-lg-2 control-label">分类名</label>
             <div class="col-lg-10">
-              <input type="text" ng-model="pcRes.categoryName" class="form-control" placeholder="请输入分类名字" required>
+              <input type="text" ng-model="ccRes.categoryName" class="form-control" placeholder="请输入分类名字" required>
               <span class="help-block m-b-none"></span>
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-2 control-label">父分类ID</label>
             <div class="col-lg-10">
-              <input type="number" ng-model="pcRes.parentId" ui-validate=" '$value >= 0' " class="form-control" placeholder="请输入父分类ID" required>
+              <input type="number" ng-model="ccRes.parentId" ui-validate=" '$value >= 0' " class="form-control" placeholder="请输入父分类ID" required>
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-2 control-label">排序号</label>
             <div class="col-lg-10">
-              <input type="number" ng-model="pcRes.orderCode" ui-validate=" '$value >= 0' " class="form-control" placeholder="请输入排序号" required>
+              <input type="number" ng-model="ccRes.orderCode" ui-validate=" '$value >= 0' " class="form-control" placeholder="请输入排序号" required>
             </div>
           </div>
           <footer class="panel-footer text-right bg-light lter">                 

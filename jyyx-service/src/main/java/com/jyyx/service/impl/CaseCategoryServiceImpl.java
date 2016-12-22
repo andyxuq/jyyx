@@ -12,6 +12,7 @@ import com.jyyx.dao.CaseCategoryDao;
 import com.jyyx.dao.ProductCategoryDao;
 import com.jyyx.dao.model.JyCaseCategory;
 import com.jyyx.dao.mysql.entity.CaseCategory;
+import com.jyyx.dao.mysql.entity.ProductCategory;
 import com.jyyx.service.CaseCategoryService;
 import com.jyyx.service.ProductCategoryService;
 
@@ -28,7 +29,8 @@ public class CaseCategoryServiceImpl implements CaseCategoryService {
 	/* (non-Javadoc)
 	 * @see com.jyyx.service.ProductCategoryService#addResources(com.jyyx.dao.mysql.entity.CaseCategory)
 	 */
-	public void addResources(CaseCategory caseCategory) {
+	public void addResources(CaseCategory caseCategory) throws JyException {
+		checkRes(caseCategory);
 		caseCategoryDao.addResources(caseCategory);
 	}
 
@@ -36,6 +38,7 @@ public class CaseCategoryServiceImpl implements CaseCategoryService {
 	 * @see com.jyyx.service.ProductCategoryService#modifyResources(com.jyyx.dao.mysql.entity.CaseCategory)
 	 */
 	public void modifyResources(CaseCategory caseCategory) throws JyException {
+		checkRes(caseCategory);
 		caseCategoryDao.modifyResources(caseCategory);
 	}
 
@@ -85,6 +88,18 @@ public class CaseCategoryServiceImpl implements CaseCategoryService {
 			return caseCategoryDao.getResourcesById(resourceId);
 		} catch (Exception e) {
 			throw new JyException("查询案例-分类详情出错", e);
+		}
+	}
+	
+	private void checkRes(CaseCategory caseCategory) throws JyException {
+		if (0 != caseCategory.getParentId()) {
+			CaseCategory parentRes = getResourcesById(caseCategory.getParentId());
+			if (null == parentRes) {
+				throw new JyException("父分类资源" + caseCategory.getParentId() + "不存在");
+			}
+			if (parentRes.getParentId() != 0) {
+				throw new JyException("资源级数添加过多，只能添加两级资源信息");
+			}
 		}
 	}
 	

@@ -105,6 +105,9 @@ public class CaseCategoryDaoImpl implements CaseCategoryDao {
 	 * @throws IllegalAccessException
 	 */
 	private void loopCategoryRelation(JyCaseCategory category) throws BeansException, InstantiationException, IllegalAccessException {
+		if (null == category) {
+			return;
+		}
 		CaseCategoryExample example = new CaseCategoryExample();
 		example.createCriteria().andParentIdEqualTo(category.getId());
 		example.setOrderByClause("order_code asc, create_time desc");

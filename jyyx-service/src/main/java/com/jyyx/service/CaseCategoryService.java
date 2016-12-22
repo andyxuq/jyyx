@@ -13,8 +13,9 @@ import com.jyyx.dao.mysql.entity.CaseCategory;
  */
 public interface CaseCategoryService {
 	
-	/** 添加资源 */
-	void addResources(CaseCategory caseCategory);
+	/** 添加资源 
+	 * @throws JyException */
+	void addResources(CaseCategory caseCategory) throws JyException;
 	
 	/** 修改资源 
 	 * @throws JyException */

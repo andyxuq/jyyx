@@ -48,13 +48,14 @@ angular.module('app')
 							]
 						}
 					})
-					.state('app.physicalMinitor', {
-						url: '/physicalMinitor',
-						templateUrl: 'static/tpl/monitor/physical_monitor.html',
+					.state('app.caseCategory', {
+						url: '/caseCategory',
+						templateUrl: 'static/tpl/jyyx/case_category.html',
 						resolve: {
 							deps: ['$ocLazyLoad',
 								function($ocLazyLoad) {
-									return $ocLazyLoad.load(['static/js/controllers/monitor/physical-monitor.js']);
+									return $ocLazyLoad.load(['static/js/jyyx/case_category.js'
+									                         , 'static/js/jyyx/modal/case_category_add.js']);
 								}
 							]
 						}

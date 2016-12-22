@@ -1,4 +1,4 @@
-app.controller('ProductCategory', ['$scope', '$modal', '$log', '$http','toaster', '$state','functionService','httpService','pageService',
+app.controller('CaseCategory', ['$scope', '$modal', '$log', '$http','toaster', '$state','functionService','httpService','pageService',
 function($scope, $modal, $log, $http, toaster, $state, functionService, httpService, pageService) {
 
 	$scope.search = {
@@ -8,15 +8,16 @@ function($scope, $modal, $log, $http, toaster, $state, functionService, httpServ
 	
 	//加载数据
 	$scope.loadData = function () {
-		httpService.httpPost('/api/product/category/get', $scope.search, function(result){
+		httpService.httpPost('/api/case/category/get', $scope.search, function(result){
 			var data = result.data;
-			$scope.productCategoryList = data;
+			$scope.caseCategoryList = data;
 		});
 	}
 	$scope.loadData();
 
 	//查询产品分类
-	$scope.searchProductCategory = function() {
+	$scope.searchCaseCategory = function() {
+		$scope.selectIds = [];
 		$scope.loadData();
 	}
 	
@@ -40,9 +41,9 @@ function($scope, $modal, $log, $http, toaster, $state, functionService, httpServ
     	var checked = checkbox.checked;
     	
     	if (checked) {
-    		for (var index in $scope.productCategoryList) {
-    			if ($scope.selectIds.indexOf($scope.productCategoryList[index].id) == -1) {
-    				$scope.selectIds.push($scope.productCategoryList[index].id);
+    		for (var index in $scope.caseCategoryList) {
+    			if ($scope.selectIds.indexOf($scope.caseCategoryList[index].id) == -1) {
+    				$scope.selectIds.push($scope.caseCategoryList[index].id);
     			}
     		}
     	} else {
@@ -57,16 +58,16 @@ function($scope, $modal, $log, $http, toaster, $state, functionService, httpServ
     		toaster.pop('error', '', '未选择任何资源');
     	} else {
     		var postData = {};
-    		for (var index in $scope.productCategoryList) {
-    			if ($scope.selectIds.indexOf($scope.productCategoryList[index].id) != -1) {
-    				var id = $scope.productCategoryList[index].id;
-    				var orderCode = $scope.productCategoryList[index].orderCode;
+    		for (var index in $scope.caseCategoryList) {
+    			if ($scope.selectIds.indexOf($scope.caseCategoryList[index].id) != -1) {
+    				var id = $scope.caseCategoryList[index].id;
+    				var orderCode = $scope.caseCategoryList[index].orderCode;
     				
     				postData[id] = orderCode;
     			}
     		}
     		console.log(postData);
-    		httpService.httpPost('/api/product/category/modifyOrder', postData, function(result){
+    		httpService.httpPost('/api/case/category/modifyOrder', postData, function(result){
     			toaster.pop('info', '', '排序号修改成功');
     			$scope.loadData();
     		});
@@ -86,7 +87,7 @@ function($scope, $modal, $log, $http, toaster, $state, functionService, httpServ
 				}
 			}
 		}).result.then(function() {
-			httpService.httpPost('/api/product/category/delete/' + resourceId, null, function(result){
+			httpService.httpPost('/api/case/category/delete/' + resourceId, null, function(result){
 				toaster.pop('info', '', '删除分类' + resourceId + "成功");
 				$scope.loadData();
 			});
