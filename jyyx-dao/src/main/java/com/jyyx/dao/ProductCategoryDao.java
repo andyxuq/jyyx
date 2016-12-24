@@ -1,9 +1,12 @@
 package com.jyyx.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.BeansException;
 
+import com.jyyx.dao.model.JyCaseCategory;
+import com.jyyx.dao.model.JyProduct;
 import com.jyyx.dao.model.JyProductCategory;
 import com.jyyx.dao.mysql.entity.ProductCategory;
 
@@ -38,4 +41,14 @@ public interface ProductCategoryDao {
 	
 	/** 修改资源 */
 	void modifyResources(ProductCategory productCategory);
+	
+	/**
+	 * 根据ID列表获取数据
+	 * @param ids
+	 * @return
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws BeansException 
+	 */
+	List<JyProductCategory> getResouceByIds(Set<Integer> ids) throws BeansException, InstantiationException, IllegalAccessException;
 }

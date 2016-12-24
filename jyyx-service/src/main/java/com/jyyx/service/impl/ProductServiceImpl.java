@@ -43,14 +43,14 @@ public class ProductServiceImpl implements ProductService {
 	/* (non-Javadoc)
 	 * @see com.jyyx.service.ProductService#getResources(com.jyyx.dao.model.ProductParam)
 	 */
-	public List<JyProduct> getResources(ProductParam productParam) {
+	public List<JyProduct> getResources(ProductParam productParam) throws BeansException, InstantiationException, IllegalAccessException {
 		return productDao.getResources(productParam);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.jyyx.service.ProductService#getPicResourcesWithPage(com.jyyx.dao.model.ProductParam, int, int)
 	 */
-	public PageData<JyProduct> getResourcesWithPage(ProductParam productParam, int page, int pageRow) {
+	public PageData<JyProduct> getResourcesWithPage(ProductParam productParam, int page, int pageRow) throws BeansException, InstantiationException, IllegalAccessException {
 		int totalCount = productDao.getResourcesCount(productParam);
 		PageInfo pageInfo = new PageInfo(page, pageRow, totalCount);
 		

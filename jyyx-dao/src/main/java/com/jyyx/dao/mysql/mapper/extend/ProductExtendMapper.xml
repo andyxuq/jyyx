@@ -7,9 +7,18 @@
     <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
     <result column="product_name" jdbcType="VARCHAR" property="productName" />
     <result column="product_link" jdbcType="VARCHAR" property="productLink" />
+    <result column="product_desc" jdbcType="LONGVARCHAR" property="productDesc" />
+    <collection property="productCategorys" ofType="com.jyyx.dao.model.JyProductCategory">
+    	<id column="product_id" jdbcType="INTEGER" property="id" />
+	    <result column="product_create_time" jdbcType="TIMESTAMP" property="createTime" />
+	    <result column="product_updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+	    <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
+	    <result column="order_code" jdbcType="INTEGER" property="orderCode" />
+	    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    </collection>
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.jyyx.dao.model.JyProduct">
-    <result column="product_desc" jdbcType="LONGVARCHAR" property="productDesc" />
+    
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -41,18 +50,18 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    j.id, j.create_time, j.updated_time, j.product_name, j.product_link
+    j.id, j.create_time, j.updated_time, j.product_name, j.product_link, j.product_desc
   </sql>
-  <sql id="Blob_Column_List">
-    product_desc
+    <sql id="Category_Base_Column_List">
+    c.id as product_id, c.create_time as product_create_time, c.updated_time as product_updated_time, c.category_name, c.order_code, c.parent_id
   </sql>
  
   <select id="countByParam" parameterType="com.jyyx.dao.model.ProductParam" resultType="int">
   	select count(0) from (
   	select distinct j.* 
-	from jy_product j, jy_product_category_relation r  
+	from jy_product j, jy_product_category_relation r, jy_product_category c
 	<where>
-		j.id = r.product_id
+		j.id = r.product_id and r.category_id = c.id
 		<if test="id != 0">
 			and j.id = #{id}
 		</if>
@@ -72,10 +81,11 @@
   <select id="selectByParam" parameterType="com.jyyx.dao.model.ProductParam" resultMap="BaseResultMap">
   	select distinct
     <include refid="Base_Column_List" />
-    
-	from jy_product j, jy_product_category_relation r  
+    ,
+    <include refid="Category_Base_Column_List" />
+	from jy_product j, jy_product_category_relation r, jy_product_category c 
 	<where>
-		j.id = r.product_id
+		j.id = r.product_id and r.category_id = c.id
 		<if test="id != 0">
 			and j.id = #{id}
 		</if>

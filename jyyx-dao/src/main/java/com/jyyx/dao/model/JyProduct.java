@@ -13,13 +13,13 @@ import com.jyyx.dao.mysql.entity.ProductCategory;
  * andy xu
  * 2016年11月9日
  */
-public class JyProduct extends Case {
+public class JyProduct extends Product {
 
 	/** 产品图片 */
 	private List<Pic> pics = new ArrayList<Pic>();
 	
 	/** 产品分类 */
-	private List<JyCaseCategory> caseCategorys = new ArrayList<JyCaseCategory>();
+	private List<JyProductCategory> productCategorys = new ArrayList<JyProductCategory>();
 
 	/**
 	 * @return the pics
@@ -36,16 +36,16 @@ public class JyProduct extends Case {
 	}
 
 	/**
-	 * @return the caseCategorys
+	 * @return the productCategorys
 	 */
-	public List<JyCaseCategory> getCaseCategorys() {
-		return caseCategorys;
+	public List<JyProductCategory> getProductCategorys() {
+		return productCategorys;
 	}
 
 	/**
-	 * @param caseCategorys the caseCategorys to set
+	 * @param productCategorys the productCategorys to set
 	 */
-	public void setCaseCategorys(List<JyCaseCategory> caseCategorys) {
-		this.caseCategorys = caseCategorys;
+	public void setProductCategorys(List<JyProductCategory> productCategorys) {
+		this.productCategorys = productCategorys;
 	}
 }

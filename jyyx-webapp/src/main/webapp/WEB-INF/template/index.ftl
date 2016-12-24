@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="static/css/font.css" type="text/css" />
   <link rel="stylesheet" href="static/css/app.css" type="text/css" />
   <link rel="stylesheet" href="static/vendor/modules/angularjs-toaster/toaster.css" type="text/css" />
+  <link rel="stylesheet" href="static/css/jyyx/main.css" />
 </head>
 <body ng-controller="AppCtrl">
   <div class="app" id="app" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded, 'app-aside-dock':app.settings.asideDock, 'container':app.settings.container}" ui-view></div>

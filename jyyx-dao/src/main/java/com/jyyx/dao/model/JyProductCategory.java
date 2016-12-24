@@ -1,5 +1,6 @@
 package com.jyyx.dao.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.jyyx.dao.mysql.entity.ProductCategory;
@@ -12,7 +13,7 @@ import com.jyyx.dao.mysql.entity.ProductCategory;
 public class JyProductCategory extends ProductCategory {
 
 	/** 子分类列表 */
-	private List<JyProductCategory> childList;
+	private List<JyProductCategory> childList = new ArrayList<JyProductCategory>();
 
 	/**
 	 * @return the childList

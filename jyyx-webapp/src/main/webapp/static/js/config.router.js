@@ -60,6 +60,18 @@ angular.module('app')
 							]
 						}
 					})
+					.state('app.product', {
+						url: '/product',
+						templateUrl: 'static/tpl/jyyx/product.html',
+						resolve: {
+							deps: ['$ocLazyLoad',
+								function($ocLazyLoad) {
+									return $ocLazyLoad.load(['static/js/jyyx/product.js'
+									                         , 'static/js/jyyx/modal/product_add.js']);
+								}
+							]
+						}
+					})
 					.state('app.physicalDetail', {
 						url: '/physicalDetail/{hostId}/{ip}',
 						templateUrl: 'static/tpl/monitor/physical_detail.html',

@@ -1,7 +1,9 @@
 package com.jyyx.dao.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeansException;
@@ -9,8 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.jyyx.dao.ProductCategoryDao;
+import com.jyyx.dao.model.JyCaseCategory;
+import com.jyyx.dao.model.JyProduct;
 import com.jyyx.dao.model.JyProductCategory;
 import com.jyyx.dao.mysql.dao.ProductCategoryMapper;
+import com.jyyx.dao.mysql.entity.CaseCategory;
+import com.jyyx.dao.mysql.entity.CaseCategoryExample;
 import com.jyyx.dao.mysql.entity.ProductCategory;
 import com.jyyx.dao.mysql.entity.ProductCategoryExample;
 import com.jyyx.dao.mysql.entity.ProductCategoryExample.Criteria;
@@ -92,6 +98,20 @@ public class ProductCategoryDaoImpl implements ProductCategoryDao {
 		productCategoryMapper.updateByPrimaryKeySelective(productCategory);
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.jyyx.dao.ProductCategoryDao#getResouceByIds(java.util.Set)
+	 */
+	public List<JyProductCategory> getResouceByIds(Set<Integer> ids)
+	        throws BeansException, InstantiationException, IllegalAccessException {
+		List<Integer> idList = new ArrayList<Integer>();
+		idList.addAll(ids);
+		ProductCategoryExample example = new ProductCategoryExample();
+		example.createCriteria().andIdIn(idList);
+		
+		List<ProductCategory> categoryList = productCategoryMapper.selectByExample(example);
+		return ModelUtils.copyList(categoryList, JyProductCategory.class);
+	}
+
 	/**
 	 * 该方法在分类庞大，访问量大的时候会有问题（需要优化）
 	 * @param category

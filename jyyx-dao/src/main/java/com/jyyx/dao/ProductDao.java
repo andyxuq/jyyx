@@ -33,10 +33,13 @@ public interface ProductDao {
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 * @throws BeansException */
-	List<JyProduct> getResources(ProductParam param);
+	List<JyProduct> getResources(ProductParam param) throws BeansException, InstantiationException, IllegalAccessException;
 	
-	/** 分页查询资源 */
-	PageData<JyProduct> getResourcesWithPage(ProductParam param, PageInfo pageInfo);
+	/** 分页查询资源 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws BeansException */
+	PageData<JyProduct> getResourcesWithPage(ProductParam param, PageInfo pageInfo) throws BeansException, InstantiationException, IllegalAccessException;
 	
 	/** 删除资源  */
 	void deleteResources(int resourceId);

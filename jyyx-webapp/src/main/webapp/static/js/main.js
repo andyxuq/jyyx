@@ -15,6 +15,7 @@ angular.module('app')
 //      	$scope.userName = result.data.cnName
 //      });
       $scope.userName = "Andyxu";
+      $scope.pageRow = 20;
       
       // config
       $scope.app = {

@@ -21,11 +21,17 @@ public interface ProductService {
 	/** 修改资源 */
 	void modifyResources(ProductParam productParam);
 	
-	/** 查询资源 */
-	List<JyProduct> getResources(ProductParam productParam);
+	/** 查询资源 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws BeansException */
+	List<JyProduct> getResources(ProductParam productParam) throws BeansException, InstantiationException, IllegalAccessException;
 	
-	/** 分页查询资源 */
-	PageData<JyProduct> getResourcesWithPage(ProductParam productParam, int page, int pageRow);
+	/** 分页查询资源 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws BeansException */
+	PageData<JyProduct> getResourcesWithPage(ProductParam productParam, int page, int pageRow) throws BeansException, InstantiationException, IllegalAccessException;
 	
 	/** 删除资源 */
 	void deleteResources(int resourceId);

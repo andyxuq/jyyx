@@ -1,0 +1,14 @@
+@CHARSET "UTF-8";
+
+img.preview {
+	width:25px;
+	height:25px;
+}
+
+div.show_big_pic {
+	position: absolute;
+	width:100%;
+	margin: auto;
+	z-index: 1000;
+	text-align: center;
+}
