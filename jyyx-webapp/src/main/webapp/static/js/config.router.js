@@ -72,6 +72,18 @@ angular.module('app')
 							]
 						}
 					})
+					.state('app.case', {
+						url: '/case',
+						templateUrl: 'static/tpl/jyyx/case.html',
+						resolve: {
+							deps: ['$ocLazyLoad',
+								function($ocLazyLoad) {
+									return $ocLazyLoad.load(['static/js/jyyx/case.js'
+									                         , 'static/js/jyyx/modal/case_add.js']);
+								}
+							]
+						}
+					})
 					.state('app.physicalDetail', {
 						url: '/physicalDetail/{hostId}/{ip}',
 						templateUrl: 'static/tpl/monitor/physical_detail.html',

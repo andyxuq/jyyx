@@ -1,0 +1,59 @@
+<div class="modal-body wrapper-lg">
+  <div class="panel panel-default">
+    <div class="panel-heading font-bold">案例{{modifyType}}</div>
+    <div class="panel-body">
+      <form name="form" class="form-horizontal form-validation" ng-submit="ok()">
+     	  <div class="form-group">
+            <label class="col-lg-2 control-label">案例名</label>
+            <div class="col-lg-10">
+              <input type="text" ng-model="res.caseName" class="form-control" placeholder="请输入案例名字" required>
+              <span class="help-block m-b-none"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">案例描述</label>
+            <div class="col-lg-10">
+              <input type="text" ng-model="res.caseDesc" class="form-control" placeholder="请输入案例描述" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">案例金额(单位元)</label>
+            <div class="col-lg-10">
+              <input type="number" ng-model="res.casePrice" ui-validate=" '$value >= 0' " class="form-control" placeholder="请输入案例金额" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">案例主题</label>
+            <div class="col-lg-10">
+              <input type="text" ng-model="res.caseTips" class="form-control" placeholder="请输入案例主题" required>
+            </div>
+          </div>
+          	<div class="form-inline pull-in clearfix" ng-repeat="pc in res.caseCategorys">
+             <hr/>
+                 <div class="col-sm-4" ng-show="false">
+                   <label>排序号:</label>
+                   <input ng-model="pc.orderCode" type="number" ui-validate=" '$value >= 0' " class="form-control" placeholder="请输入排序号"/>
+                 </div>
+                 <div class="col-sm-4">
+                   <label></label>
+                   <input type="hidden" />
+                 </div>
+                 <div class="col-sm-10">
+                   <label>选择分类:</label>
+                   <select ng-model="pc.categoryId" class="form-control">
+                   		<option ng-repeat="caseCategory in casecategorys" value="{{caseCategory.id}}" ng-selected="pc.categoryId == caseCategory.id">{{caseCategory.categoryName}}</option>
+                   </select>
+                 </div>
+                 <div class="col-sm-2">
+                 	<label></label>
+		          <button type="button" class="btn btn-sm btn-default" ng-click="addCategoryLine()"><span style="font-size:13px" class="glyphicon glyphicon-plus"></span></button>
+		          <button type="button" class="btn btn-sm btn-default" ng-click="removeCategoryLine(pc)"><span style="font-size:13px" class="glyphicon glyphicon-minus"></span></button>
+                 </div>
+             </div>  
+            <div class="modal-footer" style="margin-top:40px">                  
+			    <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">保存</button>
+  			</div>
+        </form>
+    </div>
+  </div>
+</div>
