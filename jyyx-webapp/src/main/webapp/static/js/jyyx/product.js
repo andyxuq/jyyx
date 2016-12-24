@@ -78,6 +78,8 @@ function($scope, $modal, $log, $http, toaster, $state, functionService, httpServ
 			setPage = $scope.pageData.total;
 		}		
 		$scope.pageData.page = setPage;
+		$scope.loadData();
+		
 		$scope.currentPage = $scope.pageData.page
 		$scope.refreshPageStatus();
 	}

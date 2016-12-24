@@ -47,7 +47,7 @@
   <!-- App -->
   <script src="static/js/app.js"></script>
   <script src="static/js/config.js"></script>
-  <script src="static/js/config.lazyload.js"></script>
+  <script src="static/js/config.lazyload.js"></script>  
   <script src="static/js/config.router.js"></script>
   <script src="static/js/main.js"></script>
   <script src="static/js/services/ui-load.js"></script>

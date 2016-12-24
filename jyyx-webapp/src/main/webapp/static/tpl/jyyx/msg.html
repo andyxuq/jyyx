@@ -1,0 +1,120 @@
+<!-- hbox layout -->
+<div class="hbox hbox-auto-xs bg-light " ng-init="
+  app.settings.asideFixed = true;
+  app.settings.asideDock = false;
+  app.settings.container = false;
+  app.hideAside = false;
+  app.hideFooter = true;
+  " ng-controller="MsgCtrl">
+	<!-- column -->
+	<toaster-container toaster-options="{'position-class': 'toast-bottom-full-width', 'close-button':true}"></toaster-container>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">资讯资源</h1>
+</div>
+<div class="wrapper-md">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="col-sm-10">
+	      <form class="form-inline form-validation" role="form" ng-submit="searchRes()">
+	        <div class="form-group">
+	          <label class="sr-only" for="exampleInputPassword2">ID</label>
+	          <input type="number" class="form-control input-sm"  ui-validate=" '$value >= 0' " id="id_id"  ng-model="search.id" placeholder="资讯ID" />
+	        </div>
+	        <div class="form-group">
+	          <label class="sr-only" for="exampleInputPassword2">资讯标题</label>
+	          <input type="text" class="form-control input-sm" id="msgTitle_id"  ng-model="search.msgTitle" placeholder="资讯标题" /> 
+	        </div>
+	        <div class="form-group">
+	          <label class="sr-only" for="exampleInputPassword2">分类ID</label>
+	          <select ng-model="search.categoryId" class="form-control input-sm">
+	          	<option value="">不限</option>
+             	<option ng-repeat="msgCategory in msgCategorys" value="{{msgCategory.id}}" >{{msgCategory.categoryName}}</option>
+              </select>  
+	        </div>
+	        <button type="submit" class="btn btn-default btn-sm" ng-disabled="form.$invalid">查询</button>
+	      </form>
+      </div>
+      
+      <div class="col-sm-2">
+      	<div class="input-group">
+	        <div class="btn-group">
+	            <button class="btn btn-sm btn-dark" type="button" ng-click="updateOrderBatch()">批量更改排序号</button>
+	            <span ng-controller="msgModalCtrl" uploader="uploader">
+		          <script type="text/ng-template" id="myModalContent.html">
+            			<div ng-include="'static/tpl/jyyx/modal/msg_add.html'"></div>
+          		  </script>
+                  <button class="btn btn-sm btn-dark" type="button" ng-click="open('lg', 0)">添加资源</button>
+		        </span>
+	        </div>
+        </div>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped b-t b-light">
+        <thead>
+          <tr>
+          	<th style="width:20px;">
+              <label class="i-checks m-b-none">
+                <input type="checkbox" ng-click="batchCheck($event)"><i></i>
+              </label>
+            </th>
+            <th>ID号</th>
+            <th>创建时间</th>
+            <th>更新时间</th>
+            <th>资讯标题</th>
+            <th>分类ID</th>
+            <th>排序号</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="msg in pageData.pageData">
+          	<td>
+          		<label class="i-checks m-b-none">
+          			<input type="checkbox" ng-checked="isChecked(msg.id)"  ng-click="updateSelection(msg.id)" value="{{msg.id}}" /><i></i>
+          		</label>
+          	</td>
+            <td>{{msg.id}}</td>
+            <td>{{msg.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td>{{msg.updatedTime  | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td>{{msg.msgTitle}}</td>
+            <td>{{msg.categoryId}}</td>
+            <td>
+            	<input type="text" style="text-align:center;width:50px" class="input w-sm v-middle middle" value="{{msg.orderCode}}" ng-model="msg.orderCode"/>
+            </td>
+            <td>
+	            <div class="btn-group">
+		            <button class="btn btn-sm btn-danger" type="button" ng-click="deleteRes(msg)">删除</button>		            
+		            <span ng-controller="msgModalCtrl">
+			          <script type="text/ng-template" id="myModalContent.html">
+            			<div ng-include="'static/tpl/jyyx/modal/msg_add.html'"></div>
+          		  	  </script>
+	                  <button class="btn btn-sm btn-dark" type="button" ng-click="open('lg', msg.id)">修改</button>
+			        </span>		
+	            </div>	
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div data-ng-include="'static/tpl/blocks/paging_foot.html'" />
+  </div>
+</div>
+<div class="show_big_pic" ng-if="showBigPic">
+	<img src="{{bigPicSrc}}"/>
+</div>
+	<!-- /column -->
+<script type="text/ng-template" id="messageModal.html">
+	<div ng-include="'static/tpl/blocks/modal_box.html'"></div>
+</script>
+<!-- <div ng-show="showProcess">
+	<div  class="modal-backdrop fade in" ng-class="{in: animate}" ng-style="{'z-index': 1040 + (index &amp;&amp; 1 || 0) + index*10}" modal-backdrop="" style="z-index: 1040;">
+	</div>
+	<div tabindex="-1" class="modal fade ng-isolate-scope in" ng-class="{in: animate}" ng-style="{'z-index': 1050 + index*10, display: 'block'}" index="0" animate="animate" style="z-index: 1050; display: block;">
+	   <div style="margin-left: 40%;margin-top: 20%;">
+			<img src="static/img/process.gif" width="160px" height="160px" alt="加载中">
+		</div>
+	</div>
+</div> -->
+</div>

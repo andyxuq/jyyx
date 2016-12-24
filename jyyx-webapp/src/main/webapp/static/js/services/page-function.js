@@ -8,7 +8,11 @@ pageService.service('pageService', function($interval, $http, toaster) {
 	//获取当前该显示的页码
 	this.pageNumArray = function(currentPage, totalPage) {
 		if (totalPage <= pageNum) {
-			return [1,2,3,4,5]
+			var pageNumArray = [];
+			for (var i = 1; i <= totalPage; i++) {
+				pageNumArray.push(i);
+			}
+			return pageNumArray;
 		}
 		
 		var startPage = currentPage;

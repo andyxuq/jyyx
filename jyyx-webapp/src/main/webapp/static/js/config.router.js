@@ -96,6 +96,22 @@ angular.module('app')
 							]
 						}
 					})
+					.state('app.msg', {
+						url: '/msg',
+						templateUrl: 'static/tpl/jyyx/msg.html',
+						resolve: {
+							deps: ['$ocLazyLoad',
+								function($ocLazyLoad) {
+									return $ocLazyLoad.load('textAngular').then(
+											function() {
+												return $ocLazyLoad.load(['static/js/jyyx/msg.js'
+									                         , 'static/js/jyyx/modal/msg_add.js']);
+											}
+									);
+								}
+							]
+						}
+					})
 					.state('app.physicalDetail', {
 						url: '/physicalDetail/{hostId}/{ip}',
 						templateUrl: 'static/tpl/monitor/physical_detail.html',
