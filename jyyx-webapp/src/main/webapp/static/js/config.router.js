@@ -60,6 +60,18 @@ angular.module('app')
 							]
 						}
 					})
+					.state('app.msgCategory', {
+						url: '/msgCategory',
+						templateUrl: 'static/tpl/jyyx/msg_category.html',
+						resolve: {
+							deps: ['$ocLazyLoad',
+								function($ocLazyLoad) {
+									return $ocLazyLoad.load(['static/js/jyyx/msg_category.js'
+									                         , 'static/js/jyyx/modal/msg_category_add.js']);
+								}
+							]
+						}
+					})
 					.state('app.product', {
 						url: '/product',
 						templateUrl: 'static/tpl/jyyx/product.html',
