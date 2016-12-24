@@ -34,11 +34,11 @@
                    <label>排序号:</label>
                    <input ng-model="pc.orderCode" type="number" ui-validate=" '$value >= 0' " class="form-control" placeholder="请输入排序号"/>
                  </div>
-                 <div class="col-sm-4">
+                 <div class="col-sm-1">
                    <label></label>
-                   <input type="hidden" />
+                   <span>&nbsp;</span>
                  </div>
-                 <div class="col-sm-10">
+                 <div class="col-sm-9">
                    <label>选择分类:</label>
                    <select ng-model="pc.categoryId" class="form-control">
                    		<option ng-repeat="caseCategory in casecategorys" value="{{caseCategory.id}}" ng-selected="pc.categoryId == caseCategory.id">{{caseCategory.categoryName}}</option>
