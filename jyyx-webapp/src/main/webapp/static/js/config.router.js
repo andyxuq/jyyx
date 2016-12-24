@@ -111,62 +111,7 @@ angular.module('app')
 								}
 							]
 						}
-					})
-					.state('app.physicalDetail', {
-						url: '/physicalDetail/{hostId}/{ip}',
-						templateUrl: 'static/tpl/monitor/physical_detail.html',
-						resolve: {
-							deps: ['$ocLazyLoad',
-								function($ocLazyLoad) {
-									return $ocLazyLoad.load(['static/js/controllers/monitor/physical-detail.js', 'static/js/controllers/chart.js']);
-								}
-							]
-						}
-					})
-					.state('app.cacheDetail', {
-						url: '/cacheDetail/{clustrId}',
-						templateUrl: 'static/tpl/monitor/cache_detail.html',
-						resolve: {
-							deps: ['$ocLazyLoad',
-								function($ocLazyLoad) {
-									return $ocLazyLoad.load(['static/js/controllers/monitor/cache-detail.js']);
-								}
-							]
-						}
-					})
-					.state('app.clusterMonitor', {
-						url: '/clusterMonitor',
-						templateUrl: 'static/tpl/monitor/cluster_monitor.html',
-						resolve: {
-							deps: ['$ocLazyLoad',
-								function($ocLazyLoad) {
-									return $ocLazyLoad.load(['static/js/controllers/monitor/cluster-minitor.js']);
-								}
-							]
-						}
-					})
-					.state('app.cacheMonitor', {
-						url: '/cacheMonitor',
-						templateUrl: 'static/tpl/monitor/cache_monitor.html',
-						resolve: {
-							deps: ['$ocLazyLoad',
-								function($ocLazyLoad) {
-									return $ocLazyLoad.load(['static/js/controllers/monitor/cache-monitor.js']);
-								}
-							]
-						}
-					})
-					.state('app.zookeeperConfig', {
-                        url: '/zookeeperConfig',
-                        templateUrl: 'static/tpl/monitor/zookeeper_config.html',
-                        resolve: {
-                            deps: ['$ocLazyLoad',
-                                function($ocLazyLoad) {
-                                    return $ocLazyLoad.load(['static/js/controllers/monitor/zookeeper-config.js']);
-                                }
-                            ]
-                        }
-                    })
+					})					
 			}
 		]
 	);
