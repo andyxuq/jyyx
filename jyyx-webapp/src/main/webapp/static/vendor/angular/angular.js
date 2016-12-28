@@ -8471,7 +8471,7 @@ function defaultHttpResponseTransform(data, headers) {
   if (isString(data)) {
     // strip json vulnerability protection prefix
     data = data.replace(JSON_PROTECTION_PREFIX, '');
-    var contentType = headers('Content-Type');
+    var contentType = headers == undefined ? null : headers('Content-Type');
     if ((contentType && contentType.indexOf(APPLICATION_JSON) === 0) ||
         (JSON_START.test(data) && JSON_END.test(data))) {
       data = fromJson(data);

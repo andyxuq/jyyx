@@ -30,8 +30,8 @@ angular.module('app')
 						resolve: {
 							deps: ['$ocLazyLoad',
 								function($ocLazyLoad) {
-									return $ocLazyLoad.load(['static/js/jyyx/pic-resource.js'
-									                         , 'static/js/jyyx/modal/pic_resource_add.js']);
+	                            	  return $ocLazyLoad.load(['static/js/jyyx/pic-resource.js'
+										                         , 'static/js/jyyx/modal/pic_resource_add.js']);
 								}
 							]
 						}

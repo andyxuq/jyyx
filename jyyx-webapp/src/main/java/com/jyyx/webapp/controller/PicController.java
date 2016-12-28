@@ -83,7 +83,7 @@ public class PicController {
 	
 	@RequestMapping(value = "/modify/{picId}", method = RequestMethod.POST)
 	@ResponseBody
-	public JyResultVo modifyPicResources(@PathVariable int picId, Pic pic, HttpServletRequest request) {
+	public JyResultVo modifyPicResources(@PathVariable int picId, @RequestBody Pic pic, HttpServletRequest request) {
 		JyResultVo result = new JyResultVo(JyResultType.SUCCESS);
 		try {
 			String oldPicPath = pic.getPicPath();
@@ -201,12 +201,15 @@ public class PicController {
 	
 	public static List<UploadFileVo> getHttpRequestFiles(HttpServletRequest request, String resourceId) 
 			throws IllegalStateException, IOException, JyException {
+		List<UploadFileVo> fileList = new ArrayList<UploadFileVo>();
+		if (!(request instanceof MultipartHttpServletRequest)) {
+			return fileList;
+		}
 		CommonsMultipartResolver fileUploadResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)request;
 		Iterator<String> fileItems = multipartRequest.getFileNames();
 
-		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-		List<UploadFileVo> fileList = new ArrayList<UploadFileVo>();
+		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");		
 		while (fileItems.hasNext()) {
 			String fieldName = fileItems.next();
 			String orderCode = "0";
