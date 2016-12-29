@@ -12,6 +12,29 @@ app.controller('picAddCtrlIns', ['$scope', '$modalInstance', 'items', 'picResId'
     	var queueLength = $scope.uploader.queue.length;
     	item.alias = "file_" + queueLength;
     } 
+    $scope.uploader.filters.push({
+        name: 'queueLengthFilter',
+        fn: function(item, options) {
+        	var largeThan = this.queue.length < 3;
+        	if (!largeThan) {
+        		toaster.pop('warning', '', '单次最多上传8张图片')
+        	}
+            return largeThan;
+        }
+    });
+    
+    $scope.uploader.filters.push({
+        name: 'fileTypeFilter',
+        fn: function(item, options) {
+        	var fileType = item.name.substring(item.name.lastIndexOf('.') + 1);
+        	if ("jpg|png|gif".indexOf(fileType.toLowerCase()) != -1) {
+        		return true;
+        	} else {
+        		toaster.pop('warning', '', '只能上传jpg/png/gif')
+        		return false;
+        	}
+        }
+    });
     
     $scope.selected = {
       item: $scope.items[0]

@@ -17,7 +17,7 @@ angular.module('app')
 			function($stateProvider, $urlRouterProvider) {
 
 				$urlRouterProvider
-					.otherwise('/app/productCategory');
+					.otherwise('/app/pic');
 				$stateProvider
 					.state('app', {
 						abstract: true,
