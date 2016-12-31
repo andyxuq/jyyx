@@ -80,6 +80,7 @@
 | msgContent  | String | "资讯内容" | 资讯内容   |
 | orderCode   | int    | 3          | 资讯分类   |
 | categroyId  | int    | 2          | 资讯分类ID |
+| visitCount  | int    | 3          | 访问次数   |
 
 ### 1.8 后台管理用户信息(JyUser)
 | 属性名 | 属性值 | 示例 | 备注   |

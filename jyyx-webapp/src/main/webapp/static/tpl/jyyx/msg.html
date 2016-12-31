@@ -65,6 +65,7 @@
             <th>资讯标题</th>
             <th>分类ID</th>
             <th>排序号</th>
+            <th>访问次数</th>
             <th>操作</th>
           </tr>
         </thead>
@@ -83,6 +84,7 @@
             <td>
             	<input type="text" style="text-align:center;width:50px" class="input w-sm v-middle middle" value="{{msg.orderCode}}" ng-model="msg.orderCode"/>
             </td>
+            <td>{{msg.visitCount}}</td>
             <td>
 	            <div class="btn-group">
 		            <button class="btn btn-sm btn-danger" type="button" ng-click="deleteRes(msg)">删除</button>		            

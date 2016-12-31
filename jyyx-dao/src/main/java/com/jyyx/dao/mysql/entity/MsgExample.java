@@ -564,6 +564,66 @@ public class MsgExample {
             addCriterion("category_id not between", value1, value2, "categoryId");
             return (Criteria) this;
         }
+
+        public Criteria andVisitCountIsNull() {
+            addCriterion("visit_count is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisitCountIsNotNull() {
+            addCriterion("visit_count is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisitCountEqualTo(Integer value) {
+            addCriterion("visit_count =", value, "visitCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisitCountNotEqualTo(Integer value) {
+            addCriterion("visit_count <>", value, "visitCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisitCountGreaterThan(Integer value) {
+            addCriterion("visit_count >", value, "visitCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisitCountGreaterThanOrEqualTo(Integer value) {
+            addCriterion("visit_count >=", value, "visitCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisitCountLessThan(Integer value) {
+            addCriterion("visit_count <", value, "visitCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisitCountLessThanOrEqualTo(Integer value) {
+            addCriterion("visit_count <=", value, "visitCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisitCountIn(List<Integer> values) {
+            addCriterion("visit_count in", values, "visitCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisitCountNotIn(List<Integer> values) {
+            addCriterion("visit_count not in", values, "visitCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisitCountBetween(Integer value1, Integer value2) {
+            addCriterion("visit_count between", value1, value2, "visitCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andVisitCountNotBetween(Integer value1, Integer value2) {
+            addCriterion("visit_count not between", value1, value2, "visitCount");
+            return (Criteria) this;
+        }
     }
 
     /**

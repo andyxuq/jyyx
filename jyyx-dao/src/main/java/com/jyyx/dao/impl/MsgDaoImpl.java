@@ -29,7 +29,7 @@ public class MsgDaoImpl implements MsgDao {
 	
 	@Autowired
 	private MsgMapper msgMapper;
-	
+
 	/* (non-Javadoc)
 	 * @see com.jyyx.dao.MsgDao#getResourcesCount(com.jyyx.dao.mysql.entity.Msg)
 	 */
@@ -42,7 +42,10 @@ public class MsgDaoImpl implements MsgDao {
 	 * @see com.jyyx.dao.MsgDao#getResourcesById(int)
 	 */
 	public Msg getResourcesById(int msgId) {
-		return msgMapper.selectByPrimaryKey(msgId);
+		Msg msg = msgMapper.selectByPrimaryKey(msgId);
+		msg.setVisitCount(msg.getVisitCount() + 1);
+		msgMapper.updateByPrimaryKeySelective(msg);
+		return msg;
 	}
 
 	/* (non-Javadoc)

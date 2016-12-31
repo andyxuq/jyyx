@@ -12,6 +12,7 @@
     <result column="msg_title" jdbcType="VARCHAR" property="msgTitle" />
     <result column="order_code" jdbcType="INTEGER" property="orderCode" />
     <result column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="visit_count" jdbcType="INTEGER" property="visitCount" />
   </resultMap>
 
   <sql id="Example_Where_Clause">
@@ -73,7 +74,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, create_time, updated_time, msg_title, order_code, category_id
+    id, create_time, updated_time, msg_title, order_code, category_id, visit_count
   </sql>
   
   <select id="selectByExample" parameterType="com.jyyx.dao.mysql.entity.extend.MsgExtendExample" resultMap="BaseResultMap">
