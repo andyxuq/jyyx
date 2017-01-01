@@ -24,7 +24,7 @@
 		<javaClientGenerator targetPackage="com.jyyx.dao.mysql.dao"
 			targetProject="src/main/java" type="XMLMAPPER" />
 
-		<table tableName="jy_case" domainObjectName="Case"
+		<!-- <table tableName="jy_case" domainObjectName="Case"
 			enableCountByExample="true" enableUpdateByExample="true"
 			enableDeleteByExample="true" enableSelectByExample="true"
 			selectByExampleQueryId="true">
@@ -38,14 +38,14 @@
 		<table tableName="jy_case_category_relation" domainObjectName="CaseCateRelation"
 			enableCountByExample="true" enableUpdateByExample="true"
 			enableDeleteByExample="true" enableSelectByExample="true"
-			selectByExampleQueryId="true"></table>
+			selectByExampleQueryId="true"></table> -->
 
 		<table tableName="jy_msg" domainObjectName="Msg"
 			enableCountByExample="true" enableUpdateByExample="true"
 			enableDeleteByExample="true" enableSelectByExample="true"
 			selectByExampleQueryId="true"></table>
 
-        <table tableName="jy_msg_category" domainObjectName="MsgCategory"
+        <!-- <table tableName="jy_msg_category" domainObjectName="MsgCategory"
             enableCountByExample="true" enableUpdateByExample="true"
 			enableDeleteByExample="true" enableSelectByExample="true"
 			selectByExampleQueryId="true"></table>
@@ -73,6 +73,6 @@
             <table tableName="jy_user" domainObjectName="User"
             enableCountByExample="true" enableUpdateByExample="true"
             enableDeleteByExample="true" enableSelectByExample="true"
-            selectByExampleQueryId="true"></table>
+            selectByExampleQueryId="true"></table> -->
 	</context>
 </generatorConfiguration>

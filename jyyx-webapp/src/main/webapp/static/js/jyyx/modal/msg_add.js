@@ -6,7 +6,8 @@ app.controller('msgModalCtrlIns', ['$scope', '$modalInstance', 'resId', 'toaster
 		  "msgTitle":null, 
 		  "msgContent":null, 
 		  "orderCode":0, 
-		  "categoryId":0
+		  "categoryId":0,
+		  'msgDesc':null
 	}
     
     $scope.msgCategorys = [];    

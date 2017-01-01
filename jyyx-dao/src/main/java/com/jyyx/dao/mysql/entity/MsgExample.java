@@ -624,6 +624,76 @@ public class MsgExample {
             addCriterion("visit_count not between", value1, value2, "visitCount");
             return (Criteria) this;
         }
+
+        public Criteria andMsgDescIsNull() {
+            addCriterion("msg_desc is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgDescIsNotNull() {
+            addCriterion("msg_desc is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgDescEqualTo(String value) {
+            addCriterion("msg_desc =", value, "msgDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgDescNotEqualTo(String value) {
+            addCriterion("msg_desc <>", value, "msgDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgDescGreaterThan(String value) {
+            addCriterion("msg_desc >", value, "msgDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgDescGreaterThanOrEqualTo(String value) {
+            addCriterion("msg_desc >=", value, "msgDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgDescLessThan(String value) {
+            addCriterion("msg_desc <", value, "msgDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgDescLessThanOrEqualTo(String value) {
+            addCriterion("msg_desc <=", value, "msgDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgDescLike(String value) {
+            addCriterion("msg_desc like", value, "msgDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgDescNotLike(String value) {
+            addCriterion("msg_desc not like", value, "msgDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgDescIn(List<String> values) {
+            addCriterion("msg_desc in", values, "msgDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgDescNotIn(List<String> values) {
+            addCriterion("msg_desc not in", values, "msgDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgDescBetween(String value1, String value2) {
+            addCriterion("msg_desc between", value1, value2, "msgDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgDescNotBetween(String value1, String value2) {
+            addCriterion("msg_desc not between", value1, value2, "msgDesc");
+            return (Criteria) this;
+        }
     }
 
     /**
