@@ -5,6 +5,7 @@ function($scope, $modal, $log, $http, toaster, $state, functionService, httpServ
 		'picCode':'',
 		'referId':null
 	};
+	$scope.getUserInfo();
 	//应用
 	$scope.picCodeTypes = [];
 	httpService.httpGet('/api/pic/get/picTypes', function(result){
