@@ -65,13 +65,13 @@
         <h1>403</h1>
         <p>${errorTitle}</p>
         <div class="sub">
-            <p><a href="/">返回Dashboard</a>&nbsp;&nbsp;<a href="/logout">退出用户：${USER_NAME}</a></p>
+            <p><a href="/index#/access/login">登录</a>&nbsp;&nbsp;</p>
         </div>
     </div>
 </div>
 
 <div class="footer">
-    Call Gatling-<a href="">GATLING</a>
+    家缘映像资源管理中心
 </div>
 
 </body>

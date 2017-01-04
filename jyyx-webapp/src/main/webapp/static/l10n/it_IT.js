@@ -55,7 +55,8 @@
         "SIGNIN" : "Registrati",
         "SIGNUP" : "Iscriviti",
         "FORGOT_PASSWORD" : "Password dimenticata",
-        "404" : "404"
+        "404" : "404",
+        "LOGIN":"登录"
       }
     },
     "your_stuff" : {

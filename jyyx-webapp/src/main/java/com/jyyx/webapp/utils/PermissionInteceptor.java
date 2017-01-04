@@ -34,11 +34,11 @@ public class PermissionInteceptor extends HandlerInterceptorAdapter{
 				}
 				
 				//TODO 打开注册，验证用户
-//				Object userLoginName = request.getSession().getAttribute(Constants.USER_SESSION_KEY);
-//				if (null == userLoginName) {
-//					response.sendError(404);
-//					return false;
-//				}
+				Object userLoginName = request.getSession().getAttribute(Constants.USER_SESSION_KEY);
+				if (null == userLoginName) {
+					response.sendError(403);
+					return false;
+				}
 			}
 			return true;
 		} catch (Exception e) {

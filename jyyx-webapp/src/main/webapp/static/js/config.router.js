@@ -48,6 +48,20 @@ angular.module('app')
 							]
 						}
 					})
+					.state('access', {
+		                  url: '/access',
+		                  template: '<div ui-view class="fade-in-right-big smooth"></div>'
+		            })
+					.state('access.login', {
+						url: '/login',
+						templateUrl: 'static/tpl/jyyx/login.html',
+						resolve: {
+							deps: ['uiLoad',
+		                        function( uiLoad ){
+		                          return uiLoad.load( ['static/js/jyyx/login.js'] );
+							}]
+						}
+					})
 					.state('app.caseCategory', {
 						url: '/caseCategory',
 						templateUrl: 'static/tpl/jyyx/case_category.html',
@@ -92,6 +106,18 @@ angular.module('app')
 								function($ocLazyLoad) {
 									return $ocLazyLoad.load(['static/js/jyyx/case.js'
 									                         , 'static/js/jyyx/modal/case_add.js']);
+								}
+							]
+						}
+					})
+					.state('app.user', {
+						url: '/user',
+						templateUrl: 'static/tpl/jyyx/user.html',
+						resolve: {
+							deps: ['$ocLazyLoad',
+								function($ocLazyLoad) {
+									return $ocLazyLoad.load(['static/js/jyyx/user.js'
+									                         , 'static/js/jyyx/modal/user_add.js']);
 								}
 							]
 						}

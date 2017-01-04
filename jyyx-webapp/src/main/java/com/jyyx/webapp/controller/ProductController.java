@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jyyx.core.exception.JyException;
+import com.jyyx.core.utils.Permission;
 import com.jyyx.dao.model.JyProduct;
 import com.jyyx.dao.model.ProductParam;
 import com.jyyx.dao.utils.PageData;
@@ -40,6 +41,7 @@ public class ProductController {
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
+	@Permission
 	public JyResultVo addResources(@RequestBody ProductParam param) {
 		JyResultVo result = new JyResultVo(JyResultType.SUCCESS);
 		try {
@@ -58,6 +60,7 @@ public class ProductController {
 	
 	@RequestMapping(value = "/modify/{productId}", method = RequestMethod.POST)
 	@ResponseBody
+	@Permission
 	public JyResultVo modifyResources(@PathVariable int productId, @RequestBody ProductParam param) {
 		JyResultVo result = new JyResultVo(JyResultType.SUCCESS);
 		try {
@@ -104,6 +107,7 @@ public class ProductController {
 	
 	@RequestMapping(value = "/delete/{productId}", method = RequestMethod.POST)
 	@ResponseBody
+	@Permission
 	public JyResultVo deleteResources(@PathVariable int productId) {
 		JyResultVo result = new JyResultVo(JyResultType.SUCCESS);
 		try {

@@ -3,23 +3,36 @@
 /* Controllers */
 
 angular.module('app')
-  .controller('AppCtrl', ['$scope', '$translate', '$localStorage', '$window', 'httpService',
-    function(              $scope,   $translate,   $localStorage,   $window, httpService) {
+  .controller('AppCtrl', ['$scope', '$translate', '$localStorage', '$window', 'httpService', '$state',
+    function($scope,   $translate,   $localStorage,   $window, httpService, $state) {
       // add 'ie' classes to html
       var isIE = !!navigator.userAgent.match(/MSIE/i);
       isIE && angular.element($window.document.body).addClass('ie');
       isSmartDevice( $window ) && angular.element($window.document.body).addClass('smart');
 
-//      $scope.userName = "Admin";
-//      httpService.httpGet('/user/get',function(result){
-//      	$scope.userName = result.data.cnName
-//      });
-      $scope.userName = "Andyxu";
+      $scope.getUserInfo = function() {
+    	  httpService.httpGet('/api/user/get/info',function(result){
+    		  if (result.data == undefined || result.data == null ) {
+    			  $state.go('access.login');
+    		  } else {
+    			  var userName = result.data.userName == null ? result.data.loginName : result.data.userName;
+    			  $scope.userName = userName;
+    		  }
+    	  });
+      }
+      $scope.getUserInfo();
       $scope.pageRow = 20;
+      
+      $scope.loginOut = function() {
+    	  httpService.httpPost('/api/user/loginOut',null, function(result){
+    		  $scope.userName = null;
+    		  $state.go('access.login');
+          });
+      }
       
       // config
       $scope.app = {
-        name: '佳缘印象',
+        name: '家缘印象',
         version: '1.0.0',
         // for chart colors
         color: {

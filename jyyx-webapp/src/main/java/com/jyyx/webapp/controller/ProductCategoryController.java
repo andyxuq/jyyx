@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jyyx.core.exception.JyException;
+import com.jyyx.core.utils.Permission;
 import com.jyyx.dao.model.JyProductCategory;
 import com.jyyx.dao.mysql.entity.MsgCategory;
 import com.jyyx.dao.mysql.entity.ProductCategory;
@@ -38,6 +39,7 @@ public class ProductCategoryController {
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
+	@Permission
 	public JyResultVo addResources(@RequestBody ProductCategory productCategory) {
 		JyResultVo result = new JyResultVo(JyResultType.SUCCESS);
 		try {
@@ -58,6 +60,7 @@ public class ProductCategoryController {
 	
 	@RequestMapping(value = "/modify/{categoryId}", method = RequestMethod.POST)
 	@ResponseBody
+	@Permission
 	public JyResultVo modifyResources(@PathVariable int categoryId, @RequestBody ProductCategory productCategory) {
 		JyResultVo result = new JyResultVo(JyResultType.SUCCESS);
 		try {
@@ -77,6 +80,7 @@ public class ProductCategoryController {
 	
 	@RequestMapping(value = "/modifyOrder", method = RequestMethod.POST)
 	@ResponseBody
+	@Permission
 	public JyResultVo modifyResourcesOrders(@RequestBody HashMap<Integer, Integer> orderMap) {
 		JyResultVo result = new JyResultVo(JyResultType.SUCCESS);
 		try {
@@ -106,6 +110,7 @@ public class ProductCategoryController {
 	
 	@RequestMapping(value = "/delete/{categoryId}", method = RequestMethod.POST)
 	@ResponseBody
+	@Permission
 	public JyResultVo deleteResources(@PathVariable int categoryId) {
 		JyResultVo result = new JyResultVo(JyResultType.SUCCESS);
 		try {

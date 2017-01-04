@@ -55,7 +55,8 @@
         "SIGNIN" : "Registrieren",
         "SIGNUP" : "Anmelden",
         "FORGOT_PASSWORD" : "Passwort vergessen",
-        "404" : "404"
+        "404" : "404",
+        "LOGIN":"sign_in"
       }
     },
     "your_stuff" : {

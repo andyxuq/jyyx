@@ -1,0 +1,89 @@
+<!-- hbox layout -->
+<div class="hbox hbox-auto-xs bg-light " ng-init="
+  app.settings.asideFixed = true;
+  app.settings.asideDock = false;
+  app.settings.container = false;
+  app.hideAside = false;
+  app.hideFooter = true;
+  " ng-controller="UserCtrl">
+	<!-- column -->
+	<toaster-container toaster-options="{'position-class': 'toast-bottom-full-width', 'close-button':true}"></toaster-container>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">用户资源</h1>
+</div>
+<div class="wrapper-md">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="col-sm-10">
+	      
+      </div>
+      
+      <div class="col-sm-2">
+      	<div class="input-group">
+	        <div class="btn-group">
+	            <span ng-controller="userModalCtrl" >
+		          <script type="text/ng-template" id="myModalContent.html">
+            			<div ng-include="'static/tpl/jyyx/modal/user_add.html'"></div>
+          		  </script>
+                  <button class="btn btn-sm btn-dark" type="button" ng-click="open('lg', 0)">添加用户</button>
+		        </span>
+	        </div>
+        </div>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped b-t b-light">
+        <thead>
+          <tr>
+            <th>ID号</th>
+            <th>创建时间</th>
+            <th>更新时间</th>
+            <th>用户名</th>
+            <th>登录账号</th>
+            <th>电话</th>
+            <th>邮箱</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="user in userList">
+            <td>{{user.id}}</td>
+            <td>{{user.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td>{{user.updatedTime  | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td>{{user.userName}}</td>
+            <td>{{user.loginName}}</td>
+            <td>{{user.userPhone}}</td>
+            <td>{{user.userEmail}}</td>
+            <td>
+	            <div class="btn-group">
+		            <button class="btn btn-sm btn-danger" type="button" ng-click="deleteRes(user)">删除</button>		            
+		            <span ng-controller="userModalCtrl">
+			          <script type="text/ng-template" id="myModalContent.html">
+            			<div ng-include="'static/tpl/jyyx/modal/user_add.html'"></div>
+          		  	  </script>
+	                  <button class="btn btn-sm btn-dark" type="button" ng-click="open('lg', user.id)">修改</button>
+			        </span>		
+	            </div>	
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div data-ng-include="'static/tpl/blocks/paging_foot.html'" />
+  </div>
+</div>
+	<!-- /column -->
+<script type="text/ng-template" id="messageModal.html">
+	<div ng-include="'static/tpl/blocks/modal_box.html'"></div>
+</script>
+<!-- <div ng-show="showProcess">
+	<div  class="modal-backdrop fade in" ng-class="{in: animate}" ng-style="{'z-index': 1040 + (index &amp;&amp; 1 || 0) + index*10}" modal-backdrop="" style="z-index: 1040;">
+	</div>
+	<div tabindex="-1" class="modal fade ng-isolate-scope in" ng-class="{in: animate}" ng-style="{'z-index': 1050 + index*10, display: 'block'}" index="0" animate="animate" style="z-index: 1050; display: block;">
+	   <div style="margin-left: 40%;margin-top: 20%;">
+			<img src="static/img/process.gif" width="160px" height="160px" alt="加载中">
+		</div>
+	</div>
+</div> -->
+</div>

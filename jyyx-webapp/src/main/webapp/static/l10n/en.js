@@ -56,7 +56,8 @@
         "SIGNIN" : "Signin",
         "SIGNUP" : "Signup",
         "FORGOT_PASSWORD" : "Forgot password",
-        "404" : "404"
+        "404" : "404",
+        "LOGIN":"登录"
       }
     },
     "your_stuff" : {

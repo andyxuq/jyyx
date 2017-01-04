@@ -5568,6 +5568,7 @@ button.close {
   min-height: 16.42857143px;
   padding: 15px;
   border-bottom: 1px solid #e5e5e5;
+  z-index: 100000;
 }
 .modal-header .close {
   margin-top: -2px;

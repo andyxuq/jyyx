@@ -31,6 +31,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import com.jyyx.core.constant.Constants;
 import com.jyyx.core.enums.PicCodeType;
 import com.jyyx.core.exception.JyException;
+import com.jyyx.core.utils.Permission;
 import com.jyyx.dao.PicDao;
 import com.jyyx.dao.mysql.entity.Pic;
 import com.jyyx.dao.utils.PageData;
@@ -55,6 +56,7 @@ public class PicController {
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
+	@Permission
 	public JyResultVo addPicResources(Pic pic, HttpServletRequest request) {
 		JyResultVo result = new JyResultVo(JyResultType.SUCCESS);
 		try {
@@ -83,6 +85,7 @@ public class PicController {
 	
 	@RequestMapping(value = "/modify/{picId}", method = RequestMethod.POST)
 	@ResponseBody
+	@Permission
 	public JyResultVo modifyPicResources(@PathVariable int picId, @RequestBody Pic pic, HttpServletRequest request) {
 		JyResultVo result = new JyResultVo(JyResultType.SUCCESS);
 		try {
@@ -109,6 +112,7 @@ public class PicController {
 	
 	@RequestMapping(value = "/modifyOrder", method = RequestMethod.POST)
 	@ResponseBody
+	@Permission
 	public JyResultVo modifyPicResourcesOrder(@RequestBody HashMap<Integer, Integer> picOrderMap) {
 		JyResultVo result = new JyResultVo(JyResultType.SUCCESS);
 		try {
@@ -147,6 +151,7 @@ public class PicController {
 	
 	@RequestMapping(value = "/get/{picId}")
 	@ResponseBody
+	@Permission
 	public JyResultVo getPicResources(@PathVariable int picId) {
 		JyResultVo result = new JyResultVo(JyResultType.SUCCESS);
 		try {
@@ -187,6 +192,7 @@ public class PicController {
 	
 	@RequestMapping(value = "/delete/{picId}", method = RequestMethod.POST)
 	@ResponseBody
+	@Permission
 	public JyResultVo deletePicResources(@PathVariable int picId) {
 		JyResultVo result = new JyResultVo(JyResultType.SUCCESS);
 		try {

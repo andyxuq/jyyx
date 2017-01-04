@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jyyx.core.exception.JyException;
+import com.jyyx.core.utils.Permission;
 import com.jyyx.dao.mysql.entity.Msg;
 import com.jyyx.dao.utils.PageData;
 import com.jyyx.service.MsgService;
@@ -38,6 +39,7 @@ public class MsgController {
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
+	@Permission
 	public JyResultVo addResources(@RequestBody Msg msg) {
 		JyResultVo result = new JyResultVo(JyResultType.SUCCESS);
 		try {
@@ -58,6 +60,7 @@ public class MsgController {
 	
 	@RequestMapping(value = "/modify/{msgId}", method = RequestMethod.POST)
 	@ResponseBody
+	@Permission
 	public JyResultVo modifyResources(@PathVariable int msgId, @RequestBody Msg msg) {
 		JyResultVo result = new JyResultVo(JyResultType.SUCCESS);
 		try {
@@ -80,6 +83,7 @@ public class MsgController {
 	
 	@RequestMapping(value = "/modifyOrder", method = RequestMethod.POST)
 	@ResponseBody
+	@Permission
 	public JyResultVo modifyResourcesOrders(@RequestBody HashMap<Integer, Integer> orderMap) {
 		JyResultVo result = new JyResultVo(JyResultType.SUCCESS);
 		try {
@@ -120,6 +124,7 @@ public class MsgController {
 	
 	@RequestMapping(value = "/delete/{msgId}", method = RequestMethod.POST)
 	@ResponseBody
+	@Permission
 	public JyResultVo deleteResources(@PathVariable int msgId) {
 		JyResultVo result = new JyResultVo(JyResultType.SUCCESS);
 		try {

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jyyx.core.exception.JyException;
+import com.jyyx.core.utils.Permission;
 import com.jyyx.dao.model.CaseParam;
 import com.jyyx.dao.model.JyCase;
 import com.jyyx.dao.utils.PageData;
@@ -37,6 +38,7 @@ public class CaseController {
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
+	@Permission
 	public JyResultVo addResources(@RequestBody CaseParam param) {
 		JyResultVo result = new JyResultVo(JyResultType.SUCCESS);
 		try {
@@ -54,6 +56,7 @@ public class CaseController {
 	
 	@RequestMapping(value = "/modify/{caseId}", method = RequestMethod.POST)
 	@ResponseBody
+	@Permission
 	public JyResultVo modifyResources(@PathVariable int caseId, @RequestBody CaseParam param) {
 		JyResultVo result = new JyResultVo(JyResultType.SUCCESS);
 		try {
@@ -99,6 +102,7 @@ public class CaseController {
 	
 	@RequestMapping(value = "/delete/{caseId}", method = RequestMethod.POST)
 	@ResponseBody
+	@Permission
 	public JyResultVo deleteResources(@PathVariable int caseId) {
 		JyResultVo result = new JyResultVo(JyResultType.SUCCESS);
 		try {
