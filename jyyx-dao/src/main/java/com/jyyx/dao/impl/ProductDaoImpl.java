@@ -94,11 +94,17 @@ public class ProductDaoImpl implements ProductDao {
 		param.setPageRow(pageInfo.getPageRow());
 		
 		List<JyProduct> jyProductList = productExtendMapper.selectByParam(param);
-		fetchPicRes(jyProductList);
-		fetchCategoryRelation(jyProductList);
+		int toIndex = pageInfo.getStartRow() + pageInfo.getPageRow();
+		if (toIndex > pageInfo.getTotalCount()) {
+			toIndex = pageInfo.getTotalCount();
+		}
+		List<JyProduct> resultList = jyProductList.subList(pageInfo.getStartRow(), toIndex);
+		
+		fetchPicRes(resultList);
+		fetchCategoryRelation(resultList);
 		
 		PageData<JyProduct> pageData = new PageData<JyProduct>(pageInfo);
-		pageData.setPageData(jyProductList);
+		pageData.setPageData(resultList);
 		return pageData;
 	}
 

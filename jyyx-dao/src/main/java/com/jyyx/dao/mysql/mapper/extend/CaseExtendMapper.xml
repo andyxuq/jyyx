@@ -99,9 +99,7 @@
 		</if>
 	</where>
 	order by r.order_code asc, create_time desc
-	<if test="pageRow != 0">
-		limit #{startRow}, #{pageRow}
-	</if>
+	
   </select>
   
   <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.jyyx.dao.mysql.entity.Case">

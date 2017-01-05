@@ -2,6 +2,9 @@ package com.jyyx.service.utils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 import org.apache.commons.codec.binary.Hex;
@@ -11,14 +14,6 @@ import org.apache.commons.codec.binary.Hex;
  */
 public class Md5Utils {
 
-	public static void main(String[] args) {
-		String result = generate("123456");
-		System.out.println(result);
-		
-		boolean verify = verify("123456", result);
-		System.out.println(verify);
-	}
-	
 	/**
 	 * 普通MD5
 	 * @param inStr

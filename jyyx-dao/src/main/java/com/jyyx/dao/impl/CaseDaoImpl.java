@@ -92,11 +92,17 @@ public class CaseDaoImpl implements CaseDao {
 		param.setPageRow(pageInfo.getPageRow());
 		
 		List<JyCase> jyCaseList = caseExtendMapper.selectByParam(param);
-		fetchPicRes(jyCaseList);
-		fetchCategoryRelation(jyCaseList);
+		int toIndex = pageInfo.getStartRow() + pageInfo.getPageRow();
+		if (toIndex > pageInfo.getTotalCount()) {
+			toIndex = pageInfo.getTotalCount();
+		}
+		List<JyCase> resultList = jyCaseList.subList(pageInfo.getStartRow(), toIndex);
+		
+		fetchPicRes(resultList);
+		fetchCategoryRelation(resultList);
 		
 		PageData<JyCase> pageData = new PageData<JyCase>(pageInfo);
-		pageData.setPageData(jyCaseList);
+		pageData.setPageData(resultList);
 		return pageData;
 	}
 
