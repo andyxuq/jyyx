@@ -1,8 +1,8 @@
-//°¸ÀýÄÚÈÝppt
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ppt
 var imf = function () {
 	var lf = 0;
 	var instances = [];
-	//¶¨ÒåÒ»¸öÍ¨¹ýclass»ñµÃÔªËØµÄ·½·¨
+	//ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Í¨ï¿½ï¿½classï¿½ï¿½ï¿½Ôªï¿½ØµÄ·ï¿½ï¿½ï¿½
 	function getElementsByClass (object, tag, className) {
 		var o = object.getElementsByTagName(tag);
 		for ( var i = 0, n = o.length, ret = []; i < n; i++)

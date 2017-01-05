@@ -45,3 +45,27 @@ var postUrl = function(url, params, callback) {
 		}
 	});
 }
+
+var postUrlAsync = function(url, params, callback) {
+	$.ajax({
+		url:url,
+		type:'POST',
+		async: false,
+		beforeSend: function (request)
+        {
+            request.setRequestHeader("Content-Type", "application/json");
+            request.setRequestHeader("Accept", "application/json");
+        },
+		data:JSON.stringify(params),
+		success:function(data) {
+			if (data.code != 0) {
+				alert('请求数据出错:' + data.msg);
+			} else {
+				callback(data);
+			}
+		},
+		error: function(status) {
+			alert('http请求出错');
+		}
+	});
+}

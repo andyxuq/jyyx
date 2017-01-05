@@ -10,6 +10,101 @@
 <link href="css/classdh.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="js/jquery.SuperSlide.2.1.1.js"></script>
+<script type="text/javascript" src="js/HttpRequest.js"></script>
+
+<script type="text/javascript">
+//取出案例分类列表
+$(function(){
+	var data = {
+		"id":null, 
+		"categoryName":null, 
+		"parentId":null
+	}
+		
+	postUrl('/api/case/category/get', data, function(result){
+		var Data = result.data;
+		for (var i = 0; i < Data.length; i++) {
+			var divmenu=$('<div class="menu"></div>')
+			var maxul=$('<ul></ul>')
+			var maxli=$('<li></li>')
+			maxli.append('<a class="hide" href="#">' + Data[i].categoryName + '</a>')
+			var minul=$('<ul></ul>')
+			
+			$("#fldh").append(divmenu);
+			//divmenu.append('<br>')
+			divmenu.append(maxul);
+			maxul.append(maxli);
+			maxli.append(minul)
+			
+			
+			for(var j=0;j<Data[i].childList.length;j++){
+				minul.append('<li><a href="#">' + Data[i].childList[j].categoryName + '</a>')
+			}
+		}
+	});
+	
+//取出案例头图
+
+	var dataal={
+		"id":null, 
+		"caseName":null,
+		"caseCategorys":null
+	}
+	var page=1;
+	
+	function getQueryString(name) { 
+ 		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
+ 		var r = window.location.search.substr(1).match(reg); 
+ 		if (r != null) return unescape(r[2]); return null; 
+ 		}
+ 	var id = getQueryString("id"); 
+		
+ 	postUrl('/api/case/get?page=' + page + '&pageRow=3', dataal, function(resultal){
+ 		var Dataal=resultal.data.pageData;
+ 		for (i=0;i<Dataal.length;i++){
+ 			
+ 			var ul=$("<ul class='clearfix'></ul>")
+ 			var li=$("<li></li>")
+ 			var divphoto=$("<div class='photo yh'></div>")
+ 			divphoto.append('<img src=" '+ Dataal[i].pics[0].picPath + '" /><p>'+ Dataal[i].caseName +'</p>')
+ 			var divrsp=$("<div class='rsp'></div>")
+ 			var divtext=$("<div class='text'></div>")
+ 			divtext.append('<a href="alnr.html?id=' + Dataal[i].id + '"><h3>' + Dataal[i].caseName + '</h3><p>' + Dataal[i].caseDesc + '</p></a>')
+ 			$("#altt").append(li);
+ 			//ul.append(li);
+ 			li.append(divphoto);
+ 			li.append(divrsp);
+ 			li.append(divtext);
+ 			
+		}
+ 		var data = resultal.data;
+ 		//<div class="page clearfix"><a href="#" class="on">1</a><a href="#">2</a><a href="#">3</a><a href="#">>></a></div>
+ 			var divpage=$("<div class='page clearfix'></div>")
+ 			$("#altt").append(divpage);
+ 			if (data.total<5){
+ 				divpage.append('<a href=""zxal.html?page=' + (n) +'""><<</a>');
+ 				}
+ 			for( var n=0;n<data.total && n<5;n++){
+ 				divpage.append('<a href="zxal.html?page=' + (n+1) +'" class="on">' + (n+1) + '</a>');
+ 			}
+
+ 			
+ 				divpage.append('<a href=""zxal.html?page=' + (n+1) +'"">>></a>');
+ 			
+ 		$(".pic_list ul li .rsp").hide();	
+ 		$(".pic_list ul li").hover(function(){
+ 			$(this).find(".rsp").stop().fadeTo(500,0.8)
+ 			$(this).find(".text").stop().animate({bottom:'0'}, {duration: 500})
+ 		},
+ 		function(){
+ 			$(this).find(".rsp").stop().fadeTo(500,0)
+ 			$(this).find(".text").stop().animate({bottom:'275'}, {duration: "fast"})
+ 			$(this).find(".text").animate({bottom:'-275'}, {duration: 0})
+ 		});
+	}); 
+
+});
+</script>
 </head>
 
 
@@ -47,175 +142,20 @@
     </div>
     
 </div>
-
-<!--幻灯片-->
-<!-- <div class="fullSlide list_hd">
-		<div class="bd">
-			<ul>
-			<li style="background:url(images/banner.jpg) #FFF center 0 no-repeat;"><a target="_blank" href="#"></a></li>
-			<li style="background:url(images/banner2.jpg) #FFF center 0 no-repeat;"><a target="_blank" href="#"></a></li>
-			<li style="background:url(images/banner.jpg) #FFF center 0 no-repeat;"><a target="_blank" href="#"></a></li>
-			<li style="background:url(images/banner2.jpg) #FFF center 0 no-repeat;"><a target="_blank" href="#"></a></li>
-			<li style="background:url(images/banner.jpg) #FFF center 0 no-repeat;"><a target="_blank" href="#"></a></li>
-			</ul>
-		</div>
-
-		<div class="hd"><ul></ul></div>
-	</div>  
- -->
 <br><br><br>
-<div class="menu" >
-<ul>
-<li><a class="hide" href="#">装修风格</a>
-<!--[if lte IE 6]>
-<a href="../menu/index.html">DEMOS
-<table><tr><td>
-<![endif]-->
-    <ul>
-    <li><a href="#">现代简约</a></li>
-    <li><a href="#">地中海</a></li>
-    <li><a href="#">简欧</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-    <li><a href="#">6</a></li>
-    <li><a href="#">7</a></li>
-    </ul>
-<!--[if lte IE 6]>
-</td></tr></table>
-</a>
-<![endif]-->
-</li>
-</ul>
+<div id="fldh" >
 </div>
 
-<br><br>
-<div class="menu" >
-<ul>
-<li><a class="hide" href="#">房屋户型</a>
-<!--[if lte IE 6]>
-<a href="../menu/index.html">DEMOS
-<table><tr><td>
-<![endif]-->
-    <ul>
-    <li><a href="#">小户型</a></li>
-    <li><a href="#">复式</a></li>
-    <li><a href="#">两室</a></li>
-    <li><a href="#">三室</a></li>
-    <li><a href="#">***</a></li>
-    <li><a href="#">***</a></li>
-    <li><a href="#">***</a></li>
-    </ul>
-<!--[if lte IE 6]>
-</td></tr></table>
-</a>
-<![endif]-->
-</li>
-</ul>
-</div>
-<br><br>
-<div class="menu" >
-<ul>
-<li><a class="hide" href="#">装修预算</a>
-<!--[if lte IE 6]>
-<a href="../menu/index.html">DEMOS
-<table><tr><td>
-<![endif]-->
-    <ul>
-    <li><a href="#">0-5万</a></li>
-    <li><a href="#">5-10万</a></li>
-    <li><a href="#">10-15万</a></li>
-    <li><a href="#">15-20万</a></li>
-    <li><a href="#">20-25万</a></li>
-    <li><a href="#">25-30万</a></li>
-    <li><a href="#">30万以上</a></li>
-    </ul>
-<!--[if lte IE 6]>
-</td></tr></table>
-</a>
-<![endif]-->
-</li>
-</ul>
-</div>
-
-<br><br>
 <!--图片列表页主体-->
 <div class="newsbox yh">
     	<div class="block">
-        	<div class="navmenu"><span>您现在的位置: <a href="#">装修案例</a> > 装修案例</span>装修案例</div>
+        	<div class="navmenu"><span> <a href="zxal.html"></a></span>装修案例</div>
             
 <div class="pic_list">
-    <ul class="clearfix">
-      <li>
-        <div class="photo yh"><img src="images/pic3.jpg" />
-          <p>黄金海岸设计图</p>
-        </div>
-        <div class="rsp"></div>
-        <div class="text"><a href="alnr.html">
-          <h3>黄金海岸设计图</h3>
-          <p>这里是具体的简介这里是具体的简介这里是具体的简介这里是具体的简介...</p>
-          <div>TIME :2014.02.21</div>
-          </a></div>
-      </li>
-
-      <li>
-        <div class="photo yh"><img src="images/pic3.jpg" />
-          <p>黄金海岸设计图</p>
-        </div>
-        <div class="rsp"></div>
-        <div class="text"><a href="alnr.html">
-          <h3>黄金海岸设计图</h3>
-          <p>这里是具体的简介这里是具体的简介这里是具体的简介这里是具体的简介...</p>
-          <div>TIME :2014.02.21</div>
-          </a></div>
-      </li>
-      <li>
-        <div class="photo yh"><img src="images/pic3.jpg" />
-          <p>黄金海岸设计图</p>
-        </div>
-        <div class="rsp"></div>
-        <div class="text"><a href="alnr.html">
-          <h3>黄金海岸设计图</h3>
-          <p>这里是具体的简介这里是具体的简介这里是具体的简介这里是具体的简介...</p>
-          <div>TIME :2014.02.21</div>
-          </a></div>
-      </li>
-      <li>
-        <div class="photo yh"><img src="images/pic3.jpg" />
-          <p>黄金海岸设计图</p>
-        </div>
-        <div class="rsp"></div>
-        <div class="text"><a href="alnr.html">
-          <h3>黄金海岸设计图</h3>
-          <p>这里是具体的简介这里是具体的简介这里是具体的简介这里是具体的简介...</p>
-          <div>TIME :2014.02.21</div>
-          </a></div>
-      </li>
-      <li>
-        <div class="photo yh"><img src="images/pic3.jpg" />
-          <p>黄金海岸设计图</p>
-        </div>
-        <div class="rsp"></div>
-        <div class="text"><a href="alnr.html">
-          <h3>黄金海岸设计图</h3>
-          <p>这里是具体的简介这里是具体的简介这里是具体的简介这里是具体的简介...</p>
-          <div>TIME :2014.02.21</div>
-          </a></div>
-      </li>
-      <li>
-        <div class="photo yh"><img src="images/pic3.jpg" />
-          <p>黄金海岸设计图</p>
-        </div>
-        <div class="rsp"></div>
-        <div class="text"><a href="alnr.html">
-          <h3>黄金海岸设计图</h3>
-          <p>这里是具体的简介这里是具体的简介这里是具体的简介这里是具体的简介...</p>
-          <div>TIME :2014.02.21</div>
-          </a></div>
-      </li>
-    </ul>
-    
-    <div class="page clearfix"><a href="#" class="on">1</a><a href="#">2</a><a href="#">3</a><a href="#">>></a></div>    
-  </div>	    
+    <ul class="clearfix" id="altt"></ul>
+<!--     <div class="page clearfix"><a href="#" class="on">1</a><a href="#">2</a><a href="#">3</a><a href="#">>></a></div>    
+ -->  </div>
+ 	    
   </div>
   </div>  
        
@@ -234,6 +174,6 @@
     </div>
 </div>    
 
-<script src="js/all.js" type="text/javascript"></script>
+<!-- <script src="js/all.js" type="text/javascript"></script> -->
 </body>
 </html>

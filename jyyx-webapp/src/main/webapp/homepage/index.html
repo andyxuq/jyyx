@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -11,23 +11,67 @@
 <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="js/jquery.SuperSlide.2.1.1.js"></script>
 <script type="text/javascript" src="js/HttpRequest.js"></script>
-</head>
 <script type="text/javascript">
+//取出首页大图
 $(function(){
 	var data = {
-	  "picCode":null,
+	  "picCode":"HOME_HEADER",
 	  "referId":null
 	}
 	
 	postUrl('/api/pic/get?page=1&pageRow=10', data, function(result){
 		var pageData = result.data.pageData;
-		for (var i = 0; i < pageData.length; i++) {
-			$("<li/>").css("background","url(" + pageData[i].picPath + ") #FFF center 0 no-repeat").html('').appendTo($("#bannerImg"));
+		for (var i = 0; i < pageData.length; i++) {			
+			$("#bannerImg").append('<li><img src="' + pageData[i].picPath + '" style="width:100%;min-height:650px;min-width:700px"/></li>');
+		}
+		jQuery(".fullSlide").slide({ titCell:".hd ul", mainCell:".bd ul", effect:"fold",  autoPlay:true, autoPage:true, trigger:"click" });
+	});
+});
+
+//取出案例头图
+$(function(){
+	var data = {
+			  "id":null, 
+			  "caseName":null,
+			  "caseCategorys":null
+	}
+	
+	postUrl('/api/case/get', data, function(result){
+		var data = result.data;
+		for (var i = 0; i < data.length; i++) {
+			$("#decorate_header").append('<li><div class="pic"><a href="alnr.html"><img src="'+ data[i].pics[0].picPath +'" /></a></div></li>');
+		}
+	});
+});
+
+//取出咨询题目，简介
+$(function(){
+
+	var data = {
+			"id":null,
+			"msgTitle":null,
+			"categoryId":null
+	}
+	postUrl('/api/msg/get', data, function(result){
+		var data = result.data;
+		for (var i = 0; i < data.length && i<10; i++) {
+			//var timestamp3;
+			var newDate = new Date();
+			newDate.setTime(data[i].updatedTime);
+			//var time=console.log(newDate.toLocaleString());	
+			var time = (newDate.getFullYear()) + "-" + 
+           (newDate.getMonth() + 1) + "-" +
+           (newDate.getDate()) /*  + " " + 
+           (newDate.getHours()) + ":" + 
+           (newDate.getMinutes()) + ":" + 
+           (newDate.getSeconds())  */;
+			
+			$("#msgtitle").append('<li><p class="bt"><a href="zxnr.html?id=' + data[i].id +'">' + data[i].msgTitle + '</a></p><p class="jj">' + data[i].msgDesc + '</p><p class="ck"><span class="eye">' + data[i].visitCount + '</span><span class="time">' + time + '</span></p></li>');
 		}
 	});
 });
 </script>
-
+</head>
 <body>
 
 <!--头部-->
@@ -49,93 +93,27 @@ $(function(){
            <li><a href="">资质荣誉</a></li>-->
        </ul>
    </div>
-        
-        <!--搜索
-        <form name="searchform" method="post" action="/e/search/index.php" class="ss ofHidden">
-        <input name='ecmsfrom' type='hidden' value='9'>
-        <input type="hidden" name="show" value="title,newstext">
-        <input class="index_srh" name="keyboard" placeholder="请输入关键字" >
-        <input class="search" type="submit" name="submit" value="搜索">
-        </form>-->
     </div>
     
     </div>
     
 </div>
 
-<!--幻灯片-->
+<!--头图幻灯片-->
 <div class="fullSlide">
 		<div class="bd">
-			<ul id="bannerImg">
-			<!-- <li style="background:url(images/banner.jpg) #FFF center 0 no-repeat;"></li>
-			<li style="background:url(images/banner2.jpg) #FFF center 0 no-repeat;"></li>
-			<li style="background:url(images/banner.jpg) #FFF center 0 no-repeat;"></li>
-			<li style="background:url(images/banner2.jpg) #FFF center 0 no-repeat;"></li>
-			<li style="background:url(images/banner.jpg) #FFF center 0 no-repeat;"></li>
-			<li style="background:url(images/pic8.jpg) #FFF center 0 no-repeat;"></li>-->  
-			</ul> 
+			<ul id="bannerImg"></ul>
 		</div>
 
 		<div class="hd"><ul></ul></div>
 	</div>  
-
-
-<!--首页主体-->
-	<!--<div class="xc_pic ofHidden clearfix">
-    <div class="block clearfix ofHidden">
-        <b></b>
-        <ul>
-        	<li><a href=""><img src="images/dianzi.png"></a></li>
-            <li><a href=""><img src="images/team.png"></a></li>
-            <li><a href=""><img src="images/case.png"></a></li>
-            <li><a href=""><img src="images/kefu.png"></a></li>
-        </ul>
-    </div>   
-	</div>--> 
 	
-	
-<!-- 装修案例 -->	
+<!-- 装修案例头图 -->	
 <div class="team clearfix yh mt20">
 <div class="block">
 <div class="t1"><a href="zxal.html">装修案例</a></div>			
 			<div class="bd">
-				<ul class="picList">
-					<li>
-						<div class="pic"><a href="#"><img src="images/pic7.jpg" /></a></div>
-						<div class="title"><a href="#">效果图1</a></div>
-					</li>
-					<li>
-						<div class="pic"><a href="#"><img src="images/pic8.jpg" /></a></div>
-						<div class="title"><a href="#">效果图2</a></div>
-					</li>
-					<li>
-						<div class="pic"><a href="#"><img src="images/pic3.jpg" /></a></div>
-						<div class="title"><a href="#">效果图3</a></div>
-					</li>
-					<li>
-						<div class="pic"><a href="#"><img src="images/pic4.jpg" /></a></div>
-						<div class="title"><a href="#">效果图4</a></div>
-					</li>
-					<li>
-						<div class="pic"><a href="#"><img src="images/pic5.jpg" /></a></div>
-						<div class="title"><a href="#">效果图5</a></div>
-					</li>
-					<li>
-						<div class="pic"><a href="#"><img src="images/pic6.jpg" /></a></div>
-						<div class="title"><a href="#">效果图6</a></div>
-					</li>
-					<li>
-						<div class="pic"><a href="#"><img src="images/pic6.jpg" /></a></div>
-						<div class="title"><a href="#">效果图7</a></div>
-					</li>
-					<li>
-						<div class="pic"><a href="#"><img src="images/pic6.jpg" /></a></div>
-						<div class="title"><a href="#">效果图8</a></div>
-					</li>
-					<li>
-						<div class="pic"><a href="#"><img src="images/pic6.jpg" /></a></div>
-						<div class="title"><a href="#">效果图9</a></div>
-					</li>
+				<ul class="picList" id="decorate_header">
 				</ul>
 			</div>
 		</div>
@@ -146,48 +124,7 @@ $(function(){
     	<div class="block">
         	<div class="t1"><a href="zxzx.html">装修咨讯</a></div>	            
             <div class="zixun-list">
-				<ul>
-					<li><p class="bt"><a href="zxnr.html">全屋定制家具品牌有哪些</a></p>
-					<p class="jj">家具是我们家居生活中最为重要的，有了好的家具才会有好的生活。随着社会经济的增长，人们的生活水平有了很大的提高...</p>
-					<p class="ck"><span class="eye">10</span><span class="time">2014-10-14</span></p>
-					</li>
-					<li><p class="bt"><a href="zxnr.html">全屋定制家具品牌有哪些</a></p>
-					<p class="jj">家具是我们家居生活中最为重要的，有了好的家具才会有好的生活。随着社会经济的增长，人们的生活水平有了很大的提高...</p>
-					<p class="ck"><span class="eye">10</span><span class="time">2014-10-14</span></p>
-					</li>
-					<li><p class="bt"><a href="zxnr.html">全屋定制家具品牌有哪些</a></p>
-					<p class="jj">家具是我们家居生活中最为重要的，有了好的家具才会有好的生活。随着社会经济的增长，人们的生活水平有了很大的提高...</p>
-					<p class="ck"><span class="eye">10</span><span class="time">2014-10-14</span></p>
-					</li>
-					<li><p class="bt"><a href="zxnr.html">全屋定制家具品牌有哪些</a></p>
-					<p class="jj">家具是我们家居生活中最为重要的，有了好的家具才会有好的生活。随着社会经济的增长，人们的生活水平有了很大的提高...</p>
-					<p class="ck"><span class="eye">10</span><span class="time">2014-10-14</span></p>
-					</li>
-					<li><p class="bt"><a href="zxnr.html">全屋定制家具品牌有哪些</a></p>
-					<p class="jj">家具是我们家居生活中最为重要的，有了好的家具才会有好的生活。随着社会经济的增长，人们的生活水平有了很大的提高...</p>
-					<p class="ck"><span class="eye">10</span><span class="time">2014-10-14</span></p>
-					</li>
-					<li><p class="bt"><a href="zxnr.html">全屋定制家具品牌有哪些</a></p>
-					<p class="jj">家具是我们家居生活中最为重要的，有了好的家具才会有好的生活。随着社会经济的增长，人们的生活水平有了很大的提高...</p>
-					<p class="ck"><span class="eye">10</span><span class="time">2014-10-14</span></p>
-					</li>
-					<li><p class="bt"><a href="zxnr.html">全屋定制家具品牌有哪些</a></p>
-					<p class="jj">家具是我们家居生活中最为重要的，有了好的家具才会有好的生活。随着社会经济的增长，人们的生活水平有了很大的提高...</p>
-					<p class="ck"><span class="eye">10</span><span class="time">2014-10-14</span></p>
-					</li>
-					<li><p class="bt"><a href="zxnr.html">全屋定制家具品牌有哪些</a></p>
-					<p class="jj">家具是我们家居生活中最为重要的，有了好的家具才会有好的生活。随着社会经济的增长，人们的生活水平有了很大的提高...</p>
-					<p class="ck"><span class="eye">10</span><span class="time">2014-10-14</span></p>
-					</li>
-					<li><p class="bt"><a href="zxnr.html">全屋定制家具品牌有哪些</a></p>
-					<p class="jj">家具是我们家居生活中最为重要的，有了好的家具才会有好的生活。随着社会经济的增长，人们的生活水平有了很大的提高...</p>
-					<p class="ck"><span class="eye">10</span><span class="time">2014-10-14</span></p>
-					</li>
-					<li><p class="bt"><a href="zxnr.html">全屋定制家具品牌有哪些</a></p>
-					<p class="jj">家具是我们家居生活中最为重要的，有了好的家具才会有好的生活。随着社会经济的增长，人们的生活水平有了很大的提高...</p>
-					<p class="ck"><span class="eye">10</span><span class="time">2014-10-14</span></p>
-					</li>
-					
+				<ul id="msgtitle">	
 				</ul>				
 			</div>           
         </div>

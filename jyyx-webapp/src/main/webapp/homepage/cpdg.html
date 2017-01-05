@@ -11,11 +11,87 @@
 <link href="css/classdh.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="js/jquery.SuperSlide.2.1.1.js"></script>
+<script type="text/javascript" src="js/HttpRequest.js"></script>
+<script type="text/javascript">
+//取出案例分类列表
+$(function(){
+	var data={
+		 "id":null, 
+		 "categoryName":null,
+		 "parentId":null
+		}
+/*<div class="dgmenu" >
+	<ul>
+		<li><a class="hide" >灯饰照明</a>
+    		<ul>
+    			<li><a>吊灯</a>
+    				<ul class="right_side">
+            			<li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/8.jpg" ></a></li>        
+        			</ul>
+    			</li>
+	  			<li><a>9</a>
+	  				<ul class="right_side">
+            			<li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
+            			<li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
+        			</ul>
+        		</li>
+    			<li><a>10</a>
+    				<ul class="right_side">
+            			<li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>             
+        			</ul>
+        		</li>
+    		</ul>
+
+		</li>
+	</ul>
+</div>*/
+	postUrl('/api/product/category/get', data, function(result){
+		var data=result.data;
+		for (var i=0; i<data.length;i++){
+			var divdgmenu=$("<div class='dgmenu' style='height:120px;'></div>");
+			var maxul=$("<ul></ul>");
+			var maxli=$("<li></li>");
+			maxli.append('<a class="hide" >' + data[i].categoryName + '</a>');
+			
+			var midul=$("<ul></ul>");
+			var mixul=$("<ul class='right_side'></ul>");
+			 $("#dgdh").append(divdgmenu);
+			divdgmenu.append(maxul);
+			maxul.append(maxli);
+			maxli.append(midul);
+			//midli.append(mixul);	
+			
+			for (var j=0;j<data[i].childList.length && j<9;j++){
+				var midli=$("<li></li>");
+				//maxli.append('<a class="hide" >' + data[i].categoryName + '</a>');
+				midli.append('<a>' + data[i].childList[j].categoryName + '</a>');
+				//var mixul=$("<ul class='right_side'></ul>");				
+				//var mixli=$("<li></li>");
+				
+				var datadetail={  
+						"productName":null,
+						"productCategorys":[
+							{
+							    "categoryId":data[i].childList[j].id
+							}
+						 ]
+					}
+				postUrlAsync('/api/product/get/', datadetail, function(results){
+					var datadetail=results.data;
+					for (var k=0; k<datadetail.length && k<9;k++){
+						mixul.append('<li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="' + datadetail[k].pics[0].picPath + '" ></a></li>')
+					}
+				});
+				midli.append(mixul);
+				midul.append(midli);
+			}
+				
+		}
+	});
+});
+</script>
 </head>
-
-
 <body>
-
 <!--头部-->
 <div class="head">
 	<div class="block yh f13">
@@ -28,427 +104,27 @@
            <li><a href="index.html">首页</a></li>
            <li><a href="zxal.html">装修案例</a></li>
            <li><a href="zxzx.html">装修资讯</a></li>
-           <li><a href="#">产品导购</a></li>
+           <li><a href="cpdg.html">产品导购</a></li>
            <li><a href="lxwm.html">联系我们</a></li>
            <!-- <li><a href="#">模拟装修</a></li> -->
            <!--<li><a href="">联系我们</a></li>
            <li><a href="">资质荣誉</a></li>-->
        </ul>
    </div>
-        
-        
-<!--         <form name="searchform" method="post" action="/e/search/index.php" class="ss ofHidden">
-        <input name='ecmsfrom' type='hidden' value='9'>
-        <input type="hidden" name="show" value="title,newstext">
-        <input class="index_srh" name="keyboard" placeholder="请输入关键字" >
-        <input class="search" type="submit" name="submit" value="搜索">
-        </form> -->
     </div>
     
     </div>
     
 </div>
 
-<!--幻灯片-->
-<!-- <div class="fullSlide list_hd">
-		<div class="bd">
-			<ul>
-			<li style="background:url(images/banner.jpg) #FFF center 0 no-repeat;"><a target="_blank" href="#"></a></li>
-			<li style="background:url(images/banner2.jpg) #FFF center 0 no-repeat;"><a target="_blank" href="#"></a></li>
-			<li style="background:url(images/banner.jpg) #FFF center 0 no-repeat;"><a target="_blank" href="#"></a></li>
-			<li style="background:url(images/banner2.jpg) #FFF center 0 no-repeat;"><a target="_blank" href="#"></a></li>
-			<li style="background:url(images/banner.jpg) #FFF center 0 no-repeat;"><a target="_blank" href="#"></a></li>
-			</ul>
-		</div>
-
-		<div class="hd"><ul></ul></div>
-	</div>  
- -->
 <br><br><br>
-<div class="dgmenu" >
-<ul>
-<li><a class="hide" href="#">灯饰照明</a>
-    <ul>
-    <li><a href="#">吊灯</a>
-    <ul class="right_side">
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/8.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/11.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/111.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/1029.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/14.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/123.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/411.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/5.jpg" ></a></li>           
-        </ul>
-    </li>
-    <li><a href="#">吸顶灯</a>
-    <ul class="right_side">
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/2.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/1.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/14.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/4.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/6.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/7.jpg" ></a></li>           
-        </ul>
-        </li>
-    <li><a href="#">筒灯</a><ul class="right_side">
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/2.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/1.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/14.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/4.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/6.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/7.jpg" ></a></li>           
-        </ul></li>
-    <li><a href="#">4</a><ul class="right_side">
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/411.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/2.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/11.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/14.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/4.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/1029.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/5.jpg" ></a></li>           
-        </ul></li>
-    <li><a href="#">5</a><ul class="right_side">
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/2.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/1.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/14.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/4.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/6.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/7.jpg" ></a></li>           
-        </ul></li>
-    <li><a href="#">6</a><ul class="right_side">
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/11.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/2.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/3.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/2.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/1.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/14.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/pic4.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/5.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/about.jpg" ></a></li>           
-        </ul></li>
-    <li><a href="#">7</a><ul class="right_side">
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/2.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/1.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/14.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/4.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/6.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/7.jpg" ></a></li>           
-        </ul></li>
-    <li><a href="#">8</a><ul class="right_side">
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/2.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/1.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/14.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/4.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/6.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/7.jpg" ></a></li>           
-        </ul></li>
-    <li><a href="#">9</a><ul class="right_side">
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/2.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/1.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/14.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/4.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/6.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/7.jpg" ></a></li>   
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/7.jpg" ></a></li>           
-        </ul></li>
-    <li><a href="#">10</a><ul class="right_side">
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/2.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/1.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/14.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/4.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/pic5.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/pic6.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/pic6.jpg" ></a></li>              
-        </ul></li>
-    </ul>
+<div id="dgdh">
 
-</li>
-</ul>
-</div>
-
-
-<br><br><br>
-
-<div class="dgmenu" >
-<ul>
-<li><a class="hide" href="#">灯饰照明</a>
-    <ul>
-    <li><a href="#">吊灯</a>
-    <ul class="right_side">
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/8.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/11.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/111.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/1029.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/14.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/123.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/411.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/5.jpg" ></a></li>           
-        </ul>
-    </li>
-    <li><a href="#">吸顶灯</a>
-    <ul class="right_side">
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/2.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/1.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/14.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/4.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/6.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/7.jpg" ></a></li>           
-        </ul>
-        </li>
-    <li><a href="#">筒灯</a><ul class="right_side">
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/2.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/1.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/14.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/4.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/6.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/7.jpg" ></a></li>           
-        </ul></li>
-    <li><a href="#">4</a><ul class="right_side">
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/411.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/2.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/11.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/14.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/4.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/1029.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/5.jpg" ></a></li>           
-        </ul></li>
-    <li><a href="#">5</a><ul class="right_side">
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/2.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/1.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/14.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/4.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/6.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/7.jpg" ></a></li>           
-        </ul></li>
-    <li><a href="#">6</a><ul class="right_side">
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/11.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/2.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/3.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/2.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/1.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/14.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/pic4.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/5.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/about.jpg" ></a></li>           
-        </ul></li>
-    <li><a href="#">7</a><ul class="right_side">
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/2.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/1.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/14.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/4.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/6.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/7.jpg" ></a></li>           
-        </ul></li>
-    <li><a href="#">8</a><ul class="right_side">
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/2.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/1.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/14.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/4.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/6.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/7.jpg" ></a></li>           
-        </ul></li>
-    <li><a href="#">9</a><ul class="right_side">
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/2.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/1.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/14.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/4.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/6.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/7.jpg" ></a></li>   
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/7.jpg" ></a></li>           
-        </ul></li>
-    <li><a href="#">10</a><ul class="right_side">
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/2.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/1.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/14.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/4.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/pic5.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/pic6.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/pic6.jpg" ></a></li>              
-        </ul></li>
-    </ul>
-
-</li>
-</ul>
-</div>
-
-<br>
-<br><br>
-<div class="dgmenu" >
-<ul>
-<li><a class="hide" href="#">灯饰照明</a>
-    <ul>
-    <li><a href="#">吊灯</a>
-    <ul class="right_side">
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/8.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/11.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/111.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/1029.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/14.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/123.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/411.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/5.jpg" ></a></li>           
-        </ul>
-    </li>
-    <li><a href="#">吸顶灯</a>
-    <ul class="right_side">
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/2.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/1.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/14.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/4.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/6.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/7.jpg" ></a></li>           
-        </ul>
-        </li>
-    <li><a href="#">筒灯</a><ul class="right_side">
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/2.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/1.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/14.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/4.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/6.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/7.jpg" ></a></li>           
-        </ul></li>
-    <li><a href="#">4</a><ul class="right_side">
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/411.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/2.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/11.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/14.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/4.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/1029.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/5.jpg" ></a></li>           
-        </ul></li>
-    <li><a href="#">5</a><ul class="right_side">
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/2.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/1.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/14.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/4.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/6.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/7.jpg" ></a></li>           
-        </ul></li>
-    <li><a href="#">6</a><ul class="right_side">
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/11.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/2.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/3.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/2.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/1.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/14.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/pic4.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/5.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/about.jpg" ></a></li>           
-        </ul></li>
-    <li><a href="#">7</a><ul class="right_side">
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/2.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/1.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/14.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/4.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/6.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/7.jpg" ></a></li>           
-        </ul></li>
-    <li><a href="#">8</a><ul class="right_side">
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/2.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/1.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/14.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/4.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/6.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/7.jpg" ></a></li>           
-        </ul></li>
-    <li><a href="#">9</a><ul class="right_side">
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/2.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/1.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/14.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/4.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/6.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/7.jpg" ></a></li>   
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/7.jpg" ></a></li>           
-        </ul></li>
-    <li><a href="#">10</a><ul class="right_side">
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/211.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/2.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/1.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/14.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/4.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/pic5.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/pic6.jpg" ></a></li>
-            <li><a href="jump.html" target="_blank"><img class="imgstyle" alt="" src="images/pic6.jpg" ></a></li>              
-        </ul></li>
-    </ul>
-
-</li>
-</ul>
 </div>
 <br><br><br><br>       
-        
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>        
 <div class="foot clearfix">
 	<div class="block">
         <div class="fleft">

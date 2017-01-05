@@ -87,25 +87,27 @@ $(function(){
 		scaling:false
 	});
 }); 
-  
+
+	function getQueryString(name) { 
+ 		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
+ 		var r = window.location.search.substr(1).match(reg); 
+ 		if (r != null) return unescape(r[2]); return null; 
+ 		}
+ 	var id = getQueryString("id");
   
 //取出资讯标题
- 	var data = {
-			  "id":null, 
-			  "categoryName":null
-	}
-	postUrl('/api/msg/category/get', data, function(result){
-		var data = result.data;
-
-		for (var i = 0; i < data.length; i++) {		
-			var divBlock = $("<div class='block'></div>")
-			var divT1 = $("<div class='t1'></div>")
-			divT1.append('<a href="zxlist.html?id=' + data[i].id + '">' + data[i].categoryName + '</a>')
+ 		var data;
+	postUrl('/api/msg/category/get/' + id + '', data, function(result){
+		var data = result.data;	
+		
+		var divBlock = $("<div class='block'></div>")
+		var divT1 = $("<div class='t1'></div>")
+		divT1.append("<a>" + data.categoryName + "</a>")
 			
-			var divList = $("<div class='zxlb-list'></div>")
-			var ul = $("<ul></ul>")
+		var divList = $("<div class='zxlb-list'></div>")
+		var ul = $("<ul></ul>")
    			
-			$("#zxdetail").append(divBlock);
+			$("#zxlistdetail").append(divBlock);
 			divBlock.append(divT1);
 			divBlock.append(divList)
 			divList.append(ul)
@@ -113,11 +115,11 @@ $(function(){
 			var datadetail = {
 					"id":null,
 					"msgTitle":null,
-					"categoryId":data[i].id
+					"categoryId":data.id
 			}
-			postUrlAsync('/api/msg/get', datadetail, function(results){
+			postUrl('/api/msg/get', datadetail, function(results){
 				var datadetail = results.data;
-				for (var j = 0; j < datadetail.length && j<10; j++) {
+				for (var j = 0; j < datadetail.length; j++) {
 					var newDate = new Date();
 					newDate.setTime(datadetail[j].updatedTime);	
 					var uptime = (newDate.getFullYear()) + "-" + 
@@ -125,9 +127,10 @@ $(function(){
 		           (newDate.getDate());
 					
 					ul.append('<li><p><a class="jj" href="zxnr.html?id=' + datadetail[j].id + '">'+ (j + 1) +'.' + datadetail[j].msgTitle + '</a><a class="time">' + uptime + '</a></p></li>');
+					
 				}
 			});
-		}
+		
 	}); 
 });
 
@@ -165,7 +168,7 @@ $(function(){
     </ul> -->
 </div></div>
 
- <div class="newsbox yh" id="zxdetail">
+ <div class="newsbox yh" id="zxlistdetail">
     	
 </div>
  

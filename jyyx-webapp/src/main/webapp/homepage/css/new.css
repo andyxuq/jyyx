@@ -28,8 +28,8 @@
 .zxlb-list ul li p a.jj{font-size:14px;color:#000;}
 
 
-/*导购分类导航  */
-.dgmenu {font-family: arial, sans-serif; width:1000px; height:70px; position:relative;margin:auto;  font-size:11px;background:#fff;text-align:center;}
+/*导购分类导航  */	  
+.dgmenu {font-family: arial, sans-serif;  width:1000px;  height:120px; position:relative;margin:auto;padding-top:0px;font-size:11px;background:#fff;text-align:center;}
 .dgmenu ul {padding:0; margin:0; list-style-type: none;}
 .dgmenu ul li {float:left; border-left:1px solid #eee; width:97px;}
 
@@ -37,19 +37,19 @@
 .imgstyle{margin:0px;width:97px;height:50px;padding:0px;}
 
 .dgmenu ul li a, .dgmenu ul li a:visited {display:block; float:left; width:97px; text-decoration:none; padding:0 0 0 0px;
-height:30px; line-height:30px; color:#000; background:#dcdcdc url(../../graphics/drop.gif) bottom right no-repeat; }
+height:30px; line-height:30px; color:#000; background:#dcdcdc; }
 .dgmenu ul li ul {}
 
 
-.dgmenu ul li a {color:#fff; background:#b3ab79;}
-.dgmenu ul li ul {display:block; position:absolute; width:980px; top:30px; left:0; background:#b3ab79; color:#fff;}
+.dgmenu ul li a {color:#000; background:#dcdcdc;}
+.dgmenu ul li ul {display:block; position:absolute; /* width:686px; */ top:30px; left:0; background:#fff; color:#fff;}
 .dgmenu ul li ul.right_side li {float:left; border:0; border-left:1px solid #eee;}
 .dgmenu ul li ul.left_side li {float:left; border:0; border-left:1px solid #eee;}
-.dgmenu ul li ul li a.hide {background:#bd8d5e url(../../graphics/drop2.gif) bottom right no-repeat; color:#fff;}
-.dgmenu ul li ul li a.hide {background:#b3ab79; color:#fff;}
+.dgmenu ul li ul li a.hide {background:#dcdcdc url(../../graphics/drop2.gif) bottom right no-repeat; color:#fff;}
+/* .dgmenu ul li ul li a.hide {background:#b3ab79; color:#fff;} */
 .dgmenu ul li ul li ul {display: none;}
 .dgmenu ul li ul li a {display:block; background:#b3ab79; color:#fff;}
-.dgmenu ul li ul li a {background:#fff; color:#000;}
+.dgmenu ul li ul li a {background:#dcdcdc; color:#000;}
 .dgmenu ul li ul li ul {display:block; position:absolute; left:0; top:30px; color:#000; background:#fff;}/*自由状态*/
 .dgmenu ul li ul.right li {float:right;}
 .dgmenu ul li ul li a.hide {background:#fff; color:#000;}
@@ -59,7 +59,7 @@ height:30px; line-height:30px; color:#000; background:#dcdcdc url(../../graphics
 
 /* specific to non IE browsers */
 .dgmenu ul li:hover a {color:#fff; background:#BB9447;}
-.dgmenu ul li:hover ul {display:block; position:absolute; width:980px; top:30px; left:0; background:#b3ab79; color:#fff;}
+.dgmenu ul li:hover ul {display:block; position:absolute; width:980px; top:30px; left:0; background:#fff; color:#fff;}
 .dgmenu ul li:hover ul.right_side li {float:left; border:0; border-left:1px solid #eee;}
 .dgmenu ul li:hover ul.left_side li {float:left; border:0; border-left:1px solid #eee;}
 .dgmenu ul li:hover ul li a.hide {background:#bd8d5e url(../../graphics/drop2.gif) bottom right no-repeat; color:#fff;}

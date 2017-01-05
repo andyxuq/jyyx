@@ -11,6 +11,7 @@
 <link href="css/new.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="js/jquery.SuperSlide.2.1.1.js"></script>
+<script type="text/javascript" src="js/HttpRequest.js"></script>
 
 <link href="css/ppt.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript" src="js/ppt.js"></script>
@@ -19,6 +20,30 @@
 			background-color: #152836
 		}
 </style>
+
+<script type="text/javascript">
+$(function(){
+
+ 	function getQueryString(name) { 
+ 		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
+ 		var r = window.location.search.substr(1).match(reg); 
+ 		if (r != null) return unescape(r[2]); return null; 
+ 		}
+ 	var id = getQueryString("id");
+	var data;
+	postUrl('/api/case/get/' + id + '', data, function(result){
+ 		var Data=result.data;
+ 		$("#bigpic").append('<img src="' + Data.pics[0].picPath + '" />');
+ 		$("#bigpic").append('<p class="jj" >' + Data.caseName + '<br>' + Data.caseDesc + '<br>金额：' + Data.casePrice + '元</p>');
+ 		
+ 		for(i=1;i<Data.pics.length;i++){
+ 			$("#alpic").append('<li><div class="photo"><img src="' + Data.pics[i].picPath + '" /></div></li>');
+ 			$("#ppt").append('<a rel="' + Data.pics[i].picPath + '"></a>')
+ 		}
+	});
+  
+});
+</script>
 
 </head>
 <body>
@@ -42,37 +67,10 @@
            <li><a href="">资质荣誉</a></li>-->
        </ul>
    </div>
-        
-        
-<!--         <form name="searchform" method="post" action="/e/search/index.php" class="ss ofHidden">
-        <input name='ecmsfrom' type='hidden' value='9'>
-        <input type="hidden" name="show" value="title,newstext">
-        <input class="index_srh" name="keyboard" placeholder="请输入关键字" >
-        <input class="search" type="submit" name="submit" value="搜索">
-        </form> -->
-    </div>
-    
+    </div> 
     </div>
     
 </div>
-
-<!--幻灯片-->
-<!-- <div class="fullSlide list_hd">
-		<div class="bd">
-			<ul>
-			<li style="background:url(images/banner.jpg) #FFF center 0 no-repeat;"><a target="_blank" href="#"></a></li>
-			<li style="background:url(images/banner2.jpg) #FFF center 0 no-repeat;"><a target="_blank" href="#"></a></li>
-			<li style="background:url(images/banner.jpg) #FFF center 0 no-repeat;"><a target="_blank" href="#"></a></li>
-			<li style="background:url(images/banner2.jpg) #FFF center 0 no-repeat;"><a target="_blank" href="#"></a></li>
-			<li style="background:url(images/banner.jpg) #FFF center 0 no-repeat;"><a target="_blank" href="#"></a></li>
-			</ul>
-		</div>
-
-		<div class="hd"><ul></ul></div>
-	</div>  
- -->
-<br><br><br>
-
 
 <!--图片列表页主体-->
 <div class="newsbox yh">
@@ -80,65 +78,23 @@
         	<div class="navmenu"><span>您现在的位置: <a href="#">装修案例</a> > 装修案例</span>装修案例</div>
 <br>
 <div class="alnr">
-	<div class="img"><img src="images/pic3.jpg" />
-	<p class="jj" >家具是我们家居生活中最为重要的，有了好的家具才会有好的生活。随着社会经济的增长，人们的生活水平有了很大的提高...</p>
+	<div class="img" id="bigpic">
 </div>
 
-<div class="navmenu"><span>您现在的位置: <a href="#">装修案例</a> > 装修案例</span>案例实拍</div>
-
-
-            
+<div class="navmenu"><span>您现在的位置: <a href="#">装修案例</a> > 装修案例</span>案例实拍</div>        
 <div class="nrpic_list">
-<ul class="clearfix">
-      <li><div class="photo"><img src="images/pic3.jpg" /></div></li>
-      <li><div class="photo"><img src="images/pic3.jpg" /></div></li>
-      <li><div class="photo"><img src="images/pic3.jpg" /></div></li>
-      <li><div class="photo"><img src="images/pic3.jpg" /></div></li>
-      <li><div class="photo"><img src="images/pic3.jpg" /></div></li>
-      <li><div class="photo"><img src="images/pic3.jpg" /></div></li>
-      <li><div class="photo"><img src="images/pic3.jpg" /></div></li>
-      <li><div class="photo"><img src="images/pic3.jpg" /></div></li>
-
-</ul>
-
-    
+<ul class="clearfix" id="alpic"></ul> 
   </div>	    
   </div>
   
   </div>  <br>
 <div id="imageFlow">
-<!-- 	<div class="top">
-	</div> -->
-	<div class="bank">
-		<a rel="images/111.jpg" title="Myselves" href="#">
-		My identity lies in not knowing who I am</a>
-		<a rel="images/211.jpg" title="Discoveries" href="#">
-		...are made by not following instructions</a>
-		<a rel="images/311.jpg" title="Nothing" href="#">
-		...can come between us</a>
-		<a rel="images/411.jpg" title="New life" href="#">
-		Here you come!</a>
-		<a rel="images/5.jpg" title="Optimists" href="#">
-		They don&#39;t know all the facts yet</a>
-		<a rel="images/6.jpg" title="Empathy" href="#">
-		Emotional intimacy</a>
-		<a rel="images/7.jpg" title="Much work" href="#">
-		...remains to be done before we can announce our total failure to make any 
-		progress</a>
-		<a rel="images/8.jpg" title="System error" href="#">
-		Errare Programma Est</a>
-		<a rel="images/9.jpg" title="Nonexistance" href="#">
-		There&#39;s no such thing</a>
-		<a rel="images/10.jpg" title="Inside" href="#">
-		I抦 now trapped, without hope of escape or rescue</a>
-		<a rel="images/11.jpg" title="E-Slaves" href="#">
-		The World is flat</a>
-		<a rel="images/12.jpg" title="l0v3" href="#">
-		1 l0v3 j00 - f0r3v3r</a>
-		<a rel="images/13.jpg" title="T minus zero" href="#">
-		111 111 111 x 111 111 111 = 12345678987654321</a>
-		<a rel="images/14.jpg" title="The End" href="#">
-		...has not been written yet</a> </div>
+
+	<div class="bank" id="ppt">
+		<a rel="/pic/20161231/7_1483177884966.jpg"></a>
+		<a rel="images/211.jpg"></a>
+		
+ </div>
 	<div class="text">
 		<div class="title">
 			加载</div>
