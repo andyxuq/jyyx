@@ -12,8 +12,8 @@
 	    http://www.springframework.org/schema/context/spring-context-3.2.xsd
 		">
 
-	<mvc:view-controller path="/" view-name="redirect:/index" />
-	<mvc:view-controller path="/index" view-name="/index" />
+	<mvc:view-controller path="/" view-name="redirect:/homepage/index.html" />
+	<mvc:view-controller path="/manage" view-name="/index" />
     <mvc:view-controller path="/error/403" view-name="/403"/>
     <mvc:view-controller path="/403" view-name="/403"/>
 	<mvc:resources location="/homepage/**" mapping="/homepage/**"/> 
